@@ -2,26 +2,26 @@
 <!--Erstellt mit MapCreator2D-->
 <map version="2.0">
 	<size>20;20</size>
-	<name>RANDOM</name>
+	<name>Tutorial</name>
 	<entity>
 		<position>0;0;0</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>0;0;1</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>0;0;2</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>0;0;3</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>0;0;4</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>0;0;5</position>
@@ -85,7 +85,7 @@
 	</entity>
 	<entity>
 		<position>1;0;0</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>1;0;1</position>
@@ -101,7 +101,7 @@
 	</entity>
 	<entity>
 		<position>1;0;4</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>1;0;5</position>
@@ -165,7 +165,7 @@
 	</entity>
 	<entity>
 		<position>2;0;0</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>2;0;1</position>
@@ -173,7 +173,7 @@
 	</entity>
 	<entity>
 		<position>2;0;2</position>
-		<type>empty</type>
+		<type>pliers</type>
 	</entity>
 	<entity>
 		<position>2;0;3</position>
@@ -181,7 +181,7 @@
 	</entity>
 	<entity>
 		<position>2;0;4</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>2;0;5</position>
@@ -245,7 +245,7 @@
 	</entity>
 	<entity>
 		<position>3;0;0</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>3;0;1</position>
@@ -261,7 +261,7 @@
 	</entity>
 	<entity>
 		<position>3;0;4</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>3;0;5</position>
@@ -325,39 +325,40 @@
 	</entity>
 	<entity>
 		<position>4;0;0</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>4;0;1</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>4;0;2</position>
-		<type>empty</type>
+		<type>doorblock</type>
+		<id>0</id>
 	</entity>
 	<entity>
 		<position>4;0;3</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>4;0;4</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>4;0;5</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>4;0;6</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>4;0;7</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>4;0;8</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>4;0;9</position>
@@ -405,7 +406,7 @@
 	</entity>
 	<entity>
 		<position>5;0;0</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>5;0;1</position>
@@ -421,7 +422,7 @@
 	</entity>
 	<entity>
 		<position>5;0;4</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>5;0;5</position>
@@ -437,7 +438,7 @@
 	</entity>
 	<entity>
 		<position>5;0;8</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>5;0;9</position>
@@ -485,23 +486,24 @@
 	</entity>
 	<entity>
 		<position>6;0;0</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>6;0;1</position>
-		<type>empty</type>
+		<type>pickaxe</type>
 	</entity>
 	<entity>
 		<position>6;0;2</position>
-		<type>empty</type>
+		<type>spawn</type>
 	</entity>
 	<entity>
 		<position>6;0;3</position>
-		<type>empty</type>
+		<type>message</type>
+		<text>Das ist das Tutorial.</text>
 	</entity>
 	<entity>
 		<position>6;0;4</position>
-		<type>empty</type>
+		<type>gridblock</type>
 	</entity>
 	<entity>
 		<position>6;0;5</position>
@@ -509,7 +511,7 @@
 	</entity>
 	<entity>
 		<position>6;0;6</position>
-		<type>empty</type>
+		<type>levelup</type>
 	</entity>
 	<entity>
 		<position>6;0;7</position>
@@ -517,7 +519,7 @@
 	</entity>
 	<entity>
 		<position>6;0;8</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>6;0;9</position>
@@ -565,7 +567,7 @@
 	</entity>
 	<entity>
 		<position>7;0;0</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>7;0;1</position>
@@ -581,7 +583,7 @@
 	</entity>
 	<entity>
 		<position>7;0;4</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>7;0;5</position>
@@ -597,7 +599,7 @@
 	</entity>
 	<entity>
 		<position>7;0;8</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>7;0;9</position>
@@ -645,19 +647,19 @@
 	</entity>
 	<entity>
 		<position>8;0;0</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>8;0;1</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>8;0;2</position>
-		<type>empty</type>
+		<type>destroyblock</type>
 	</entity>
 	<entity>
 		<position>8;0;3</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>8;0;4</position>
@@ -681,11 +683,11 @@
 	</entity>
 	<entity>
 		<position>8;0;9</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>8;0;10</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>8;0;11</position>
@@ -725,7 +727,7 @@
 	</entity>
 	<entity>
 		<position>9;0;0</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>9;0;1</position>
@@ -749,7 +751,7 @@
 	</entity>
 	<entity>
 		<position>9;0;6</position>
-		<type>halfblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>9;0;7</position>
@@ -757,7 +759,7 @@
 	</entity>
 	<entity>
 		<position>9;0;8</position>
-		<type>spawn</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>9;0;9</position>
@@ -765,7 +767,7 @@
 	</entity>
 	<entity>
 		<position>9;0;10</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>9;0;11</position>
@@ -805,7 +807,7 @@
 	</entity>
 	<entity>
 		<position>10;0;0</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>10;0;1</position>
@@ -813,7 +815,8 @@
 	</entity>
 	<entity>
 		<position>10;0;2</position>
-		<type>empty</type>
+		<type>key</type>
+		<id>0</id>
 	</entity>
 	<entity>
 		<position>10;0;3</position>
@@ -829,15 +832,15 @@
 	</entity>
 	<entity>
 		<position>10;0;6</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>10;0;7</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>10;0;8</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>10;0;9</position>
@@ -845,7 +848,7 @@
 	</entity>
 	<entity>
 		<position>10;0;10</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>10;0;11</position>
@@ -885,7 +888,7 @@
 	</entity>
 	<entity>
 		<position>11;0;0</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>11;0;1</position>
@@ -909,7 +912,7 @@
 	</entity>
 	<entity>
 		<position>11;0;6</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>11;0;7</position>
@@ -917,15 +920,15 @@
 	</entity>
 	<entity>
 		<position>11;0;8</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>11;0;9</position>
-		<type>halfblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>11;0;10</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>11;0;11</position>
@@ -965,15 +968,15 @@
 	</entity>
 	<entity>
 		<position>12;0;0</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>12;0;1</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>12;0;2</position>
-		<type>empty</type>
+		<type>wallblock</type>
 	</entity>
 	<entity>
 		<position>12;0;3</position>
@@ -985,19 +988,19 @@
 	</entity>
 	<entity>
 		<position>12;0;5</position>
-		<type>halfblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>12;0;6</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>12;0;7</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>12;0;8</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>12;0;9</position>
@@ -1005,7 +1008,7 @@
 	</entity>
 	<entity>
 		<position>12;0;10</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>12;0;11</position>
@@ -1057,11 +1060,11 @@
 	</entity>
 	<entity>
 		<position>13;0;3</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>13;0;4</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>13;0;5</position>
@@ -1069,7 +1072,7 @@
 	</entity>
 	<entity>
 		<position>13;0;6</position>
-		<type>halfblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>13;0;7</position>
@@ -1085,7 +1088,7 @@
 	</entity>
 	<entity>
 		<position>13;0;10</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>13;0;11</position>
@@ -1141,31 +1144,31 @@
 	</entity>
 	<entity>
 		<position>14;0;4</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>14;0;5</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>14;0;6</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>14;0;7</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>14;0;8</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>14;0;9</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>14;0;10</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>14;0;11</position>
@@ -1603,4 +1606,4 @@
 		<position>19;0;19</position>
 		<type>empty</type>
 	</entity>
-</map>
+<SECU>2671</SECU></map>

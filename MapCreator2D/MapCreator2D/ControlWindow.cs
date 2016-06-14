@@ -4,10 +4,12 @@ using System.Windows.Forms;
 using System.Xml;
 using System.IO;
 
+
 namespace MapCreator2D
 {
     public partial class ControlWindow : Form
     {
+
         public Tile SelectedTile 
         {
             get { return _tile; }
@@ -166,6 +168,8 @@ namespace MapCreator2D
 
                 builder.AppendFormat("\t<name>{0}</name>{1}", name, Environment.NewLine);
 
+                int eC = 0, bC = 0, sC = 0;
+
                 foreach (Tile tile in Basic.Tiles)
                 {
                     builder.AppendLine("\t<entity>");
@@ -174,35 +178,45 @@ namespace MapCreator2D
                     {
                         case TileType.Destroyable:
                             builder.AppendFormat("\t\t<type>destroyblock</type>{0}", Environment.NewLine);
+                            bC++;
                             break;
                         case TileType.Door:
                             builder.AppendFormat("\t\t<type>doorblock</type>{0}", Environment.NewLine);
                             builder.AppendFormat("\t\t<id>{0}</id>{1}", tile.ID, Environment.NewLine);
+                            sC++;
                             break;
                         case TileType.Grid:
                             builder.AppendFormat("\t\t<type>gridblock</type>{0}", Environment.NewLine);
+                            sC++;
                             break;
                         case TileType.Key:
                             builder.AppendFormat("\t\t<type>key</type>{0}", Environment.NewLine);
                             builder.AppendFormat("\t\t<id>{0}</id>{1}", tile.ID, Environment.NewLine);
+                            sC++;
                             break;
                         case TileType.LevelDown:
                             builder.AppendFormat("\t\t<type>leveldown</type>{0}", Environment.NewLine);
+                            sC++;
                             break;
                         case TileType.LevelUp:
                             builder.AppendFormat("\t\t<type>levelup</type>{0}", Environment.NewLine);
+                            sC++;
                             break;
                         case TileType.Pickaxe:
                             builder.AppendFormat("\t\t<type>pickaxe</type>{0}", Environment.NewLine);
+                            sC++;
                             break;
                         case TileType.Pliers:
                             builder.AppendFormat("\t\t<type>pliers</type>{0}", Environment.NewLine);
+                            sC++;
                             break;
                         case TileType.Wall:
                             builder.AppendFormat("\t\t<type>wallblock</type>{0}", Environment.NewLine);
+                            bC++;
                             break;
                         case TileType.Half:
                             builder.AppendFormat("\t\t<type>halfblock</type>{0}", Environment.NewLine);
+                            bC++;
                             break;
                         case TileType.Spawn:
                             builder.AppendFormat("\t\t<type>spawn</type>{0}", Environment.NewLine);
@@ -210,17 +224,22 @@ namespace MapCreator2D
                         case TileType.Message:
                             builder.AppendFormat("\t\t<type>message</type>{0}", Environment.NewLine);
                             builder.AppendFormat("\t\t<text>{0}</text>{1}", tile.Message, Environment.NewLine);
+                            sC++;
                             break;
                         case TileType.Switch:
                             builder.AppendFormat("\t\t<type>switch</type>{0}", Environment.NewLine);
                             builder.AppendFormat("\t\t<id>{0}</id>{1}", tile.ID, Environment.NewLine);
+                            bC++;
                             break;
                         case TileType.None:
                             builder.AppendLine("\t\t<type>empty</type>");
+                            eC++;
                             break;
                     }
                     builder.AppendLine("\t</entity>");
                 }
+
+                builder.AppendFormat("<SECU>{0}</SECU>", NativeMethods.checkLevel(eC, bC, sC));
 
                 builder.AppendLine("</map>");
 

@@ -1417,7 +1417,7 @@
 	</entity>
 	<entity>
 		<position>27;0;7</position>
-		<type>wallblock</type>
+		<type>empty</type>
 	</entity>
 	<entity>
 		<position>27;0;9</position>
@@ -1619,4 +1619,4 @@
 		<position>29;0;29</position>
 		<type>wallblock</type>
 	</entity>
-</map>
+<SECU>2017</SECU></map>

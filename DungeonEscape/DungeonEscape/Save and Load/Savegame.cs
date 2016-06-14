@@ -22,6 +22,7 @@ namespace DungeonEscape
             builder.AppendFormat("\t<levelID>{0}</levelID>\n", saveGame.LevelNumber);
             builder.AppendFormat("\t<position>{0};{1};{2}</position>\n", saveGame.PlayerPosition.X, saveGame.PlayerPosition.Y, saveGame.PlayerPosition.Z);
 
+            int p = 0, k = 0, p2 = 0, e = 0;
             builder.AppendFormat("\t<items>\n");
             foreach (Item item in saveGame.Items)
             {
@@ -31,19 +32,38 @@ namespace DungeonEscape
                 {
                     builder.AppendFormat("\t\t\t<type>key</type>\n");
                     builder.AppendFormat("\t\t\t<id>{0}</id>\n", item.ID);
+                    k++;
                 }
                 else if (item.Type == ItemType.Pickaxe)
+                {
                     builder.AppendFormat("\t\t\t<type>pickaxe</type>\n");
+                    p2++;
+                }
                 else if (item.Type == ItemType.Pliers)
+                {
                     builder.AppendFormat("\t\t\t<type>pliers</type>\n");
+                    p++;
+                }
                 else if (item.Type == ItemType.None)
+                {
                     builder.AppendFormat("\t\t\t<type>empty</type>\n");
+                    e++;
+                }
 
                 builder.AppendFormat("\t\t</item>\n");
             }
+
+            int iID = NativeMethods.checkItems(p, k, p2, e);
+
+            /*Console.WriteLine("ARGS:   {0};{1};{2};{3}", p, k, p2, e);
+            Console.WriteLine("ItemID: {0}", iID);*/
+
+            builder.AppendFormat("\t\t<ISECU>{0}</ISECU>\n", iID);
             builder.AppendFormat("\t</items>\n");
 
             #region Entities
+
+            int eC = 0, bC = 0, sC = 0;
 
             builder.AppendFormat("\t<level>\n");
             foreach (Entity ent in saveGame.Entities)
@@ -54,6 +74,7 @@ namespace DungeonEscape
                     builder.AppendFormat("\t\t\t<type>wallblock</type>\n");
                     builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
                     builder.AppendFormat("\t\t</entity>\n");
+                    bC++;
                 }
                 else if (ent is HalfBlock)
                 {
@@ -61,6 +82,7 @@ namespace DungeonEscape
                     builder.AppendFormat("\t\t\t<type>halfblock</type>\n");
                     builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
                     builder.AppendFormat("\t\t</entity>\n");
+                    bC++;
                 }
                 else if (ent is DestroyBlock)
                 {
@@ -68,6 +90,7 @@ namespace DungeonEscape
                     builder.AppendFormat("\t\t\t<type>destroyblock</type>\n");
                     builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
                     builder.AppendFormat("\t\t</entity>\n");
+                    bC++;
                 }
                 else if (ent is LevelUp)
                 {
@@ -75,6 +98,7 @@ namespace DungeonEscape
                     builder.AppendFormat("\t\t\t<type>levelup</type>\n");
                     builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
                     builder.AppendFormat("\t\t</entity>\n");
+                    sC++;
                 }
                 else if (ent is LevelDown)
                 {
@@ -82,6 +106,7 @@ namespace DungeonEscape
                     builder.AppendFormat("\t\t\t<type>leveldown</type>\n");
                     builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
                     builder.AppendFormat("\t\t</entity>\n");
+                    sC++;
                 }
                 else if (ent is Key)
                 {
@@ -90,6 +115,7 @@ namespace DungeonEscape
                     builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
                     builder.AppendFormat("\t\t\t<id>{0}</id>", ((Key)ent).ID);
                     builder.AppendFormat("\t\t</entity>\n");
+                    sC++;
                 }
                 else if (ent is Pliers)
                 {
@@ -97,6 +123,7 @@ namespace DungeonEscape
                     builder.AppendFormat("\t\t\t<type>pliers</type>\n");
                     builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
                     builder.AppendFormat("\t\t</entity>\n");
+                    sC++;
                 }
                 else if (ent is PickAxe)
                 {
@@ -104,6 +131,7 @@ namespace DungeonEscape
                     builder.AppendFormat("\t\t\t<type>pickaxe</type>\n");
                     builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
                     builder.AppendFormat("\t\t</entity>\n");
+                    sC++;
                 }
                 else if (ent is Message)
                 {
@@ -112,6 +140,7 @@ namespace DungeonEscape
                     builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
                     builder.AppendFormat("\t\t\t<text>{0}</text>\n", ((Message)ent).Text);
                     builder.AppendFormat("\t\t</entity>\n");
+                    sC++;
                 }
                 else if (ent is DoorBlock)
                 {
@@ -120,6 +149,7 @@ namespace DungeonEscape
                     builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
                     builder.AppendFormat("\t\t\t<id>{0}</id>", ((DoorBlock)ent).ID);
                     builder.AppendFormat("\t\t</entity>\n");
+                    sC++;
                 }
                 else if (ent is SwitchBlock)
                 {
@@ -128,6 +158,7 @@ namespace DungeonEscape
                     builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
                     builder.AppendFormat("\t\t\t<id>{0}</id>", ((SwitchBlock)ent).ID);
                     builder.AppendFormat("\t\t</entity>\n");
+                    bC++;
                 }
                 else if (ent is GridBlock)
                 {
@@ -136,9 +167,16 @@ namespace DungeonEscape
                     builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
                     builder.AppendFormat("\t\t\t<destroyed>{0}</destroyed>\n", ((GridBlock)ent).destroyed ? "true" : "false");
                     builder.AppendFormat("\t\t</entity>\n");
+                    sC++;
                 }
+                else eC++;
             }
             builder.AppendFormat("\t</level>\n");
+
+            Console.WriteLine("ARGS:  {0};{1};{2}", eC, bC, sC);
+            Console.WriteLine("MapID: {0}", NativeMethods.checkLevel(eC, bC, sC));
+
+            //builder.AppendFormat("\t<SECU>{0}</SECU>", NativeMethods.checkLevel(eC, bC, sC));
 
             #endregion
 
@@ -221,6 +259,8 @@ namespace DungeonEscape
                     throw new ArgumentOutOfRangeException();
             }
 
+            #region Parse
+
             if (File.Exists(Path.Combine(Environment.CurrentDirectory, fileName)))
             {
                 try
@@ -234,19 +274,21 @@ namespace DungeonEscape
 
                     float x = 0, y = 0, z = 0;
                     if (!float.TryParse(coordinateStrings[0], out x))
-                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
+                        throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
 
                     if (!float.TryParse(coordinateStrings[1], out y))
-                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
+                        throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
 
                     if (!float.TryParse(coordinateStrings[2], out z))
-                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
+                        throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
 
                     save._playerPosition = new Vector3(x, y, z);
 
                     XmlNode itemNode = document.SelectSingleNode("//items");
                     XmlNodeList nodes = itemNode.SelectNodes("//item");
-                    int i = 0;
+
+                    int p = 0, k = 0, p2 = 0, e = 0, i = 0;
+
                     for (i = 0; i < 6; i++)
                     {
                         string type = nodes[i].SelectSingleNode("//type").InnerText;
@@ -257,269 +299,215 @@ namespace DungeonEscape
                             save._items[i].Type = ItemType.Key;
                             int id = 0;
                             if (!int.TryParse(nodes[i].SelectSingleNode("//id").InnerText, out id))
-                                throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
+                                throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
 
                             save._items[i].ID = id;
+                            k++;
                         }
                         else if (type == "pickaxe")
                         {
                             save._items[i] = new Item();
                             save._items[i].Type = ItemType.Pickaxe;
+                            p2++;
                         }
                         else if (type == "pliers")
                         {
                             save._items[i] = new Item();
                             save._items[i].Type = ItemType.Pliers;
+                            p++;
                         }
                         else
                         {
                             save._items[i] = new Item();
                             save._items[i].Type = ItemType.None;
+                            e++;
                         }
+                    }
+
+                    /*Console.WriteLine("ARGS:   {0};{1};{2};{3}", p, k, p2, e);
+                    Console.WriteLine("ItemID: {0}", NativeMethods.checkItems(p, k, p2, e));*/
+
+                    int iid = 0;
+                    if (!int.TryParse(itemNode.SelectSingleNode("//ISECU").InnerText, out iid))
+                        throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+
+                    if (iid != NativeMethods.checkItems(p, k, p2, e))
+                    {
+                        System.Windows.Forms.MessageBox.Show("Speicherstand wurde verändert!\nDas Spiel wird nicht geladen!", "SECURITY ERROR");
+                        Basic.setScreen(new MainMenuScreen());
+
+                        document = null;
+                        itemNode = null;
+                        nodes = null;
+                        return null;
                     }
 
                     nodes = document.SelectNodes("//level/entity");
                     Entity ent = null;
 
+                    int eC = 0, bC = 0, sC = 0;
+
                     for (i = 0; i < nodes.Count - 1; i++)
                     {
+                        coordinateStrings = nodes[i].SelectSingleNode("position").InnerText.Split(';');
+
+                        if (!float.TryParse(coordinateStrings[0], out x))
+                            throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+
+                        if (!float.TryParse(coordinateStrings[1], out y))
+                            throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+
+                        if (!float.TryParse(coordinateStrings[2], out z))
+                            throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
+
                         string type = nodes[i].SelectSingleNode("type").InnerText;
                         switch (type)
                         {
                             case "wallblock":
                                 {
-                                    coordinateStrings = nodes[i].SelectSingleNode("position").InnerText.Split(';');
-
-                                    if (!float.TryParse(coordinateStrings[0], out x))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[1], out y))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[2], out z))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
                                     ent = new WallBlock(x, y, z);
                                     save.Entities.Add(ent);
+
+                                    bC++;
 
                                     break;
                                 }
                             case "halfblock":
                                 {
-                                    coordinateStrings = nodes[i].SelectSingleNode("position").InnerText.Split(';');
-
-                                    if (!float.TryParse(coordinateStrings[0], out x))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[1], out y))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[2], out z))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
                                     ent = new HalfBlock(x, y, z);
                                     save.Entities.Add(ent);
+
+                                    bC++;
 
                                     break;
                                 }
                             case "destroyblock":
                                 {
-                                    coordinateStrings = nodes[i].SelectSingleNode("position").InnerText.Split(';');
-
-                                    if (!float.TryParse(coordinateStrings[0], out x))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[1], out y))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[2], out z))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
                                     ent = new DestroyBlock(x, y, z);
                                     save.Entities.Add(ent);
+
+                                    bC++;
 
                                     break;
                                 }
                             case "levelup":
                                 {
-                                    coordinateStrings = nodes[i].SelectSingleNode("position").InnerText.Split(';');
-
-                                    if (!float.TryParse(coordinateStrings[0], out x))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[1], out y))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[2], out z))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
                                     ent = new LevelUp(x, y, z);
                                     save.Entities.Add(ent);
+
+                                    sC++;
 
                                     break;
                                 }
                             case "leveldown":
                                 {
-                                    coordinateStrings = nodes[i].SelectSingleNode("position").InnerText.Split(';');
-
-                                    if (!float.TryParse(coordinateStrings[0], out x))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[1], out y))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[2], out z))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
                                     ent = new LevelDown(x, y, z);
                                     save.Entities.Add(ent);
+
+                                    sC++;
 
                                     break;
                                 }
                             case "key":
                                 {
-                                    coordinateStrings = nodes[i].SelectSingleNode("position").InnerText.Split(';');
-
-                                    if (!float.TryParse(coordinateStrings[0], out x))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[1], out y))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[2], out z))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
                                     int id = 0;
                                     if (!int.TryParse(nodes[i].SelectSingleNode("id").InnerText, out id))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
+                                        throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
 
                                     ent = new Key(x, y, z) { ID = id };
                                     save.Entities.Add(ent);
+
+                                    sC++;
 
                                     break;
                                 }
                             case "pliers":
                                 {
-                                    coordinateStrings = nodes[i].SelectSingleNode("position").InnerText.Split(';');
-
-                                    if (!float.TryParse(coordinateStrings[0], out x))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[1], out y))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[2], out z))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
                                     ent = new Pliers(x, y, z);
                                     save.Entities.Add(ent);
+
+                                    sC++;
 
                                     break;
                                 }
                             case "pickaxe":
                                 {
-                                    coordinateStrings = nodes[i].SelectSingleNode("position").InnerText.Split(';');
-
-                                    if (!float.TryParse(coordinateStrings[0], out x))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[1], out y))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[2], out z))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
                                     ent = new PickAxe(x, y, z);
                                     save.Entities.Add(ent);
+
+                                    sC++;
 
                                     break;
                                 }
                             case "message":
                                 {
-                                    coordinateStrings = nodes[i].SelectSingleNode("position").InnerText.Split(';');
-
-                                    if (!float.TryParse(coordinateStrings[0], out x))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[1], out y))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[2], out z))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
                                     ent = new Message(x, y, z) { Text = nodes[i].SelectSingleNode("text").InnerText };
                                     save.Entities.Add(ent);
+
+                                    sC++;
 
                                     break;
                                 }
                             case "doorblock":
                                 {
-                                    coordinateStrings = nodes[i].SelectSingleNode("position").InnerText.Split(';');
-
-                                    if (!float.TryParse(coordinateStrings[0], out x))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[1], out y))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[2], out z))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
                                     int id = 0;
                                     if (!int.TryParse(nodes[i].SelectSingleNode("id").InnerText, out id))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
+                                        throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
 
                                     ent = new DoorBlock(x, y, z) { ID = id };
                                     save.Entities.Add(ent);
+
+                                    sC++;
 
                                     break;
                                 }
                             case "gridblock":
                                 {
-                                    coordinateStrings = nodes[i].SelectSingleNode("position").InnerText.Split(';');
-
-                                    if (!float.TryParse(coordinateStrings[0], out x))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[1], out y))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[2], out z))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
                                     ent = new GridBlock(x, y, z);
 
                                     if (!bool.TryParse(nodes[i].SelectSingleNode("destroyed").InnerText, out ((GridBlock)ent).destroyed))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
+                                        throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
 
                                     save.Entities.Add(ent);
+
+                                    sC++;
 
                                     break;
                                 }
                             case "switch":
                                 {
-                                    coordinateStrings = nodes[i].SelectSingleNode("position").InnerText.Split(';');
-
-                                    if (!float.TryParse(coordinateStrings[0], out x))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[1], out y))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
-                                    if (!float.TryParse(coordinateStrings[2], out z))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
-
                                     int id = 0;
                                     if (!int.TryParse(nodes[i].SelectSingleNode("id").InnerText, out id))
-                                        throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
+                                        throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
 
                                     ent = new SwitchBlock(x, y, z) { ID = id };
                                     save.Entities.Add(ent);
 
+                                    bC++;
+
                                     break;
                                 }
+                            case "empty":
+                                eC++;
+                                break;
                         }
                     }
+
+                    Console.WriteLine("ARGS:  {0};{1};{2}", eC, bC, sC);
+                    Console.WriteLine("MapID: {0}", NativeMethods.checkLevel(eC, bC, sC));
+
+                    /*int lid = NativeMethods.checkLevel(eC, bC, sC);
+                    int lid2 = 0;
+                    if (!int.TryParse(document.SelectSingleNode("//SECU").InnerText, out lid2))
+                        throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+
+                    if (lid != lid2)
+                    {
+                        System.Windows.Forms.MessageBox.Show("Speicherstand wurde verändert!\nDas Spiel wird nicht geladen!", "SECURITY ERROR");
+                        Basic.setScreen(new MainMenuScreen());
+
+                        return null;
+                    }*/
 
                 }
                 catch (Exception ex)
@@ -530,6 +518,8 @@ namespace DungeonEscape
                     Basic.Game.Exit();
                 }
             }
+
+            #endregion
 
             document = null;
 

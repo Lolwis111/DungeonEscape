@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace DungeonEscape
 {
@@ -127,6 +128,8 @@ namespace DungeonEscape
 
                         XmlNodeList nodes = mapDocument.SelectNodes("//entity");
 
+                        int eC = 0, bC = 0, sC = 0;
+
                         string[] coordinates = new string[3];
                         for (int i = 0; i < nodes.Count; i++)
                         {
@@ -144,47 +147,60 @@ namespace DungeonEscape
                                         {
                                             case "wallblock":
                                                 _entities.Add(new WallBlock(x, y, z));
+                                                bC++;
                                                 break;
                                             case "spawn":
                                                 GameScreen.Camera.Position = new Vector3(x, y, z);
                                                 break;
                                             case "levelup":
                                                 _entities.Add(new LevelUp(x, y, z));
+                                                sC++;
                                                 break;
                                             case "leveldown":
                                                 _entities.Add(new LevelDown(x, y, z));
+                                                sC++;
                                                 break;
                                             case "key":
                                                 _entities.Add(new Key(x, y, z) { ID = int.Parse(nodes[i].SelectSingleNode("id").InnerText) });
                                                 //_entities.Add(new Key(x, y, z) { ID = 0 });
+                                                sC++;
                                                 break;
                                             case "pliers":
                                                 _entities.Add(new Pliers(x, y, z));
+                                                sC++;
                                                 break;
                                             case "pickaxe":
                                                 _entities.Add(new PickAxe(x, y, z));
+                                                sC++;
                                                 break;
                                             case "message":
                                                 _entities.Add(new Message(x, y, z) { Text = nodes[i].SelectSingleNode("text").InnerText });
+                                                sC++;
                                                 break;
                                             case "destroyblock":
                                                 _entities.Add(new DestroyBlock(x, y, z));
+                                                bC++;
                                                 break;
                                             case "doorblock":
                                                 _entities.Add(new DoorBlock(x, y, z) { ID = int.Parse(nodes[i].SelectSingleNode("id").InnerText) });
                                                 //_entities.Add(new DoorBlock(x, y, z) { ID = 0 });
+                                                sC++;
                                                 break;
                                             case "gridblock":
                                                 _entities.Add(new GridBlock(x, y, z));
+                                                sC++;
                                                 break;
                                             case "switch":
                                                 _entities.Add(new SwitchBlock(x, y, z) { ID = int.Parse(nodes[i].SelectSingleNode("id").InnerText) });
                                                 //_entities.Add(new SwitchBlock(x, y, z) { ID = 0 });
+                                                bC++;
                                                 break;
                                             case "halfblock":
                                                 _entities.Add(new HalfBlock(x, y, z));
+                                                bC++;
                                                 break;
                                             case "empty":
+                                                eC++;
                                                 break;
                                             default:
                                                 throw new FormatException(string.Format("{0} ist kein gültiger Typ für einen Block!", type));
@@ -204,6 +220,14 @@ namespace DungeonEscape
                             {
                                 throw new FormatException(string.Format("{0} ist kein gültiger Wert für X!", coordinates[2]));
                             }
+                        }
+
+                        int n = NativeMethods.checkLevel(eC, bC, sC);
+                        int n1 = int.Parse(mapDocument.SelectSingleNode("//SECU").InnerText);
+                        if (n != n1)
+                        {
+                            System.Windows.Forms.MessageBox.Show("Die Checksumme stimmt nicht überein!\nLevel wird nicht geladen!", "SECURITYERROR");
+                            Basic.setScreen(new MainMenuScreen());
                         }
                     }
                     else
