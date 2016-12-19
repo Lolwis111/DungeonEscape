@@ -141,19 +141,19 @@ namespace MapCreator2D
         {
             SaveFileDialog saveFile = new SaveFileDialog();
             saveFile.Filter = "XML Dateien|*.xml";
-            if (saveFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (saveFile.ShowDialog() == DialogResult.OK)
             {
                 StringBuilder builder = new StringBuilder(30000);
-                builder.AppendLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-                builder.AppendLine("<!--Erstellt mit MapCreator2D-->");
-                builder.AppendLine("<map version=\"2.0\">");
-                builder.AppendFormat("\t<size>{0};{1}</size>{2}", 20, 20, Environment.NewLine);
+                builder.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+                builder.Append("<!--Erstellt mit MapCreator2D-->");
+                builder.Append("<map version=\"2.0\">");
+                builder.AppendFormat("<size>{0};{1}</size>", 20, 20);
 
 
                 if (!nameSet)
                 {
                     InputDialog dialog = new InputDialog();
-                    if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                    if (dialog.ShowDialog() == DialogResult.Cancel)
                     {
                         MessageBox.Show("Es muss ein Name ingegeben werden!", "Fehler");
                         return;
@@ -166,82 +166,82 @@ namespace MapCreator2D
                     dialog = null;
                 }
 
-                builder.AppendFormat("\t<name>{0}</name>{1}", name, Environment.NewLine);
+                builder.AppendFormat("<name>{0}</name>", name);
 
                 int eC = 0, bC = 0, sC = 0;
 
                 foreach (Tile tile in Basic.Tiles)
                 {
-                    builder.AppendLine("\t<entity>");
-                    builder.AppendFormat("\t\t<position>{0};0;{1}</position>{2}", tile.Rectangle.X/30, tile.Rectangle.Y/30, Environment.NewLine);
+                    builder.Append("<entity>");
+                    builder.AppendFormat("<position>{0};0;{1}</position>", tile.Rectangle.X/30, tile.Rectangle.Y/30);
                     switch (tile.Type)
                     {
                         case TileType.Destroyable:
-                            builder.AppendFormat("\t\t<type>destroyblock</type>{0}", Environment.NewLine);
+                            builder.Append("<type>destroyblock</type>");
                             bC++;
                             break;
                         case TileType.Door:
-                            builder.AppendFormat("\t\t<type>doorblock</type>{0}", Environment.NewLine);
-                            builder.AppendFormat("\t\t<id>{0}</id>{1}", tile.ID, Environment.NewLine);
+                            builder.Append("<type>doorblock</type>");
+                            builder.AppendFormat("<id>{0}</id>", tile.ID);
                             sC++;
                             break;
                         case TileType.Grid:
-                            builder.AppendFormat("\t\t<type>gridblock</type>{0}", Environment.NewLine);
+                            builder.Append("<type>gridblock</type>");
                             sC++;
                             break;
                         case TileType.Key:
-                            builder.AppendFormat("\t\t<type>key</type>{0}", Environment.NewLine);
-                            builder.AppendFormat("\t\t<id>{0}</id>{1}", tile.ID, Environment.NewLine);
+                            builder.Append("<type>key</type>");
+                            builder.AppendFormat("<id>{0}</id>", tile.ID);
                             sC++;
                             break;
                         case TileType.LevelDown:
-                            builder.AppendFormat("\t\t<type>leveldown</type>{0}", Environment.NewLine);
+                            builder.Append("<type>leveldown</type>");
                             sC++;
                             break;
                         case TileType.LevelUp:
-                            builder.AppendFormat("\t\t<type>levelup</type>{0}", Environment.NewLine);
+                            builder.Append("<type>levelup</type>");
                             sC++;
                             break;
                         case TileType.Pickaxe:
-                            builder.AppendFormat("\t\t<type>pickaxe</type>{0}", Environment.NewLine);
+                            builder.Append("<type>pickaxe</type>");
                             sC++;
                             break;
                         case TileType.Pliers:
-                            builder.AppendFormat("\t\t<type>pliers</type>{0}", Environment.NewLine);
+                            builder.Append("<type>pliers</type>");
                             sC++;
                             break;
                         case TileType.Wall:
-                            builder.AppendFormat("\t\t<type>wallblock</type>{0}", Environment.NewLine);
+                            builder.Append("<type>wallblock</type>");
                             bC++;
                             break;
                         case TileType.Half:
-                            builder.AppendFormat("\t\t<type>halfblock</type>{0}", Environment.NewLine);
+                            builder.Append("<type>halfblock</type>");
                             bC++;
                             break;
                         case TileType.Spawn:
-                            builder.AppendFormat("\t\t<type>spawn</type>{0}", Environment.NewLine);
+                            builder.Append("<type>spawn</type>");
                             break;
                         case TileType.Message:
-                            builder.AppendFormat("\t\t<type>message</type>{0}", Environment.NewLine);
-                            builder.AppendFormat("\t\t<text>{0}</text>{1}", tile.Message, Environment.NewLine);
+                            builder.Append("<type>message</type>");
+                            builder.AppendFormat("<text>{0}</text>", tile.Message);
                             sC++;
                             break;
                         case TileType.Switch:
-                            builder.AppendFormat("\t\t<type>switch</type>{0}", Environment.NewLine);
-                            builder.AppendFormat("\t\t<id>{0}</id>{1}", tile.ID, Environment.NewLine);
+                            builder.Append("<type>switch</type>");
+                            builder.AppendFormat("<id>{0}</id>", tile.ID);
                             bC++;
                             break;
                         case TileType.None:
-                            builder.AppendLine("\t\t<type>empty</type>");
+                            builder.Append("<type>empty</type>");
                             eC++;
                             break;
                     }
-                    builder.AppendLine("\t</entity>");
+                    builder.Append("</entity>");
                 }
 
                 builder.AppendFormat("<SECU>{0}</SECU>", NativeMethods.checkLevel(eC, bC, sC));
 
-                builder.AppendLine("</map>");
+                builder.Append("</map>");
 
                 StreamWriter writer = null;
                 try
@@ -271,7 +271,7 @@ namespace MapCreator2D
         {
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.Filter = "XML Files|*.xml";
-            if (openFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (openFile.ShowDialog() == DialogResult.OK)
             {
                 XmlDocument document = new XmlDocument();
                 document.Load(openFile.FileName);
@@ -307,39 +307,93 @@ namespace MapCreator2D
                                 string type = node.SelectSingleNode("type").InnerText;
 
                                 if (type == "wallblock")
+                                {
                                     Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Wall));
+                                }
                                 else if (type == "spawn")
+                                {
                                     Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Spawn));
+                                }
                                 else if (type == "levelup")
+                                {
                                     Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.LevelUp));
+                                }
                                 else if (type == "leveldown")
+                                {
                                     Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.LevelDown));
+                                }
                                 else if (type == "key")
                                 {
-                                    if (idMode) Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Key) { ID = int.Parse(node.SelectSingleNode("id").InnerText) });
-                                    else Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Key) { ID = 0 });
+                                    if (idMode)
+                                    {
+                                        Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Key)
+                                        {
+                                            ID = int.Parse(node.SelectSingleNode("id").InnerText)
+                                        });
+                                    }
+                                    else
+                                    {
+                                        Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Key)
+                                        {
+                                            ID = 0
+                                        });
+                                    }
                                 }
                                 else if (type == "pliers")
+                                {
                                     Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Pliers));
+                                }
                                 else if (type == "pickaxe")
+                                {
                                     Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Pickaxe));
+                                }
                                 else if (type == "destroyblock")
+                                {
                                     Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Destroyable));
+                                }
                                 else if (type == "doorblock")
                                 {
-                                    if (idMode) Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Door) { ID = int.Parse(node.SelectSingleNode("id").InnerText) });
-                                    else Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Door) { ID = 0 });
+                                    if (idMode)
+                                    {
+                                        Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Door)
+                                        {
+                                            ID = int.Parse(node.SelectSingleNode("id").InnerText)
+                                        });
+                                    }
+                                    else
+                                    {
+                                        Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Door)
+                                        {
+                                            ID = 0
+                                        });
+                                    }
                                 }
                                 else if (type == "gridblock")
+                                {
                                     Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Grid));
+                                }
                                 else if (type == "message")
-                                    Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Message) { Message = node.SelectSingleNode("text").InnerText });
+                                {
+                                    Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Message)
+                                    {
+                                        Message = node.SelectSingleNode("text").InnerText
+                                    });
+                                }
                                 else if (type == "switch")
-                                    Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Switch) { ID = int.Parse(node.SelectSingleNode("id").InnerText) });
+                                {
+                                    Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Switch)
+                                    {
+                                        ID = int.Parse(node.SelectSingleNode("id").InnerText)
+                                    });
+                                }
                                 else if (type == "halfblock")
+                                {
                                     Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Half));
+                                }
                                 else
+                                {
                                     Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.None));
+                                }
                             }
                             else
                             {

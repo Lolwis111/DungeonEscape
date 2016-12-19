@@ -16,7 +16,10 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+
+                _tile.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

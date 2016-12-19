@@ -1,30 +1,38 @@
 using System;
 using System.Threading;
+using DungeonEscape.Debug;
 
 namespace DungeonEscape
 {
-    static class Program
+    internal static class Program
     {
-        const string MutexID = "DungeonEscape";
+        private const string MutexId = "DungeonEscape";
 
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Mutex mutexInstance = null;
+            Mutex mutexInstance;
 
             try
             {
-                mutexInstance = Mutex.OpenExisting(MutexID);
+                mutexInstance = Mutex.OpenExisting(MutexId);
                 Environment.Exit(0);
             }
             catch
             {
-                mutexInstance = new Mutex(true, MutexID);
+                mutexInstance = new Mutex(true, MutexId);
             }
 
-            using (GameMain game = new GameMain(args))
+            try
             {
-                game.Run();
+                using (GameMain game = new GameMain(args))
+                {
+                    game.Run();
+                }
+            }
+            catch (Exception exception)
+            {
+                LogWriter.WriteError(exception);
             }
 
             mutexInstance.ReleaseMutex();

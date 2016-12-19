@@ -1,125 +1,50 @@
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace DungeonEscape
+namespace DungeonEscape.Content
 {
 	public static class Textures
     {
         #region Fields
 
-        public static Texture2D Floor
-        {
-            get { return _floor; }
-        }
-        private static Texture2D _floor = null;
+        public static Texture2D Floor;
 
-        public static Texture2D Ceiling
-        {
-            get { return _ceiling; }
-        }
-        private static Texture2D _ceiling = null;
+        public static Texture2D Ceiling;
 
-        public static Texture2D Wall
-        {
-            get { return _wall; }
-        }
-        private static Texture2D _wall = null;
+        public static Texture2D Wall;
 
-        public static Texture2D DestroyableBlock
-        {
-            get { return _destroyableBlock; }
-        }
-        private static Texture2D _destroyableBlock = null;
+        public static Texture2D DestroyableBlock;
 
-        public static Texture2D PickAxe
-        {
-            get { return _pickAxe; }
-        }
-        private static Texture2D _pickAxe = null;
+        public static Texture2D PickAxe;
 
-        public static Texture2D Pliers
-        {
-            get { return _pliers; }
-        }
-        private static Texture2D _pliers = null;
+        public static Texture2D Pliers;
 
-        public static Texture2D Key
-        {
-            get { return _key; }
-        }
-        private static Texture2D _key = null;
+        public static Texture2D Key;
 
-        public static Texture2D Message
-        {
-            get { return _message; }
-        }
-        private static Texture2D _message = null;
+        public static Texture2D Message;
 
-        public static Texture2D Grid
-        {
-            get { return _grid; }
-        }
-        private static Texture2D _grid = null;
+        public static Texture2D Grid;
 
-        public static Texture2D GridDestroyed
-        {
-            get { return _gridDestroyed; }
-        }
-        private static Texture2D _gridDestroyed = null;
+        public static Texture2D GridDestroyed;
 
-        public static Texture2D Door
-        {
-            get { return _door; }
-        }
-        private static Texture2D _door = null;
+        public static Texture2D Door;
 
-		public static Texture2D LevelUp
-        {
-            get { return _levelUp; }
-        }
-        private static Texture2D _levelUp = null;
+        public static Texture2D LevelUp;
 
-		public static Texture2D LevelDown
-        {
-            get { return _levelDown; }
-        }
-        private static Texture2D _levelDown = null;
+        public static Texture2D LevelDown;
 
-        public static Texture2D ItemBarItem
-        {
-            get { return _itemBarItem; }
-        }
-        private static Texture2D _itemBarItem = null;
+        public static Texture2D ItemBarItem;
 
-        public static Texture2D SelectedItemBarItem
-        {
-            get { return _selectedItemBarItem; }
-        }
-        private static Texture2D _selectedItemBarItem = null;
+        public static Texture2D SelectedItemBarItem;
 
-        public static Texture2D Canvas
-        {
-            get { return _canvas; }
-        }
-        private static Texture2D _canvas = null;
+        public static Texture2D Canvas;
 
-        public static Texture2D SwitchOn
-        {
-            get { return _switchOn; }
-        }
-        private static Texture2D _switchOn = null;
+        public static Texture2D SwitchOn;
 
-        public static Texture2D SwitchOff
-        {
-            get { return _switchOff; }
-        }
-        private static Texture2D _switchOff = null;
+        public static Texture2D SwitchOff;
 
 #if DEBUG
-        public static Texture2D DUMMY
-        {
-            get { return _dummy; }
-        }
-        private static Texture2D _dummy = null;
+        public static Texture2D Dummy;
 #endif
 
 #endregion
@@ -132,8 +57,8 @@ namespace DungeonEscape
             UndloadTexture();
 
 #if DEBUG
-            _dummy = new Texture2D(Basic.GraphicsDevice, 1, 1);
-            _dummy.SetData<Microsoft.Xna.Framework.Color>(new Microsoft.Xna.Framework.Color[] { Microsoft.Xna.Framework.Color.White });
+            Dummy = new Texture2D(Basic.GraphicsDevice, 1, 1);
+            Dummy.SetData( new[] {  Color.White } );
 #endif
 
             //Alle Texturen laden
@@ -141,55 +66,55 @@ namespace DungeonEscape
 
             if (Basic.UseSmallTextures)
             {
-                _floor = loadTexture("Low\\Blocks\\floor");
-                _ceiling = loadTexture("Low\\Blocks\\ceiling");
-                _wall = loadTexture("Low\\Blocks\\wall");
-                _destroyableBlock = loadTexture("Low\\Blocks\\destroyableBlock");
+                Floor = LoadTexture("Low\\Blocks\\floor");
+                Ceiling = LoadTexture("Low\\Blocks\\ceiling");
+                Wall = LoadTexture("Low\\Blocks\\wall");
+                DestroyableBlock = LoadTexture("Low\\Blocks\\destroyableBlock");
 
-                _switchOn = loadTexture("Low\\Blocks\\switchOn");
-                _switchOff = loadTexture("Low\\Blocks\\switchOff");
+                SwitchOn = LoadTexture("Low\\Blocks\\switchOn");
+                SwitchOff = LoadTexture("Low\\Blocks\\switchOff");
 
-                _pickAxe = loadTexture("Low\\Items\\pickaxe");
-                _pliers = loadTexture("Low\\Items\\pliers");
-                _key = loadTexture("Low\\Items\\key");
-                _message = loadTexture("Low\\Items\\message");
+                PickAxe = LoadTexture("Low\\Items\\pickaxe");
+                Pliers = LoadTexture("Low\\Items\\pliers");
+                Key = LoadTexture("Low\\Items\\key");
+                Message = LoadTexture("Low\\Items\\message");
 
-                _grid = loadTexture("Low\\Sprites\\grid");
-                _gridDestroyed = loadTexture("Low\\Sprites\\gridDestroyed");
-                _door = loadTexture("Low\\Sprites\\door");
-                _levelUp = loadTexture("Low\\Sprites\\LevelUp");
-                _levelDown = loadTexture("Low\\Sprites\\LevelDown");
+                Grid = LoadTexture("Low\\Sprites\\grid");
+                GridDestroyed = LoadTexture("Low\\Sprites\\gridDestroyed");
+                Door = LoadTexture("Low\\Sprites\\door");
+                LevelUp = LoadTexture("Low\\Sprites\\LevelUp");
+                LevelDown = LoadTexture("Low\\Sprites\\LevelDown");
             }
             else
             {
-                _floor = loadTexture("Normal\\Blocks\\floor");
-                _ceiling = loadTexture("Normal\\Blocks\\ceiling");
-                _wall = loadTexture("Normal\\Blocks\\wall");
-                _destroyableBlock = loadTexture("Normal\\Blocks\\destroyableBlock");
+                Floor = LoadTexture("Normal\\Blocks\\floor");
+                Ceiling = LoadTexture("Normal\\Blocks\\ceiling");
+                Wall = LoadTexture("Normal\\Blocks\\wall");
+                DestroyableBlock = LoadTexture("Normal\\Blocks\\destroyableBlock");
 
-                _switchOn = loadTexture("Normal\\Blocks\\switchOn");
-                _switchOff = loadTexture("Normal\\Blocks\\switchOff");
+                SwitchOn = LoadTexture("Normal\\Blocks\\switchOn");
+                SwitchOff = LoadTexture("Normal\\Blocks\\switchOff");
 
-                _pickAxe = loadTexture("Normal\\Items\\pickaxe");
-                _pliers = loadTexture("Normal\\Items\\pliers");
-                _key = loadTexture("Normal\\Items\\key");
-                _message = loadTexture("Normal\\Items\\message");
+                PickAxe = LoadTexture("Normal\\Items\\pickaxe");
+                Pliers = LoadTexture("Normal\\Items\\pliers");
+                Key = LoadTexture("Normal\\Items\\key");
+                Message = LoadTexture("Normal\\Items\\message");
 
-                _grid = loadTexture("Normal\\Sprites\\grid");
-                _gridDestroyed = loadTexture("Normal\\Sprites\\gridDestroyed");
-                _door = loadTexture("Normal\\Sprites\\door");
+                Grid = LoadTexture("Normal\\Sprites\\grid");
+                GridDestroyed = LoadTexture("Normal\\Sprites\\gridDestroyed");
+                Door = LoadTexture("Normal\\Sprites\\door");
 
-                _levelUp = loadTexture("Normal\\Sprites\\LevelUp");
-                _levelDown = loadTexture("Normal\\Sprites\\LevelDown");
+                LevelUp = LoadTexture("Normal\\Sprites\\LevelUp");
+                LevelDown = LoadTexture("Normal\\Sprites\\LevelDown");
             }
 
             //GUI
-            _itemBarItem = loadTexture("GUI\\itemBarItem");
-            _selectedItemBarItem = loadTexture("GUI\\selectedItemBarItem");
-            _canvas = loadTexture("GUI\\canvas");
+            ItemBarItem = LoadTexture("GUI\\itemBarItem");
+            SelectedItemBarItem = LoadTexture("GUI\\selectedItemBarItem");
+            Canvas = LoadTexture("GUI\\canvas");
 		}
 
-		private static Texture2D loadTexture(string path)
+		private static Texture2D LoadTexture(string path)
 		{
             //Lädt eine Textur
             return Basic.Content.Load<Texture2D>("Textures\\" + path);
@@ -199,114 +124,42 @@ namespace DungeonEscape
         {
             //Gibt alle geladenen Texturen wieder frei
 
-            if (_floor != null)
-            {
-                _floor.Dispose();
-                _floor = null;
-            }
+            Floor?.Dispose();
 
-            if (_ceiling != null)
-            {
-                _ceiling.Dispose();
-                _ceiling = null;
-            }
+            Ceiling?.Dispose();
 
-            if (_wall != null)
-            {
-                _wall.Dispose();
-                _wall = null;
-            }
+            Wall?.Dispose();
 
-            if (_destroyableBlock != null)
-            {
-                _destroyableBlock.Dispose();
-                _destroyableBlock = null;
-            }
+            DestroyableBlock?.Dispose();
 
-            if (_pickAxe != null)
-            {
-                _pickAxe.Dispose();
-                _pickAxe = null;
-            }
+            PickAxe?.Dispose();
 
-            if (_pliers != null)
-            {
-                _pliers.Dispose();
-                _pliers = null;
-            }
+            Pliers?.Dispose();
 
-            if (_key != null)
-            {
-                _key.Dispose();
-                _key = null;
-            }
+            Key?.Dispose();
 
-            if (_grid != null)
-            {
-                _grid.Dispose();
-                _grid = null;
-            }
+            Grid?.Dispose();
 
-            if (_gridDestroyed != null)
-            {
-                _gridDestroyed.Dispose();
-                _gridDestroyed = null;
-            }
+            GridDestroyed?.Dispose();
 
-            if (_door != null)
-            {
-                _door.Dispose();
-                _door = null;
-            }
+            Door?.Dispose();
 
-            if (_levelUp != null)
-            {
-                _levelUp.Dispose();
-                _levelUp = null;
-            }
+            LevelUp?.Dispose();
 
-            if (_levelDown != null)
-            {
-                _levelDown.Dispose();
-                _levelDown = null;
-            }
+            LevelDown?.Dispose();
 
-            if (_itemBarItem != null)
-            {
-                _itemBarItem.Dispose();
-                _itemBarItem = null;
-            }
+            ItemBarItem?.Dispose();
 
-            if (_selectedItemBarItem != null)
-            {
-                _selectedItemBarItem.Dispose();
-                _selectedItemBarItem = null;
-            }
+            SelectedItemBarItem?.Dispose();
 
-            if (_canvas != null)
-            {
-                _canvas.Dispose();
-                _canvas = null;
-            }
+            Canvas?.Dispose();
 
-            if (_switchOn != null)
-            {
-                _switchOn.Dispose();
-                _switchOn = null;
-            }
+            SwitchOn?.Dispose();
 
-            if (_switchOff != null)
-            {
-                _switchOff.Dispose();
-                _switchOff = null;
-            }
+            SwitchOff?.Dispose();
 
 #if DEBUG
-            if (_dummy != null)
-            {
-                _dummy.Dispose();
-                _dummy = null;
-            }
+            Dummy?.Dispose();
 #endif
         }
 

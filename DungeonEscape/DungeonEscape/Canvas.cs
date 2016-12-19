@@ -1,26 +1,26 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
+
 namespace DungeonEscape
 {
     public static class Canvas
     {
-        private static Texture2D canvas = null;
+        private static Texture2D _canvas;
 
-        public static void setUpCanvas()
+        public static void SetUpCanvas()
         {
-            Canvas.canvas = new Texture2D(Basic.GraphicsDevice, 1, 1);
-            Canvas.canvas.SetData<Color>(new Color[1] { Color.White });
+            _canvas = new Texture2D(Basic.GraphicsDevice, 1, 1);
+            _canvas.SetData(new[] { Color.White });
         }
 
         public static void DrawPixel(int x, int y, Color color)
         {
-            Basic.SpriteBatch.Draw(Canvas.canvas, new Vector2((float)x, (float)y), color);
+            Basic.SpriteBatch.Draw(_canvas, new Vector2(x, y), color);
         }
 
         public static void DrawRectangle(Rectangle rect, Color color)
         {
-            Basic.SpriteBatch.Draw(Canvas.canvas, rect, color);
+            Basic.SpriteBatch.Draw(_canvas, rect, color);
         }
 
         public static void DrawBorder(int borderLenght, Rectangle rect, Color color)
@@ -31,7 +31,7 @@ namespace DungeonEscape
                 {
                     if (i < borderLenght || j < borderLenght || i >= rect.Width - borderLenght || j >= rect.Height - borderLenght)
                     {
-                        Canvas.DrawPixel(i + rect.X, j + rect.Y, color);
+                        DrawPixel(i + rect.X, j + rect.Y, color);
                     }
                 }
             }
@@ -44,9 +44,9 @@ namespace DungeonEscape
                 for (int j = 0; j < rect.Height; j += 2)
                 {
                     if (i < borderLenght || j < borderLenght || i >= rect.Width - borderLenght || j >= rect.Height - borderLenght)
-                        Canvas.DrawPixel(i + rect.X, j + rect.Y, color);
+                        DrawPixel(i + rect.X, j + rect.Y, color);
                     else
-                        Canvas.DrawPixel(i + rect.X, j + rect.Y, fillColor);
+                        DrawPixel(i + rect.X, j + rect.Y, fillColor);
                 }
             }
         }

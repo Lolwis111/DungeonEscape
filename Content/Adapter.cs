@@ -21,13 +21,13 @@ namespace Content
         private float _aspectRatio = 0.0f;
 
         public string Description { get { return _description; } }
-        private string _description = "";
+        private string _description = string.Empty;
 
         public int ID { get { return _id; } }
         private int _id = 0;
 
         public string Name { get { return _name; } }
-        private string _name = "";
+        private string _name = string.Empty;
 
         #endregion
 

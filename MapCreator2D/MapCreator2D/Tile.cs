@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MapCreator2D
 {
-    public class Tile
+    public sealed class Tile : IDisposable
     {
         public Rectangle Rectangle 
         {

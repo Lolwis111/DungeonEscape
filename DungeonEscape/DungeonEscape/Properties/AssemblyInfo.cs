@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Resources;
 
@@ -20,7 +19,7 @@ using System.Resources;
 // assemblies support COM.
 [assembly: ComVisible(false)]
 
-// On Windows, the following GUID is for the ID of the typelib if this
+// On Windows, the following GUID is for the Id of the typelib if this
 // project is exposed to COM. On other platforms, it unique identifies the
 // title storage container when deploying this assembly to the device.
 [assembly: Guid("63bbe937-df90-4e45-92ae-bef67fc6d5e8")]

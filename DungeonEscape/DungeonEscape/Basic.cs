@@ -3,6 +3,10 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using DungeonEscape.Screens;
+using DungeonEscape.Debug;
+using DungeonEscape.Content;
+using DungeonEscape.SaveGames;
 
 namespace DungeonEscape
 {
@@ -10,110 +14,35 @@ namespace DungeonEscape
     {
         #region Fields
 
-        public static bool DebugMode
-        {
-            get { return _debug; }
-            set { _debug = value; }
-        }
-        private static bool _debug = false;
+        public static bool DebugMode { get; set; }
 
-        public static SpriteBatch SpriteBatch
-        {
-            get { return _spriteBatch; }
-            set { _spriteBatch = value; }
-        }
-        private static SpriteBatch _spriteBatch;
+        public static SpriteBatch SpriteBatch { get; set; }
 
-		public static GraphicsDevice GraphicsDevice
-        {
-            get { return _gDevice; }
-            set { _gDevice = value; }
-        }
-        private static GraphicsDevice _gDevice;
+		public static GraphicsDevice GraphicsDevice { get; set; }
 
-		public static GraphicsDeviceManager GraphicsManager
-        {
-            get { return _graphics; }
-            set { _graphics = value; }
-        }
-        private static GraphicsDeviceManager _graphics;
+		public static GraphicsDeviceManager GraphicsManager { get; set; }
 
-		public static ContentManager Content
-        {
-            get { return _content; }
-            set { _content = value; }
-        }
-        private static ContentManager _content;
+		public static ContentManager Content { get; set; }
 
-		public static GameTime GameTime
-        {
-            get { return _time; }
-            set { _time = value; }
-        }
-        private static GameTime _time;
+        public static GameTime GameTime { get; set; }
 
-		public static GameMain Game
-        {
-            get { return _game; }
-            set { _game = value; }
-        }
-        private static GameMain _game;
+        public static GameMain Game { get; set; }
 
-		public static GameWindow Window
-        {
-            get { return _window; }
-            set { _window = value; }
-        }
-        private static GameWindow _window;
+        public static GameWindow Window { get; set; }
 
-		public static Rectangle WindowSize
-        {
-            get { return _windowSize; }
-            set { _windowSize = value; }
-        }
-        private static Rectangle _windowSize = new Rectangle(0, 0, 1024, 768);
+        public static Rectangle WindowSize { get; set; } = new Rectangle(0, 0, 1024, 768);
 
-        public static Random Random
-        {
-            get { return _rand; }
-            set { _rand = value; }
-        }
-        private static Random _rand = new Random();
+        public static Random Random { get; set; }
 
-		public static IScreen CurrentScreen
-        {
-            get { return _cScreen; }
-            set { _cScreen = value; }
-        }
-        private static IScreen _cScreen;
+        public static IScreen CurrentScreen { get; set; }
 
-        public static IScreen SecondaryScreen
-        {
-            get { return _sScreen; }
-            set { _sScreen = value; }
-        }
-        private static IScreen _sScreen;
+        public static IScreen SecondaryScreen { get; set; }
 
-		public static SpriteFont MainFont
-        {
-            get { return _mainFont; }
-            set { _mainFont = value; }
-        }
-        private static SpriteFont _mainFont;
+        public static SpriteFont MainFont { get; set; }
 
-		public static SpriteFont MenuFont
-        {
-            get { return _menuFont; }
-            set { _menuFont = value; }
-        }
-        private static SpriteFont _menuFont;
+		public static SpriteFont MenuFont { get; set; }
 
-        public static bool UseSmallTextures
-        {
-            get { return _usTex; }
-            set { _usTex = value; }
-        }
-        private static bool _usTex = false;
+        public static bool UseSmallTextures { get; set; }
 
         public static GamePadState OldGamePadState
         {
@@ -122,123 +51,108 @@ namespace DungeonEscape
         }
         private static GamePadState _oldGState;
 
-        public static GamePadState NewGamePadState
-        {
-            get { return _newGState; }
-            set { _newGState = value; }
-        }
-        private static GamePadState _newGState;
+        public static GamePadState NewGamePadState { get; set; }
 
 
         private static SamplerState _samlper;
 		private static KeyboardState _oldKeyboardState;
 		private static KeyboardState _newKeyboardState;
 
-		private static FpsCounter _counterFPS = null;
+		private static FpsCounter _counterFps;
 
-        public static bool ByPassMenu
-        {
-            get { return _directLoad; }
-            set { _directLoad = value; }
-        }
-        private static bool _directLoad = false;
+        public static bool ByPassMenu { get; set; }
 
-        public static int ByPassLevel
-        {
-            get { return _directLevel; }
-            set { _directLevel = value; }
-        }
-        private static int _directLevel = -1;
+        public static int ByPassLevel { get; set; } = -1;
 
         #endregion
 
         #region Methods
 
-        public static void Init(GameMain _game)
+        public static void Init(GameMain game)
 		{
-			Basic._game = _game;
-			_graphics = _game.Graphics;
-			_gDevice = GraphicsManager.GraphicsDevice;
-			_content = _game.Content;
-            _spriteBatch = new SpriteBatch(_gDevice);
-			_window = _game.Window;
+			Game = game;
+			GraphicsManager = game.Graphics;
+			GraphicsDevice = GraphicsManager.GraphicsDevice;
+			Content = game.Content;
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
+            Window = game.Window;
 
-			_mainFont = _content.Load<SpriteFont>("Font");
-			_menuFont = _content.Load<SpriteFont>("menuFont");
+			MainFont = Content.Load<SpriteFont>("Font");
+			MenuFont = Content.Load<SpriteFont>("menuFont");
 
             Textures.LoadTexture();
             Sounds.LoadSounds();
-            Sounds.SetVolume(_game.SoundVolume);
+            Sounds.SetVolume(game.SoundVolume);
 
-			Canvas.setUpCanvas();
+			Canvas.SetUpCanvas();
 
-			_samlper = new SamplerState();
-			_samlper.Filter = TextureFilter.Point;
+		    _samlper = new SamplerState { Filter = TextureFilter.Point };
 
-            if (_debug)
+            if (DebugMode)
             {
-                _counterFPS = new FpsCounter(_game);
-                _game.Components.Add(_counterFPS);
+                _counterFps = new FpsCounter(game);
+                game.Components.Add(_counterFps);
             }
 
-            if (_directLoad) setScreen(new GameScreen(_directLevel, SaveState.ByPass));
-			else setScreen(new MainMenuScreen());
+            if (ByPassMenu) SetScreen(new GameScreen(ByPassLevel, SaveState.ByPass));
+			else SetScreen(new MainMenuScreen());
 		}
 
 		public static void UnloadContent()
 		{
             Sounds.UnloadSounds();
             Textures.UndloadTexture();
-            _spriteBatch.Dispose();
+            SpriteBatch.Dispose();
 
-            _content.Unload();
+            Content.Unload();
 
-            if (_counterFPS != null)
+            if (_counterFps != null)
             {
-                _counterFPS.Dispose();
-                _counterFPS = null;
+                _counterFps.Dispose();
+                _counterFps = null;
             }
 		}
 
-		public static void Update(GameTime _gameTime)
+		public static void Update(GameTime gameTime)
 		{
-			_time = _gameTime;
+			GameTime = gameTime;
 			_newKeyboardState = Keyboard.GetState();
-            _newGState = GamePad.GetState(PlayerIndex.One);
+            NewGamePadState = GamePad.GetState(PlayerIndex.One);
 
-			if (((_newKeyboardState.IsKeyDown(Keys.Escape) && _oldKeyboardState.IsKeyUp(Keys.Escape)) || 
-                (_newGState.Buttons.Start == ButtonState.Pressed && _oldGState.Buttons.A == ButtonState.Released)) && 
-                _cScreen is GameScreen)
+			if ((_newKeyboardState.IsKeyDown(Keys.Escape) && _oldKeyboardState.IsKeyUp(Keys.Escape) ||
+                NewGamePadState.Buttons.Start == ButtonState.Pressed && _oldGState.Buttons.A == ButtonState.Released) && 
+                CurrentScreen is GameScreen)
             {
-				_sScreen = _cScreen;
-				setScreen(new InGameMenuScreen());
+				SecondaryScreen = CurrentScreen;
+				SetScreen(new InGameMenuScreen());
 			}
 
 			_oldKeyboardState = _newKeyboardState;
             _oldGState = NewGamePadState;
-			_cScreen.Update();
+            CurrentScreen.Update();
 		}
 
 		public static void Render()
 		{
-            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullCounterClockwise);
+            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, 
+                SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullCounterClockwise);
 
-			_gDevice.DepthStencilState = DepthStencilState.Default;
-            _gDevice.SamplerStates[0] = _samlper;
-			_cScreen.Render();
+			GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            GraphicsDevice.SamplerStates[0] = _samlper;
+            CurrentScreen.Render();
 
-            _spriteBatch.End();
+            SpriteBatch.End();
 		}
 
-		public static void setScreen(IScreen newScreen)
+		public static void SetScreen(IScreen newScreen)
 		{
-			_cScreen = newScreen;
+            CurrentScreen = newScreen;
 			CurrentScreen.Init();
 		}
 
 		public static void SaveGame(bool exitgame)
 		{
-            Savegamescore save = new Savegamescore() 
+            var save = new Savegamescore() 
                 { 
                     Entities = GameScreen.Level.Entities, 
                     Items = GameScreen.Player.PlayerItemBar.Items, 

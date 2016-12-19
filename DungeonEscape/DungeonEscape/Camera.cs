@@ -1,174 +1,181 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
+using DungeonEscape.Screens;
+
 namespace DungeonEscape
 {
     public sealed class Camera
     {
         #region Fields
 
-        private float yaw = 0.0f, pitch = 0.0f;
-		private const float speed = 0.015f;
-		private const float rotationSpeed = 0.0013f;
-		private float tempf = 0.0f;
+        private float _yaw, _pitch;
 
-        private int oldX = 0, oldY = 0;
+        /// <summary>
+        /// Laufgeschwindigkeit
+        /// </summary>
+		private const float Speed = 0.015f;
 
-		private bool movedLastFrame = false;
-		
-        public Matrix View
-		{
-            get { return _view; }
-            set { _view = value; }
-		}
-        private Matrix _view = Matrix.Identity;
-		
-        public Matrix Projection
-		{
-            get { return _projection; }
-            set { _projection = value; }
-		}
-        private Matrix _projection = Matrix.Identity;
-		
-        public Vector3 Position
-		{
-            get { return _position; }
-            set { _position = value; }
-		}
-        private Vector3 _position = Vector3.Zero;
-		
-        public Vector3 LookAt
-		{
-            get { return _lookAt; }
-            set { _lookAt = value; }
-		}
-        private Vector3 _lookAt = Vector3.Forward;
-		
-        public Ray CameraRay
-		{
-            get { return _cameraRay; }
-            set { _cameraRay = value; }
-		}
-        private Ray _cameraRay = default(Ray);
-		
-        public BoundingFrustum Frustum
-		{
-            get { return _frustum; }
-            set { _frustum = null; }
-		}
-        private BoundingFrustum _frustum = null;
+        /// <summary>
+        /// Rotationsgeschwindigkeit
+        /// (normalerweise 0.0013)
+        /// </summary>
+		private const float RotationSpeed = 0.00013f;
 
-        private Matrix rotX, rotY;
+		private float _tempf;
+
+        private int _oldX, _oldY;
+
+		private bool _movedLastFrame;
+
+        /// <summary>
+        /// Aktuelle View-Matrix der Kamera
+        /// </summary>
+        public Matrix View { get; set; }
+
+        /// <summary>
+        /// Aktueller Projektionsmatrix der Kamera
+        /// </summary>
+        public Matrix Projection { get; set; }
+
+        /// <summary>
+        /// Aktuelle Position der Kamera
+        /// </summary>
+        public Vector3 Position { get; set; }
+
+        /// <summary>
+        /// Die aktuelle Blickrichtung der Kamera
+        /// </summary>
+        public Vector3 LookAt { get; set; }
+
+        /// <summary>
+        /// Der aktuelle Strahl in Blickrichtung
+        /// </summary>
+        public Ray CameraRay { get; set; }
+
+        /// <summary>
+        /// Der aktuell druch die Kamera sichtbare Bereich
+        /// </summary>
+        public BoundingFrustum Frustum { get; set; }
+
+        private Matrix _rotX, _rotY;
 
         #endregion
 
         #region Methods
 
+        /// <summary>
+        /// Erstellt eine neues Kameraobjekt
+        /// </summary>
         public Camera()
 		{
-			_position = new Vector3(0f, 0f, 5f);
-			_frustum = new BoundingFrustum(_view * _projection);
-			_cameraRay = default(Ray);
+			Position = new Vector3(0f, 0f, 5f);
+			Frustum = new BoundingFrustum(View * Projection);
+            CameraRay = default(Ray);
 
-			_view = Matrix.CreateLookAt(_position, Vector3.Zero, Vector3.Up);
-			_projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), Basic.GraphicsDevice.Viewport.AspectRatio, 0.01f, 50f);
+			View = Matrix.CreateLookAt(Position, Vector3.Zero, Vector3.Up);
+            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), Basic.GraphicsDevice.Viewport.AspectRatio, 0.01f, 50f);
         }
 		
+        /// <summary>
+        /// Berechnet den neuen Zustand der Kamera
+        /// </summary>
+        /// <param name="gameTime">Die Spielzeit</param>
         public void Update(GameTime gameTime)
 		{
-			movedLastFrame = false;
-			tempf += 0.3f;
+			_movedLastFrame = false;
+			_tempf += 0.3f;
 
-			_cameraRay = createRay();
-            _frustum.Matrix = _view * _projection;
-			_projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), Basic.GraphicsDevice.Viewport.AspectRatio, 0.01f, 12f);
+			CameraRay = CreateRay();
+            Frustum.Matrix = View * Projection;
+            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), Basic.GraphicsDevice.Viewport.AspectRatio, 0.01f, 12f);
 
 			KeyboardState keyboardState = Keyboard.GetState();
 			GamePadState gamepadState = GamePad.GetState(PlayerIndex.One);
 
 			if (keyboardState.IsKeyDown(Keys.W) || gamepadState.ThumbSticks.Left.Y > 0f)
 			{
-				Vector3 v = Vector3.Forward * speed;
-				move(v);
+                Vector3 v = Vector3.Forward * Speed;
+				Move(v);
 			}
 			else if (keyboardState.IsKeyDown(Keys.S) || gamepadState.ThumbSticks.Left.Y < 0f)
 			{
-				Vector3 v2 = Vector3.Backward * speed;
-				move(v2);
+                Vector3 v2 = Vector3.Backward * Speed;
+				Move(v2);
 			}
 
 			if (keyboardState.IsKeyDown(Keys.A) || gamepadState.ThumbSticks.Left.X < 0f)
 			{
-				Vector3 v3 = Vector3.Left * speed;
-				move(v3);
+                Vector3 v3 = Vector3.Left * Speed;
+				Move(v3);
 			}
 			else if (keyboardState.IsKeyDown(Keys.D) || gamepadState.ThumbSticks.Left.X > 0f)
 			{
-				Vector3 v4 = Vector3.Right * speed;
-                move(v4);
+                Vector3 v4 = Vector3.Right * Speed;
+                Move(v4);
 			}
 
 			MouseState mouseState = Mouse.GetState();
-			int dx = mouseState.X - oldX;
-			int dy = mouseState.Y - oldY;
+			int dx = mouseState.X - _oldX;
+			int dy = mouseState.Y - _oldY;
 
-			yaw -= rotationSpeed * (float)dx;
-			pitch -= rotationSpeed * (float)dy;
+			_yaw -= RotationSpeed * dx;
+			_pitch -= RotationSpeed * dy;
 
-            yaw -= rotationSpeed * gamepadState.ThumbSticks.Right.X * 15;
-            pitch += rotationSpeed * gamepadState.ThumbSticks.Right.Y * 15;
+            _yaw -= RotationSpeed * gamepadState.ThumbSticks.Right.X * 15;
+            _pitch += RotationSpeed * gamepadState.ThumbSticks.Right.Y * 15;
 
-			pitch = MathHelper.Clamp(pitch, -1.5f, 1.5f);
+			_pitch = MathHelper.Clamp(_pitch, -1.5f, 1.5f);
 
 			UpdateMatrices();
 
 			ResetCursor();
 
-			if (movedLastFrame)
+			if (_movedLastFrame)
 			{
-				_position += new Vector3(0f, (float)Math.Sin((double)tempf) * 0.0025f, 0f);
+				Position += new Vector3(0f, (float)Math.Sin(_tempf) * 0.0025f, 0f);
 			}
 		
         }
 		
         private void ResetCursor()
 		{
-			if (Basic.Game.IsActive)
-			{
-				Mouse.SetPosition(Basic.WindowSize.Width / 2, Basic.WindowSize.Height / 2);
-				oldX = Basic.WindowSize.Width / 2;
-				oldY = Basic.WindowSize.Height / 2;
-			}
+		    if (!Basic.Game.IsActive) return;
+
+            Mouse.SetPosition(Basic.WindowSize.Width / 2, Basic.WindowSize.Height / 2);
+		    _oldX = Basic.WindowSize.Width / 2;
+		    _oldY = Basic.WindowSize.Height / 2;
 		}
 		
-        private void move(Vector3 v)
+        private void Move(Vector3 v)
 		{
-			movedLastFrame = true;
+			_movedLastFrame = true;
 
-			Vector3 vector = Vector3.Transform(v, Matrix.CreateRotationY(yaw));
+			Vector3 vector = Vector3.Transform(v, Matrix.CreateRotationY(_yaw));
 
-            if (!contains(new Vector3(_position.X + vector.X, 0f, _position.Z)))
+            if (!Contains(new Vector3(Position.X + vector.X, 0f, Position.Z)))
 			{
-				_position += new Vector3(vector.X, 0f, 0f);
+                Position += new Vector3(vector.X, 0f, 0f);
 			}
 
-            if (!contains(new Vector3(_position.X, 0f, _position.Z + vector.Z)))
+            if (!Contains(new Vector3(Position.X, 0f, Position.Z + vector.Z)))
 			{
-				_position += new Vector3(0f, 0f, vector.Z);
+                Position += new Vector3(0f, 0f, vector.Z);
 			}
 		}
-		
-        public bool contains(Vector3 v)
+
+        private static bool Contains(Vector3 v)
 		{
 			bool result = false;
 
             for (short i = 0; i < GameScreen.Level.Entities.Count; i++ )
             {
-                if (GameScreen.Level.Entities[i]._collision && GameScreen.Level.Entities[i]._box.Contains(v) == ContainmentType.Contains)
-                {
-                    result = true;
-                    break;
-                }
+                if (!GameScreen.Level.Entities[i].Collision ||
+                    GameScreen.Level.Entities[i].Box.Contains(v) != ContainmentType.Contains)
+                    continue;
+
+                result = true;
+                break;
             }
 
 			return result;
@@ -176,26 +183,26 @@ namespace DungeonEscape
 		
         private void UpdateMatrices()
 		{
-            Matrix.CreateRotationX(pitch, out rotX);
-            Matrix.CreateRotationY(yaw, out rotY);
+            Matrix.CreateRotationX(_pitch, out _rotX);
+            Matrix.CreateRotationY(_yaw, out _rotY);
 
-            Vector3 value = Vector3.Transform(new Vector3(0f, 0f, -1f), rotX*rotY);
+            Vector3 value = Vector3.Transform(new Vector3(0f, 0f, -1f), _rotX*_rotY);
 
-            Vector3 vector = _position + value;
-			_lookAt = vector;
+            Vector3 vector = Position + value;
+			LookAt = vector;
 
-			_view = Matrix.CreateLookAt(_position, vector, Vector3.Up);
+			View = Matrix.CreateLookAt(Position, vector, Vector3.Up);
 		}
-		
-        private Ray createRay()
+
+        public Ray CreateRay()
 		{
 			int x = Basic.WindowSize.Width / 2;
 			int y = Basic.WindowSize.Height / 2;
-			
-            Vector3 vector = Basic.GraphicsDevice.Viewport.Unproject(new Vector3((float)x, (float)y, 0f), _projection, _view, Matrix.Identity);
-            Vector3 value = Basic.GraphicsDevice.Viewport.Unproject(new Vector3((float)x, (float)y, 1f), _projection, _view, Matrix.Identity);
 
-			Vector3 direction = value - vector;
+            Vector3 vector = Basic.GraphicsDevice.Viewport.Unproject(new Vector3(x, y, 0f), Projection, View, Matrix.Identity);
+            Vector3 value = Basic.GraphicsDevice.Viewport.Unproject(new Vector3(x, y, 1f), Projection, View, Matrix.Identity);
+
+            Vector3 direction = value - vector;
 
 			direction.Normalize();
 

@@ -1,38 +1,18 @@
 using Microsoft.Xna.Framework.Audio;
 
-namespace DungeonEscape
+namespace DungeonEscape.Content
 {
     public static class Sounds
     {
         #region Fields
 
-        public static SoundEffectInstance Collect
-        {
-            get { return _collect; }
-            private set { _collect = value; }
-        }
-        private static SoundEffectInstance _collect = null;
+        public static SoundEffectInstance Collect;
 
-        public static SoundEffectInstance Destroy
-        {
-            get { return _destroy; }
-            private set { _destroy = value; }
-        }
-        private static SoundEffectInstance _destroy = null;
+        public static SoundEffectInstance Destroy;
 
-        public static SoundEffectInstance Door
-        {
-            get { return _door; }
-            private set { _door = value; }
-        }
-        private static SoundEffectInstance _door = null;
+        public static SoundEffectInstance Door;
 
-        public static SoundEffectInstance Click
-        {
-            get { return _click; }
-            private set { _click = value; }
-        }
-        private static SoundEffectInstance _click = null;
+        public static SoundEffectInstance Click;
 
         #endregion
 
@@ -43,53 +23,37 @@ namespace DungeonEscape
             //Lädt alle Soundeffekte
             //Verzeichnis: %startup%/Content/Audio
 
-            _collect = loadSound("Audio/collect");
-            _destroy = loadSound("Audio/destroy");
-            _door = loadSound("Audio/door");
-            _click = loadSound("Audio/click");
+            Collect = LoadSound("Audio/collect");
+            Destroy = LoadSound("Audio/destroy");
+            Door = LoadSound("Audio/door");
+            Click = LoadSound("Audio/click");
         }
 
-        private static SoundEffectInstance loadSound(string Path)
+        private static SoundEffectInstance LoadSound(string path)
         {
             //Lädt einen Soundeffekt
-            return Basic.Content.Load<SoundEffect>(Path).CreateInstance();
+            return Basic.Content.Load<SoundEffect>(path).CreateInstance();
         }
 
         public static void SetVolume(float volume)
         {
             //Setzt die Lautstärkeeinstellung für alle Effekte
-            _collect.Volume = volume;
-            _destroy.Volume = volume;
-            _door.Volume = volume;
-            _click.Volume = volume;
+            Collect.Volume = volume;
+            Destroy.Volume = volume;
+            Door.Volume = volume;
+            Click.Volume = volume;
         }
 
         public static void UnloadSounds()
         {
             //Gibt alle Soundeffekte wieder frei
-            if (_collect != null)
-            {
-                _collect.Dispose();
-                _collect = null;
-            }
+            Collect?.Dispose();
 
-            if (_destroy != null)
-            {
-                _destroy.Dispose();
-                _destroy = null;
-            }
+            Destroy?.Dispose();
 
-            if (_door != null)
-            {
-                _door.Dispose();
-                _door = null;
-            }
+            Door?.Dispose();
 
-            if (_click != null)
-            {
-                _click.Dispose();
-                _click = null;
-            }
+            Click?.Dispose();
         }
 
         #endregion

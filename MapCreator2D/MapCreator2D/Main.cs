@@ -35,7 +35,7 @@ namespace MapCreator2D
         {
             IntPtr hWnd = Window.Handle;
             gameForm = SWF.Form.FromHandle(hWnd).FindForm();
-
+        
             SWF.Application.EnableVisualStyles();
             window.Show();
             window.ClientSize = new SD.Size(window.ClientSize.Width, 600);

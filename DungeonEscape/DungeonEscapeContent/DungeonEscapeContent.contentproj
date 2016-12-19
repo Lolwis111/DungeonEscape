@@ -157,32 +157,32 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio\collect.wav">
+    <None Include="Audio\collect.wav">
       <Name>collect</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio\destroy.wav">
+    <None Include="Audio\destroy.wav">
       <Name>destroy</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio\door.wav">
+    <None Include="Audio\door.wav">
       <Name>door</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio\click.wav">
+    <None Include="Audio\click.wav">
       <Name>click</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Levels\level2.xml">
