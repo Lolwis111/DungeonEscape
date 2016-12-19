@@ -44,12 +44,7 @@ namespace DungeonEscape
 
         public static bool UseSmallTextures { get; set; }
 
-        public static GamePadState OldGamePadState
-        {
-            get { return _oldGState; }
-            set { _oldGState = value; }
-        }
-        private static GamePadState _oldGState;
+        public static GamePadState OldGamePadState { get; set; }
 
         public static GamePadState NewGamePadState { get; set; }
 
@@ -120,7 +115,7 @@ namespace DungeonEscape
             NewGamePadState = GamePad.GetState(PlayerIndex.One);
 
 			if ((_newKeyboardState.IsKeyDown(Keys.Escape) && _oldKeyboardState.IsKeyUp(Keys.Escape) ||
-                NewGamePadState.Buttons.Start == ButtonState.Pressed && _oldGState.Buttons.A == ButtonState.Released) && 
+                NewGamePadState.Buttons.Start == ButtonState.Pressed && OldGamePadState.Buttons.A == ButtonState.Released) && 
                 CurrentScreen is GameScreen)
             {
 				SecondaryScreen = CurrentScreen;
@@ -128,7 +123,7 @@ namespace DungeonEscape
 			}
 
 			_oldKeyboardState = _newKeyboardState;
-            _oldGState = NewGamePadState;
+            OldGamePadState = NewGamePadState;
             CurrentScreen.Update();
 		}
 

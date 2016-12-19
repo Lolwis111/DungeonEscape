@@ -18,9 +18,9 @@ namespace DungeonEscape.MapEnvironment
 
 		public void Render()
 		{
-            for (int i = 0; i < _width; i++)
+            for (float i = 0; i < _width; i++)
 			{
-                for (int j = 0; j < _height; j++)
+                for (float j = 0; j < _height; j++)
 				{
 					GameScreen.MainEffect.Parameters["DiffuseTexture"].SetValue(Textures.Floor);
 					VertexModel.FloorVertexModel.Draw(Matrix.CreateTranslation(i, 0f, j));

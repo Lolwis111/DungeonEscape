@@ -23,10 +23,10 @@ namespace DungeonEscape.Content
             //Lädt alle Soundeffekte
             //Verzeichnis: %startup%/Content/Audio
 
-            Collect = LoadSound("Audio/collect");
-            Destroy = LoadSound("Audio/destroy");
-            Door = LoadSound("Audio/door");
-            Click = LoadSound("Audio/click");
+            Collect = LoadSound("Audio\\collect");
+            Destroy = LoadSound("Audio\\destroy");
+            Door = LoadSound("Audio\\door");
+            Click = LoadSound("Audio\\click");
         }
 
         private static SoundEffectInstance LoadSound(string path)

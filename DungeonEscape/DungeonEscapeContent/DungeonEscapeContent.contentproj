@@ -14,6 +14,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -157,32 +158,32 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Audio\collect.wav">
+    <Compile Include="Audio\collect.wav">
       <Name>collect</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
-    </None>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Audio\destroy.wav">
+    <Compile Include="Audio\destroy.wav">
       <Name>destroy</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
-    </None>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Audio\door.wav">
+    <Compile Include="Audio\door.wav">
       <Name>door</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
-    </None>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Audio\click.wav">
+    <Compile Include="Audio\click.wav">
       <Name>click</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
-    </None>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Levels\level2.xml">

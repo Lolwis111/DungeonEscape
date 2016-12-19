@@ -6,15 +6,23 @@ using DungeonEscape.Screens;
 
 namespace DungeonEscape.Models
 {
-	public abstract class VertexModel : IDisposable
-	{
-	    public List<VertexPositionNormalTexture> Vertex { get; set; }
+    public abstract class VertexModel : IDisposable
+    {
+        protected List<VertexPositionNormalTexture> VertexData = new List<VertexPositionNormalTexture>();
 
-		public static VertexModel FloorVertexModel = new FloorFace();
-		public static VertexModel BlockVertexModel = new BlockVertexModel();
-		public static VertexModel SpriteVertexModel = new SpriteFace();
-        public static VertexModel HalfBlockVertexModel = new HalfBlockVertexModel();
-		
+        public static VertexModel FloorVertexModel;
+        public static VertexModel BlockVertexModel;
+        public static VertexModel SpriteVertexModel;
+        public static VertexModel HalfBlockVertexModel;
+
+        public static void Init()
+        {
+            FloorVertexModel = new FloorFace();
+            BlockVertexModel = new BlockModel();
+            SpriteVertexModel = new SpriteFace();
+            HalfBlockVertexModel = new HalfBlockModel();
+        }
+
         public VertexBuffer VertexBuffer
 		{
             get { return Buffer; }
@@ -25,12 +33,12 @@ namespace DungeonEscape.Models
 
         protected void SetUp()
 		{
-            Buffer = new VertexBuffer(Basic.GraphicsDevice, typeof(VertexPositionNormalTexture), Vertex.Count, BufferUsage.WriteOnly);
-            Buffer.SetData(Vertex.ToArray());
+            Buffer = new VertexBuffer(Basic.GraphicsDevice, typeof(VertexPositionNormalTexture), VertexData.Count, BufferUsage.WriteOnly);
+            Buffer.SetData(VertexData.ToArray());
 
-            _vertexCount = Vertex.Count / 3;
+            _vertexCount = VertexData.Count / 3;
 
-            Vertex.Clear();
+            VertexData.Clear();
 		}
 		
         public void Draw(Matrix world)
@@ -71,7 +79,7 @@ namespace DungeonEscape.Models
 
             Buffer = null;
 
-            Vertex.Clear();
+            VertexData.Clear();
         }
 
         public void Dispose()

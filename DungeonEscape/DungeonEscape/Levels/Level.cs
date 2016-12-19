@@ -8,6 +8,7 @@ using DungeonEscape.Entities;
 using DungeonEscape.Entities.Block;
 using DungeonEscape.Screens;
 using DungeonEscape.MapEnvironment;
+using DungeonEscape.Models;
 using DungeonEscape.SaveGames;
 using DungeonEscape.Security;
 
@@ -52,8 +53,12 @@ namespace DungeonEscape.Levels
 
             SetUpMap();
 
+            VertexModel.Init();
+
 			_floor = new Floor(_mapWidth, _mapHeight);
+
 			_ceiling = new Ceiling(_mapWidth, _mapHeight);
+
 			LevelNumber = level;
 		}
 

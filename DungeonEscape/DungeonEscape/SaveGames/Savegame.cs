@@ -7,7 +7,6 @@ using System.IO;
 using DungeonEscape.Entities;
 using DungeonEscape.Entities.Block;
 using DungeonEscape.Screens;
-using DungeonEscape.Debug;
 using DungeonEscape.GUI.Items;
 using DungeonEscape.Security;
 
@@ -27,7 +26,8 @@ namespace DungeonEscape.SaveGames
             builder.AppendFormat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             builder.AppendFormat("<savegame>\n");
             builder.AppendFormat("\t<levelID>{0}</levelID>\n", saveGame.LevelNumber);
-            builder.AppendFormat("\t<position>{0};{1};{2}</position>\n", saveGame.PlayerPosition.X, saveGame.PlayerPosition.Y, saveGame.PlayerPosition.Z);
+            builder.AppendFormat("\t<position>{0};{1};{2}</position>\n", saveGame.PlayerPosition.X,
+                saveGame.PlayerPosition.Y, saveGame.PlayerPosition.Z);
 
             int p = 0, k = 0, p2 = 0, e = 0;
             builder.AppendFormat("\t<items>\n");
@@ -97,121 +97,123 @@ namespace DungeonEscape.SaveGames
                 }
 
                 #region OLD
+
                 /*
-                if (ent is WallBlock)
-                {
-                    //
-                    builder.AppendFormat("\t\t<entity>\n");
-                    builder.AppendFormat("\t\t\t<type>wallblock</type>\n");
-                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
-                    builder.AppendFormat("\t\t</entity>\n");
-                    bC++;
-                }
-                else if (ent is HalfBlock)
-                {
-                    //
-                    builder.AppendFormat("\t\t<entity>\n");
-                    builder.AppendFormat("\t\t\t<type>halfblock</type>\n");
-                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
-                    builder.AppendFormat("\t\t</entity>\n");
-                    bC++;
-                }
-                else if (ent is DestroyBlock)
-                {
-                    //
-                    builder.AppendFormat("\t\t<entity>\n");
-                    builder.AppendFormat("\t\t\t<type>destroyblock</type>\n");
-                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
-                    builder.AppendFormat("\t\t</entity>\n");
-                    bC++;
-                }
-                else if (ent is LevelUp)
-                {
-                    builder.AppendFormat("\t\t<entity>\n");
-                    builder.AppendFormat("\t\t\t<type>levelup</type>\n");
-                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
-                    builder.AppendFormat("\t\t</entity>\n");
-                    sC++;
-                }
-                else if (ent is LevelDown)
-                {
-                    builder.AppendFormat("\t\t<entity>\n");
-                    builder.AppendFormat("\t\t\t<type>leveldown</type>\n");
-                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
-                    builder.AppendFormat("\t\t</entity>\n");
-                    sC++;
-                }
-                else if (ent is Key)
-                {
-                    //
-                    builder.AppendFormat("\t\t<entity>\n");
-                    builder.AppendFormat("\t\t\t<type>key</type>\n");
-                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
-                    builder.AppendFormat("\t\t\t<id>{0}</id>", ((Key)ent).Id);
-                    builder.AppendFormat("\t\t</entity>\n");
-                    sC++;
-                }
-                else if (ent is Pliers)
-                {
-                    //
-                    builder.AppendFormat("\t\t<entity>\n");
-                    builder.AppendFormat("\t\t\t<type>pliers</type>\n");
-                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
-                    builder.AppendFormat("\t\t</entity>\n");
-                    sC++;
-                }
-                else if (ent is PickAxe)
-                {
-                    //
-                    builder.AppendFormat("\t\t<entity>\n");
-                    builder.AppendFormat("\t\t\t<type>pickaxe</type>\n");
-                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
-                    builder.AppendFormat("\t\t</entity>\n");
-                    sC++;
-                }
-                else if (ent is Message)
-                {
-                    builder.AppendFormat("\t\t<entity>\n");
-                    builder.AppendFormat("\t\t\t<type>message</type>\n");
-                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
-                    builder.AppendFormat("\t\t\t<text>{0}</text>\n", ((Message)ent).Text);
-                    builder.AppendFormat("\t\t</entity>\n");
-                    sC++;
-                }
-                else if (ent is DoorBlock)
-                {
-                    //
-                    builder.AppendFormat("\t\t<entity>\n");
-                    builder.AppendFormat("\t\t\t<type>doorblock</type>\n");
-                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
-                    builder.AppendFormat("\t\t\t<id>{0}</id>", ((DoorBlock)ent).Id);
-                    builder.AppendFormat("\t\t</entity>\n");
-                    sC++;
-                }
-                else if (ent is SwitchBlock)
-                {
-                    //
-                    builder.AppendFormat("\t\t<entity>\n");
-                    builder.AppendFormat("\t\t\t<type>switch</type>\n");
-                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
-                    builder.AppendFormat("\t\t\t<id>{0}</id>", ((SwitchBlock)ent).Id);
-                    builder.AppendFormat("\t\t</entity>\n");
-                    bC++;
-                }
-                else if (ent is GridBlock)
-                {
-                    //
-                    builder.AppendFormat("\t\t<entity>\n");
-                    builder.AppendFormat("\t\t\t<type>gridblock</type>\n");
-                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
-                    builder.AppendFormat("\t\t\t<_destroyed>{0}</_destroyed>\n", ((GridBlock)ent)._destroyed ? "true" : "false");
-                    builder.AppendFormat("\t\t</entity>\n");
-                    sC++;
-                }
-                else eC++;*/
+                                if (ent is WallBlock)
+                                {
+                                    //
+                                    builder.AppendFormat("\t\t<entity>\n");
+                                    builder.AppendFormat("\t\t\t<type>wallblock</type>\n");
+                                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
+                                    builder.AppendFormat("\t\t</entity>\n");
+                                    bC++;
+                                }
+                                else if (ent is HalfBlock)
+                                {
+                                    //
+                                    builder.AppendFormat("\t\t<entity>\n");
+                                    builder.AppendFormat("\t\t\t<type>halfblock</type>\n");
+                                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
+                                    builder.AppendFormat("\t\t</entity>\n");
+                                    bC++;
+                                }
+                                else if (ent is DestroyBlock)
+                                {
+                                    //
+                                    builder.AppendFormat("\t\t<entity>\n");
+                                    builder.AppendFormat("\t\t\t<type>destroyblock</type>\n");
+                                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
+                                    builder.AppendFormat("\t\t</entity>\n");
+                                    bC++;
+                                }
+                                else if (ent is LevelUp)
+                                {
+                                    builder.AppendFormat("\t\t<entity>\n");
+                                    builder.AppendFormat("\t\t\t<type>levelup</type>\n");
+                                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
+                                    builder.AppendFormat("\t\t</entity>\n");
+                                    sC++;
+                                }
+                                else if (ent is LevelDown)
+                                {
+                                    builder.AppendFormat("\t\t<entity>\n");
+                                    builder.AppendFormat("\t\t\t<type>leveldown</type>\n");
+                                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
+                                    builder.AppendFormat("\t\t</entity>\n");
+                                    sC++;
+                                }
+                                else if (ent is Key)
+                                {
+                                    //
+                                    builder.AppendFormat("\t\t<entity>\n");
+                                    builder.AppendFormat("\t\t\t<type>key</type>\n");
+                                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
+                                    builder.AppendFormat("\t\t\t<id>{0}</id>", ((Key)ent).Id);
+                                    builder.AppendFormat("\t\t</entity>\n");
+                                    sC++;
+                                }
+                                else if (ent is Pliers)
+                                {
+                                    //
+                                    builder.AppendFormat("\t\t<entity>\n");
+                                    builder.AppendFormat("\t\t\t<type>pliers</type>\n");
+                                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
+                                    builder.AppendFormat("\t\t</entity>\n");
+                                    sC++;
+                                }
+                                else if (ent is PickAxe)
+                                {
+                                    //
+                                    builder.AppendFormat("\t\t<entity>\n");
+                                    builder.AppendFormat("\t\t\t<type>pickaxe</type>\n");
+                                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
+                                    builder.AppendFormat("\t\t</entity>\n");
+                                    sC++;
+                                }
+                                else if (ent is Message)
+                                {
+                                    builder.AppendFormat("\t\t<entity>\n");
+                                    builder.AppendFormat("\t\t\t<type>message</type>\n");
+                                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
+                                    builder.AppendFormat("\t\t\t<text>{0}</text>\n", ((Message)ent).Text);
+                                    builder.AppendFormat("\t\t</entity>\n");
+                                    sC++;
+                                }
+                                else if (ent is DoorBlock)
+                                {
+                                    //
+                                    builder.AppendFormat("\t\t<entity>\n");
+                                    builder.AppendFormat("\t\t\t<type>doorblock</type>\n");
+                                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
+                                    builder.AppendFormat("\t\t\t<id>{0}</id>", ((DoorBlock)ent).Id);
+                                    builder.AppendFormat("\t\t</entity>\n");
+                                    sC++;
+                                }
+                                else if (ent is SwitchBlock)
+                                {
+                                    //
+                                    builder.AppendFormat("\t\t<entity>\n");
+                                    builder.AppendFormat("\t\t\t<type>switch</type>\n");
+                                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
+                                    builder.AppendFormat("\t\t\t<id>{0}</id>", ((SwitchBlock)ent).Id);
+                                    builder.AppendFormat("\t\t</entity>\n");
+                                    bC++;
+                                }
+                                else if (ent is GridBlock)
+                                {
+                                    //
+                                    builder.AppendFormat("\t\t<entity>\n");
+                                    builder.AppendFormat("\t\t\t<type>gridblock</type>\n");
+                                    builder.AppendFormat("\t\t\t<position>{0};{1};{2}</position>\n", ent.Position.X, ent.Position.Y, ent.Position.Z);
+                                    builder.AppendFormat("\t\t\t<_destroyed>{0}</_destroyed>\n", ((GridBlock)ent)._destroyed ? "true" : "false");
+                                    builder.AppendFormat("\t\t</entity>\n");
+                                    sC++;
+                                }
+                                else eC++;*/
 
                 #endregion
             }
+
             builder.AppendFormat("\t</level>\n");
 
             Console.WriteLine("ARGS:  {0};{1};{2}", eC, bC, sC);
@@ -225,48 +227,36 @@ namespace DungeonEscape.SaveGames
 
             #endregion
 
-            StreamWriter writer = null;
-            try
+            string fileName;
+            switch (saveGame.SaveState)
             {
-
-                string fileName;
-                switch (saveGame.SaveState)
-                {
-                    case SaveState.One:
-                        fileName = "save1.xml";
-                        break;
-                    case SaveState.Two:
-                        fileName = "save2.xml";
-                        break;
-                    case SaveState.Three:
-                        fileName = "save3.xml";
-                        break;
-                    case SaveState.Four:
-                        fileName = "save4.xml";
-                        break;
-                    case SaveState.ByPass:
-                        fileName = "bypass.xml";
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
-                if (File.Exists(Path.Combine(Environment.CurrentDirectory, fileName)))
-                    File.Delete(Path.Combine(Environment.CurrentDirectory, fileName));
-
-                writer = new StreamWriter(File.Open(Path.Combine(Environment.CurrentDirectory, fileName), FileMode.Create));
-                writer.Write(builder.ToString());
+                case SaveState.One:
+                    fileName = "save1.xml";
+                    break;
+                case SaveState.Two:
+                    fileName = "save2.xml";
+                    break;
+                case SaveState.Three:
+                    fileName = "save3.xml";
+                    break;
+                case SaveState.Four:
+                    fileName = "save4.xml";
+                    break;
+                case SaveState.ByPass:
+                    fileName = "bypass.xml";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            catch (Exception ex)
-            {
-                LogWriter.WriteError(ex);
-                System.Windows.Forms.MessageBox.Show("Fehler beim speichern!", "Fehler", 
-                    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-            }
-            finally
-            {
-                writer?.Dispose();
-            }
+
+            if (File.Exists(Path.Combine(Environment.CurrentDirectory, fileName)))
+                File.Delete(Path.Combine(Environment.CurrentDirectory, fileName));
+
+            StreamWriter writer =
+                new StreamWriter(File.Open(Path.Combine(Environment.CurrentDirectory, fileName), FileMode.Create));
+            writer.Write(builder.ToString());
+
+            writer.Dispose();
         }
 
         public static Savegamescore Load(SaveState state)

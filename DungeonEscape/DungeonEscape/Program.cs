@@ -23,17 +23,17 @@ namespace DungeonEscape
                 mutexInstance = new Mutex(true, MutexId);
             }
 
-            try
-            {
+            //try
+            //{
                 using (GameMain game = new GameMain(args))
                 {
                     game.Run();
                 }
-            }
+            /*}
             catch (Exception exception)
             {
                 LogWriter.WriteError(exception);
-            }
+            }*/
 
             mutexInstance.ReleaseMutex();
         }

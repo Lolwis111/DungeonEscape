@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text;
 using System.Xml;
-using DungeonEscape.Debug;
 
 namespace DungeonEscape.SaveGames
 {
@@ -20,24 +19,11 @@ namespace DungeonEscape.SaveGames
             builder.AppendFormat("\t<textures>{0}</textures>", settings.UseLowTextures ? "low" : "normal");
             builder.Append("</settings>");
 
-            StreamWriter writer = null;
-            try
-            {
-                if (File.Exists($"{Environment.CurrentDirectory}/settings.xml"))
-                    File.Delete($"{Environment.CurrentDirectory}/settings.xml");
+            if (File.Exists($"{Environment.CurrentDirectory}/settings.xml"))
+                File.Delete($"{Environment.CurrentDirectory}/settings.xml");
 
-                writer = new StreamWriter(File.Open($"{Environment.CurrentDirectory}/settings.xml", FileMode.CreateNew));
-                writer.Write(builder.ToString());
-            }
-            catch (Exception ex)
-            {
-                LogWriter.WriteError(ex);
-                System.Windows.Forms.MessageBox.Show("Fehler beim speichern!", "Fehler", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-            }
-            finally
-            {
-                writer?.Dispose();
-            }
+            StreamWriter writer = new StreamWriter(File.Open($"{Environment.CurrentDirectory}/settings.xml", FileMode.CreateNew));
+            writer.Write(builder.ToString());
         }
 
         public static Savegamesettings Load()
@@ -47,41 +33,32 @@ namespace DungeonEscape.SaveGames
 
             if (File.Exists($"{Environment.CurrentDirectory}/settings.xml"))
             {
-                try
-                {
-                    document.Load($"{Environment.CurrentDirectory}/settings.xml");
+                document.Load($"{Environment.CurrentDirectory}/settings.xml");
 
-                    if (!float.TryParse(Utils.Utils.SelectSingleNode(document, "//volume").InnerText, out settings._volume))
-                        throw new InvalidDataException("Die Datei settings.xml scheint beschädigt zu sein!");
+                if (!float.TryParse(Utils.Utils.SelectSingleNode(document, "//volume").InnerText, out settings._volume))
+                    throw new InvalidDataException("Die Datei settings.xml scheint beschädigt zu sein!");
 
-                    if (!bool.TryParse(Utils.Utils.SelectSingleNode(document, "//fullscreen").InnerText, out settings._fullscreen))
-                        throw new InvalidDataException("Die Datei settings.xml scheint beschädigt zu sein!");
+                if (
+                    !bool.TryParse(Utils.Utils.SelectSingleNode(document, "//fullscreen").InnerText,
+                        out settings._fullscreen))
+                    throw new InvalidDataException("Die Datei settings.xml scheint beschädigt zu sein!");
 
-                    int x, y;
+                int x, y;
 
-                    if (!int.TryParse(Utils.Utils.SelectSingleNode(document, "//resolution").InnerText.Split(';')[0], out x))
-                        throw new InvalidDataException("Die Datei settings.xml scheint beschädigt zu sein!");
+                if (!int.TryParse(Utils.Utils.SelectSingleNode(document, "//resolution").InnerText.Split(';')[0], out x))
+                    throw new InvalidDataException("Die Datei settings.xml scheint beschädigt zu sein!");
 
-                    if (!int.TryParse(Utils.Utils.SelectSingleNode(document, "//resolution").InnerText.Split(';')[1], out y))
-                        throw new InvalidDataException("Die Datei settings.xml scheint beschädigt zu sein!");
+                if (!int.TryParse(Utils.Utils.SelectSingleNode(document, "//resolution").InnerText.Split(';')[1], out y))
+                    throw new InvalidDataException("Die Datei settings.xml scheint beschädigt zu sein!");
 
-                    settings.UseLowTextures = Utils.Utils.SelectSingleNode(document, "//textures").InnerText == "low";
+                settings.UseLowTextures = Utils.Utils.SelectSingleNode(document, "//textures").InnerText == "low";
 
-                    settings.Resolution = new Resolution() { X = x, Y = y };
-                }
-                catch (Exception ex)
-                {
-                    LogWriter.WriteError(ex);
-
-                    System.Windows.Forms.MessageBox.Show("Fehler beim laden!", "Fehler", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-
-                    Basic.Game.Exit();
-                }
+                settings.Resolution = new Resolution() {X = x, Y = y};
             }
             else
             {
                 settings.Volume = 0.0f;
-                settings.Resolution = new Resolution { X = 1280, Y = 720 };
+                settings.Resolution = new Resolution {X = 1280, Y = 720};
                 settings.Fullscreen = false;
             }
 
