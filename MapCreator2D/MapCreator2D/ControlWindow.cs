@@ -120,7 +120,7 @@ namespace MapCreator2D
                 case TileType.Key:
                 case TileType.Door:
                 case TileType.Switch:
-                    selectorID.Value = _tile.ID;
+                    selectorID.Value = _tile.Id;
                     gbID.Visible = true;
                     break;
                 case TileType.None:
@@ -182,7 +182,7 @@ namespace MapCreator2D
                             break;
                         case TileType.Door:
                             builder.Append("<type>doorblock</type>");
-                            builder.AppendFormat("<id>{0}</id>", tile.ID);
+                            builder.AppendFormat("<id>{0}</id>", tile.Id);
                             sC++;
                             break;
                         case TileType.Grid:
@@ -191,7 +191,7 @@ namespace MapCreator2D
                             break;
                         case TileType.Key:
                             builder.Append("<type>key</type>");
-                            builder.AppendFormat("<id>{0}</id>", tile.ID);
+                            builder.AppendFormat("<id>{0}</id>", tile.Id);
                             sC++;
                             break;
                         case TileType.LevelDown:
@@ -228,7 +228,7 @@ namespace MapCreator2D
                             break;
                         case TileType.Switch:
                             builder.Append("<type>switch</type>");
-                            builder.AppendFormat("<id>{0}</id>", tile.ID);
+                            builder.AppendFormat("<id>{0}</id>", tile.Id);
                             bC++;
                             break;
                         case TileType.None:
@@ -328,14 +328,14 @@ namespace MapCreator2D
                                     {
                                         Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Key)
                                         {
-                                            ID = int.Parse(node.SelectSingleNode("id").InnerText)
+                                            Id = int.Parse(node.SelectSingleNode("id").InnerText)
                                         });
                                     }
                                     else
                                     {
                                         Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Key)
                                         {
-                                            ID = 0
+                                            Id = 0
                                         });
                                     }
                                 }
@@ -357,14 +357,14 @@ namespace MapCreator2D
                                     {
                                         Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Door)
                                         {
-                                            ID = int.Parse(node.SelectSingleNode("id").InnerText)
+                                            Id = int.Parse(node.SelectSingleNode("id").InnerText)
                                         });
                                     }
                                     else
                                     {
                                         Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Door)
                                         {
-                                            ID = 0
+                                            Id = 0
                                         });
                                     }
                                 }
@@ -383,7 +383,7 @@ namespace MapCreator2D
                                 {
                                     Basic.Tiles.Add(new Tile(x * 30, z * 30, TileType.Switch)
                                     {
-                                        ID = int.Parse(node.SelectSingleNode("id").InnerText)
+                                        Id = int.Parse(node.SelectSingleNode("id").InnerText)
                                     });
                                 }
                                 else if (type == "halfblock")
@@ -427,7 +427,7 @@ namespace MapCreator2D
 
         private void btnSetID_Click(object sender, EventArgs e)
         {
-            _tile.ID = (int)selectorID.Value;
+            _tile.Id = (int)selectorID.Value;
         }
     }
 }

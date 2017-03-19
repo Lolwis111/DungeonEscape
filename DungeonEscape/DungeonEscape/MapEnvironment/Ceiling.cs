@@ -5,7 +5,7 @@ using DungeonEscape.Models;
 
 namespace DungeonEscape.MapEnvironment
 {
-    public sealed class Ceiling
+    internal sealed class Ceiling
 	{
 		private readonly int _width;
 		private readonly int _height;

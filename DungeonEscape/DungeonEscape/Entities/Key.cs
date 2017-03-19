@@ -7,11 +7,17 @@ using DungeonEscape.Screens;
 
 namespace DungeonEscape.Entities
 {
-    public sealed class Key : Entity
+    internal sealed class Key : Entity
 	{
 		private float _tempf;
 
-	    public int Id { get; set; }
+	    public int Id
+        {
+	        get { return _id; }
+	        set { _id = value; }
+	    }
+
+	    private int _id;
 
 	    public Key(float x, float y, float z) : base(x, y, z)
 		{
@@ -29,7 +35,7 @@ namespace DungeonEscape.Entities
 
             if (Box.Contains(GameScreen.Camera.Position) == ContainmentType.Contains && GameScreen.Player.PlayerItemBar.SetItem(new Item() { Type = ItemType.Key }))
             {
-                //Sounds.Collect.Play();
+                Sounds.Collect.Play();
                 Remove();
             }
 
@@ -47,7 +53,7 @@ namespace DungeonEscape.Entities
         {
             return "<entity><type>key</type>"
                 + $"<position>{Position.X};{Position.Y};{Position.Z}</position>"
-                   + $"<id>{Id}</id>"
+                   + $"<id>{_id}</id>"
                    + "</entity>";
         }
 

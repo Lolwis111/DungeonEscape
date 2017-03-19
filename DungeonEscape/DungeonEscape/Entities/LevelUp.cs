@@ -10,7 +10,7 @@ namespace DungeonEscape.Entities
     /// <summary>
     /// Implementiert einen Block welcher bei den Spieler bei der Aktivierung in den nächsten Level lädt
     /// </summary>
-    public sealed class LevelUp : Entity
+    internal sealed class LevelUp : Entity
 	{
 		private float _tempf;
 

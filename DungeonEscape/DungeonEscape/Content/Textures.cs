@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DungeonEscape.Content
 {
-	public static class Textures
+    internal static class Textures
     {
         #region Fields
 
@@ -42,6 +42,8 @@ namespace DungeonEscape.Content
         public static Texture2D SwitchOn;
 
         public static Texture2D SwitchOff;
+
+        public static Texture2D EvilMan;
 
 #if DEBUG
         public static Texture2D Dummy;
@@ -84,6 +86,8 @@ namespace DungeonEscape.Content
                 Door = LoadTexture("Low\\Sprites\\door");
                 LevelUp = LoadTexture("Low\\Sprites\\LevelUp");
                 LevelDown = LoadTexture("Low\\Sprites\\LevelDown");
+
+                EvilMan = LoadTexture("Low\\Enemies\\evilMan");
             }
             else
             {
@@ -106,6 +110,8 @@ namespace DungeonEscape.Content
 
                 LevelUp = LoadTexture("Normal\\Sprites\\LevelUp");
                 LevelDown = LoadTexture("Normal\\Sprites\\LevelDown");
+
+                EvilMan = LoadTexture("Normal\\Enemies\\evilMan");
             }
 
             //GUI
@@ -157,6 +163,8 @@ namespace DungeonEscape.Content
             SwitchOn?.Dispose();
 
             SwitchOff?.Dispose();
+
+            EvilMan?.Dispose();
 
 #if DEBUG
             Dummy?.Dispose();

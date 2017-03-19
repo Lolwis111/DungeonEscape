@@ -1,6 +1,6 @@
 ﻿namespace DungeonEscape
 {
-    partial class Settings
+    sealed partial class Settings
     {
         /// <summary>
         /// Required designer variable.

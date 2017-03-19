@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace DungeonEscape.Content
 {
-    public static class Sounds
+    internal static class Sounds
     {
         #region Fields
 

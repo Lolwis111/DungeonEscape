@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<language>
+  <string1>Zurück zum Spiel</string1>
+  <string2>Speichern und zum Hauptmenü</string2>
+  <string3>Zürück zum Menü</string3>
+  <string4>Du hast verloren!</string4>
+  
+  <string5>Neues Spiel</string5>
+  <string6>Spiel laden</string6>
+  <string7>Tutorial laden</string7>
+  <string8>Einstellungen</string8>
+  <string9>Beenden</string9>
+  
+  <string10>Speicherstand 1</string10>
+  <string11>Speicherstand 2</string11>
+  <string12>Speicherstand 3</string12>
+  <string13>Speicherstand 4</string13>
+  
+  <string14>Zurück</string14>
+</language>

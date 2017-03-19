@@ -1,6 +1,11 @@
 using System;
 using System.Threading;
+
+#if !DEBUG
+
 using DungeonEscape.Debug;
+
+#endif
 
 namespace DungeonEscape
 {
@@ -23,17 +28,21 @@ namespace DungeonEscape
                 mutexInstance = new Mutex(true, MutexId);
             }
 
-            //try
-            //{
+#if !DEBUG
+            try
+            {
+#endif
                 using (GameMain game = new GameMain(args))
                 {
                     game.Run();
                 }
-            /*}
+#if !DEBUG
+        }
             catch (Exception exception)
             {
                 LogWriter.WriteError(exception);
-            }*/
+            }
+#endif
 
             mutexInstance.ReleaseMutex();
         }

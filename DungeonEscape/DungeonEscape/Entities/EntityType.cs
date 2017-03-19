@@ -1,6 +1,6 @@
 ﻿namespace DungeonEscape.Entities
 {
-    public enum EntityType
+    internal enum EntityType
     {
         Block,
         Sprite,

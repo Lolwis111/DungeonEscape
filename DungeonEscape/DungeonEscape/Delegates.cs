@@ -1,4 +1,4 @@
 namespace DungeonEscape 
-{ 
-    public delegate void Click(); 
+{
+    internal delegate void Click(); 
 }

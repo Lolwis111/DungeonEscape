@@ -3,61 +3,50 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using DungeonEscape.Screens;
+using DungeonEscape.Utils;
 using DungeonEscape.Debug;
 using DungeonEscape.Content;
 using DungeonEscape.SaveGames;
+using DungeonEscape.Screens;
 
 namespace DungeonEscape
 {
-    public static class Basic
+    internal static class Basic
     {
         #region Fields
 
-        public static bool DebugMode { get; set; }
+        public static GameMain Game;
 
-        public static SpriteBatch SpriteBatch { get; set; }
+        public static GraphicsDevice GraphicsDevice;
+        public static GraphicsDeviceManager GraphicsManager;
 
-		public static GraphicsDevice GraphicsDevice { get; set; }
+        public static ContentManager Content;
+        public static SpriteBatch SpriteBatch;
 
-		public static GraphicsDeviceManager GraphicsManager { get; set; }
+        public static GameTime GameTime;
+        public static Random Random = new Random();
 
-		public static ContentManager Content { get; set; }
+        public static GameWindow Window;
+        public static Rectangle WindowSize = new Rectangle(0, 0, 1024, 768);
 
-        public static GameTime GameTime { get; set; }
+        public static IScreen CurrentScreen;
+        public static IScreen SecondaryScreen;
 
-        public static GameMain Game { get; set; }
+        public static bool UseSmallTextures;
 
-        public static GameWindow Window { get; set; }
-
-        public static Rectangle WindowSize { get; set; } = new Rectangle(0, 0, 1024, 768);
-
-        public static Random Random { get; set; }
-
-        public static IScreen CurrentScreen { get; set; }
-
-        public static IScreen SecondaryScreen { get; set; }
-
-        public static SpriteFont MainFont { get; set; }
-
-		public static SpriteFont MenuFont { get; set; }
-
-        public static bool UseSmallTextures { get; set; }
-
-        public static GamePadState OldGamePadState { get; set; }
-
-        public static GamePadState NewGamePadState { get; set; }
+        public static GamePadState OldGamePadState;
+        public static GamePadState NewGamePadState;
 
 
         private static SamplerState _samlper;
 		private static KeyboardState _oldKeyboardState;
 		private static KeyboardState _newKeyboardState;
 
-		private static FpsCounter _counterFps;
+        public static bool DebugMode;
+        private static FpsCounter _counterFps;
 
-        public static bool ByPassMenu { get; set; }
-
-        public static int ByPassLevel { get; set; } = -1;
+        public static bool ByPassMenu;
+        public static int ByPassLevel;
 
         #endregion
 
@@ -72,9 +61,8 @@ namespace DungeonEscape
             SpriteBatch = new SpriteBatch(GraphicsDevice);
             Window = game.Window;
 
-			MainFont = Content.Load<SpriteFont>("Font");
-			MenuFont = Content.Load<SpriteFont>("menuFont");
-
+            LanguageStrings.LoadLanguageStrings("german");
+            Fonts.LoadFonts();
             Textures.LoadTexture();
             Sounds.LoadSounds();
             Sounds.SetVolume(game.SoundVolume);
@@ -101,11 +89,10 @@ namespace DungeonEscape
 
             Content.Unload();
 
-            if (_counterFps != null)
-            {
-                _counterFps.Dispose();
-                _counterFps = null;
-            }
+		    if (_counterFps == null) return;
+
+		    _counterFps.Dispose();
+		    _counterFps = null;
 		}
 
 		public static void Update(GameTime gameTime)
@@ -147,7 +134,7 @@ namespace DungeonEscape
 
 		public static void SaveGame(bool exitgame)
 		{
-            var save = new Savegamescore() 
+            Savegamescore save = new Savegamescore() 
                 { 
                     Entities = GameScreen.Level.Entities, 
                     Items = GameScreen.Player.PlayerItemBar.Items, 

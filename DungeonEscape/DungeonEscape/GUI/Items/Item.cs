@@ -1,6 +1,6 @@
 ﻿namespace DungeonEscape.GUI.Items
 {
-    public struct Item
+    internal struct Item
     {
         public ItemType Type;
         public int Id;

@@ -6,18 +6,28 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DungeonEscape
 {
-    public sealed class GameMain : Game
+    internal sealed class GameMain : Game
 	{
-	    public GraphicsDeviceManager Graphics { get; set; }
+	    public GraphicsDeviceManager Graphics
+	    {
+	        get { return _graphics; }
+	        set { _graphics = value; }
+	    }
+        private GraphicsDeviceManager _graphics;
 
-	    public float SoundVolume { get; set; }
+	    public float SoundVolume
+	    {
+	        get { return _soundVolume; }
+	        set { _soundVolume = value; }
+	    }
+	    private float _soundVolume;
 
 	    private readonly RasterizerState _rs;
 		private readonly SamplerState _sampler;
 
 		public GameMain(IList<string> args)
 		{
-            Graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
 
             Basic.DebugMode = false;
 
@@ -47,16 +57,16 @@ namespace DungeonEscape
 
             //Einstellungen laden
             Savegamesettings settings = Savegamesettings.Load();
-            SoundVolume = settings.Volume;      //Volume -> Aus settings.xml
+            _soundVolume = settings.Volume;      //Volume -> Aus settings.xml
 
 			Content.RootDirectory = "Content";
 
-            Graphics.PreferMultiSampling = true;                        //Kantenglättung
-            Graphics.IsFullScreen = settings.Fullscreen;                //Vollbild -> Aus settings.xml
-            Graphics.PreferredBackBufferWidth = settings.Resolution.X;  //Auflösung (X) -> Aus settings.xml
-            Graphics.PreferredBackBufferHeight = settings.Resolution.Y; //Auflösung (Y) -> Aus settings.xml
-            Graphics.SynchronizeWithVerticalRetrace = true;             //VSync
-            Graphics.ApplyChanges();                                    //Grafikeinstellungen anwenden
+            _graphics.PreferMultiSampling = true;                        //Kantenglättung
+            _graphics.IsFullScreen = settings.Fullscreen;                //Vollbild -> Aus settings.xml
+            _graphics.PreferredBackBufferWidth = settings.Resolution.X;  //Auflösung (X) -> Aus settings.xml
+            _graphics.PreferredBackBufferHeight = settings.Resolution.Y; //Auflösung (Y) -> Aus settings.xml
+            _graphics.SynchronizeWithVerticalRetrace = true;             //VSync
+            _graphics.ApplyChanges();                                    //Grafikeinstellungen anwenden
 
             //Fenstergröße setzen
 			Basic.WindowSize = new Rectangle(0, 0, settings.Resolution.X, settings.Resolution.Y);

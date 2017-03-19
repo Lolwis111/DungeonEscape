@@ -1,27 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Configuration;
+using DungeonEscape.Content;
 using DungeonEscape.GUI;
 using DungeonEscape.SaveGames;
+using DungeonEscape.Utils;
 
 namespace DungeonEscape.Screens
 {
-    public sealed class ScoreSelectorScreen : IScreen
+    internal sealed class ScoreSelectorScreen : IScreen
     {
         private readonly List<Button> _buttons = new List<Button>();
         private readonly bool _loadGame;
 
         public ScoreSelectorScreen(bool load)
         {
-            Screen.ShowMouse();
+            Mouse.ShowMouse();
 
             _loadGame = load;
 
-            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 100, 460, 70, "Speicherstand 1", LoadScore1));
+            /*_buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 100, 460, 70, "Speicherstand 1", LoadScore1));
             _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 180, 460, 70, "Speicherstand 2", LoadScore2));
             _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 260, 460, 70, "Speicherstand 3", LoadScore3));
             _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 340, 460, 70, "Speicherstand 4", LoadScore4));
-            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 420, 460, 70, "Zurück", Back));
+            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 420, 460, 70, "Zurück", Back));*/
+
+            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 100, 460, 70, LanguageStrings.SaveStateOne, LoadScore1));
+            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 180, 460, 70, LanguageStrings.SaveStateTwo, LoadScore2));
+            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 260, 460, 70, LanguageStrings.SaveStateThree, LoadScore3));
+            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 340, 460, 70, LanguageStrings.SaveStateFour, LoadScore4));
+            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 420, 460, 70, LanguageStrings.Back, Back));
 
             if (load)
             {
@@ -49,19 +58,26 @@ namespace DungeonEscape.Screens
 
         private static bool CheckFile(SaveState state)
         {
-            if (state == SaveState.One)
-                return File.Exists($"{Environment.CurrentDirectory}/save1.xml");
+            switch (state)
+            {
+                case SaveState.One:
+                    return File.Exists($"{Environment.CurrentDirectory}/save1.xml");
 
-            if (state == SaveState.Two)
-                return File.Exists($"{Environment.CurrentDirectory}/save2.xml");
+                case SaveState.Two:
+                    return File.Exists($"{Environment.CurrentDirectory}/save2.xml");
 
-            if (state == SaveState.Three)
-                return File.Exists($"{Environment.CurrentDirectory}/save3.xml");
+                case SaveState.Three:
+                    return File.Exists($"{Environment.CurrentDirectory}/save3.xml");
 
-            if(state == SaveState.Four)
-                return File.Exists($"{Environment.CurrentDirectory}/save4.xml");
+                case SaveState.Four:
+                    return File.Exists($"{Environment.CurrentDirectory}/save4.xml");
 
-            return false;
+                case SaveState.ByPass:
+                    return true;
+
+                default:
+                    return false;
+            }
         }
 
         public void Update()
@@ -115,14 +131,5 @@ namespace DungeonEscape.Screens
         {
             
         }
-    }
-
-    public enum SaveState
-    {
-        One,
-        Two,
-        Three,
-        Four,
-        ByPass
     }
 }

@@ -6,11 +6,17 @@ using DungeonEscape.Models;
 
 namespace DungeonEscape.Entities
 {
-    public sealed class Message : Entity
+    internal sealed class Message : Entity
     {
         private float _tempf;
 
-        public string Text { get; set; }
+        public string Text
+        {
+            get { return _text; }
+            set { _text = value; }
+        }
+
+        private string _text;
 
         private bool _renderText;
 
@@ -38,12 +44,12 @@ namespace DungeonEscape.Entities
         {
             if (_renderText)
             {
-                float x = (float)Basic.WindowSize.Width / 2 - Basic.MainFont.MeasureString(Text).X / 2;
+                float x = (float)Basic.WindowSize.Width / 2 - Fonts.MainFont.MeasureString(_text).X / 2;
 
                 Basic.SpriteBatch.Draw(Textures.Canvas, new Rectangle((int)x - 10, Basic.WindowSize.Height - 110, 
-                    (int)Basic.MainFont.MeasureString(Text).X + 20, (int)Basic.MainFont.MeasureString(Text).Y + 20), Color.White);
+                    (int)Fonts.MainFont.MeasureString(_text).X + 20, (int)Fonts.MainFont.MeasureString(Text).Y + 20), Color.White);
 
-                Basic.SpriteBatch.DrawString(Basic.MainFont, Text, new Vector2(x, Basic.WindowSize.Height - 100), Color.White);
+                Basic.SpriteBatch.DrawString(Fonts.MainFont, _text, new Vector2(x, Basic.WindowSize.Height - 100), Color.White);
             }
 
 
@@ -56,7 +62,7 @@ namespace DungeonEscape.Entities
         public override string GenerateXml()
         {
             return $"<entity><type>message</type><position>{Position.X};{Position.Y};{Position.Z}" +
-                   $"</position><text>{Text}</text></entity>";
+                   $"</position><text>{_text}</text></entity>";
         }
 
         public override EntityType GetEntityType()

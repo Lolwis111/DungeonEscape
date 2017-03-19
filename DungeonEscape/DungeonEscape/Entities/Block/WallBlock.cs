@@ -7,7 +7,7 @@ namespace DungeonEscape.Entities.Block
     /// <summary>
     /// Implementiert einen einfachen, unbeweglichen Block
     /// </summary>
-    public sealed class WallBlock : Entity
+    internal sealed class WallBlock : Entity
 	{
 		public WallBlock(float x, float y, float z) : base(x, y, z)
 		{

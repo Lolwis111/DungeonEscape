@@ -1,6 +1,6 @@
 ﻿namespace DungeonEscape.SaveGames
 {
-    public struct Resolution
+    internal struct Resolution
     {
         public Resolution(int x, int y)
         {

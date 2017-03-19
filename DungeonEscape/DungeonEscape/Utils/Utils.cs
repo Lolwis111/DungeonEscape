@@ -17,7 +17,7 @@ namespace DungeonEscape.Utils
             return Math.Abs(a - b) < CompareAccuracy;
         }
 
-        public static XmlNode SelectSingleNode(XmlNode root, string xpath)
+        public static XmlNode SaveSelectSingleNode(XmlNode root, string xpath)
         {
             if (root != null)
                 return root.SelectSingleNode(xpath);

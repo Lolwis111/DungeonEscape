@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DungeonEscape
 {
-    public static class Canvas
+    internal static class Canvas
     {
         private static Texture2D _canvas;
 

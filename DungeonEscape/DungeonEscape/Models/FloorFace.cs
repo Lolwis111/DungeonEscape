@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DungeonEscape.Models
 {
-	public sealed class FloorFace : VertexModel
+    internal sealed class FloorFace : VertexModel
 	{
 		public FloorFace()
 		{

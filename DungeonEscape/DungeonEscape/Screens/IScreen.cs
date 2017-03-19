@@ -1,6 +1,6 @@
 ﻿namespace DungeonEscape.Screens
-{ 
-    public interface IScreen
+{
+    internal interface IScreen
     {
         void Init();
         void Update();

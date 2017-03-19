@@ -7,7 +7,7 @@ using DungeonEscape.Screens;
 
 namespace DungeonEscape.Entities
 {
-	public sealed class Pliers : Entity
+    internal sealed class Pliers : Entity
 	{
 		private float _tempf;
 

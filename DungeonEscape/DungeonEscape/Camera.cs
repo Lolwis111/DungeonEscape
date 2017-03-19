@@ -1,11 +1,12 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using System;
 using DungeonEscape.Screens;
+using Mouse = Microsoft.Xna.Framework.Input.Mouse;
 
 namespace DungeonEscape
 {
-    public sealed class Camera
+    internal sealed class Camera
     {
         #region Fields
 
@@ -14,15 +15,15 @@ namespace DungeonEscape
         /// <summary>
         /// Laufgeschwindigkeit
         /// </summary>
-		private const float Speed = 0.015f;
+		public const float Speed = 0.015f;
 
         /// <summary>
         /// Rotationsgeschwindigkeit
         /// (normalerweise 0.0013)
         /// </summary>
-		private const float RotationSpeed = 0.00013f;
+		private const float RotationSpeed = 0.0013f;
 
-		private float _tempf;
+		//private float _tempF;
 
         private int _oldX, _oldY;
 
@@ -31,34 +32,66 @@ namespace DungeonEscape
         /// <summary>
         /// Aktuelle View-Matrix der Kamera
         /// </summary>
-        public Matrix View { get; set; }
+        public Matrix View
+        {
+            get { return _view; }
+            set { _view = value; }
+        }
+        private Matrix _view;
 
         /// <summary>
         /// Aktueller Projektionsmatrix der Kamera
         /// </summary>
-        public Matrix Projection { get; set; }
+        public Matrix Projection
+        {
+            get { return _projection; }
+            set { _projection = value; }
+        }
+        private Matrix _projection;
 
         /// <summary>
         /// Aktuelle Position der Kamera
         /// </summary>
-        public Vector3 Position { get; set; }
+        public Vector3 Position
+        {
+            get { return _position; }
+            set { _position = value; }
+        }
+        private Vector3 _position;
 
         /// <summary>
         /// Die aktuelle Blickrichtung der Kamera
         /// </summary>
-        public Vector3 LookAt { get; set; }
+        public Vector3 LookAt
+        {
+            get { return _lookAt; }
+            set { _lookAt = value; }
+        }
+        private Vector3 _lookAt;
 
         /// <summary>
         /// Der aktuelle Strahl in Blickrichtung
         /// </summary>
-        public Ray CameraRay { get; set; }
+        public Ray CameraRay
+        {
+            get { return _cameraRay; }
+            set { _cameraRay = value; }
+        }
+        private Ray _cameraRay;
 
         /// <summary>
         /// Der aktuell druch die Kamera sichtbare Bereich
         /// </summary>
-        public BoundingFrustum Frustum { get; set; }
+        public BoundingFrustum Frustum
+        {
+            get { return _frustum; }
+            set { _frustum = value; }
+        }
+        private BoundingFrustum _frustum;
 
         private Matrix _rotX, _rotY;
+
+        private KeyboardState oldKeyboardState;
 
         #endregion
 
@@ -69,12 +102,12 @@ namespace DungeonEscape
         /// </summary>
         public Camera()
 		{
-			Position = new Vector3(0f, 0f, 5f);
-			Frustum = new BoundingFrustum(View * Projection);
-            CameraRay = default(Ray);
+			_position = new Vector3(0f, 0f, 5f);
+			_frustum = new BoundingFrustum(_view * _projection);
+            _cameraRay = default(Ray);
 
-			View = Matrix.CreateLookAt(Position, Vector3.Zero, Vector3.Up);
-            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), Basic.GraphicsDevice.Viewport.AspectRatio, 0.01f, 50f);
+			_view = Matrix.CreateLookAt(Position, Vector3.Zero, Vector3.Up);
+            _projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), Basic.GraphicsDevice.Viewport.AspectRatio, 0.01f, 50f);
         }
 		
         /// <summary>
@@ -84,11 +117,11 @@ namespace DungeonEscape
         public void Update(GameTime gameTime)
 		{
 			_movedLastFrame = false;
-			_tempf += 0.3f;
+			//_tempF += 0.3f;
 
-			CameraRay = CreateRay();
-            Frustum.Matrix = View * Projection;
-            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), Basic.GraphicsDevice.Viewport.AspectRatio, 0.01f, 12f);
+			_cameraRay = CreateRay();
+            _frustum.Matrix = _view * _projection;
+            _projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), Basic.GraphicsDevice.Viewport.AspectRatio, 0.01f, 12f);
 
 			KeyboardState keyboardState = Keyboard.GetState();
 			GamePadState gamepadState = GamePad.GetState(PlayerIndex.One);
@@ -115,7 +148,12 @@ namespace DungeonEscape
                 Move(v4);
 			}
 
-			MouseState mouseState = Mouse.GetState();
+		    if (keyboardState.IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P))
+		    {
+                Console.WriteLine($"(X,Y,Z): {Position.X}, {Position.Y}, {Position.Z}");
+		    }
+
+		    MouseState mouseState = Mouse.GetState();
 			int dx = mouseState.X - _oldX;
 			int dy = mouseState.Y - _oldY;
 
@@ -133,10 +171,11 @@ namespace DungeonEscape
 
 			if (_movedLastFrame)
 			{
-				Position += new Vector3(0f, (float)Math.Sin(_tempf) * 0.0025f, 0f);
+				//Position += new Vector3(0f, (float)Math.Sin(_tempf) * 0.0025f, 0f);
 			}
-		
-        }
+
+		    oldKeyboardState = keyboardState;
+		}
 		
         private void ResetCursor()
 		{
@@ -153,14 +192,14 @@ namespace DungeonEscape
 
 			Vector3 vector = Vector3.Transform(v, Matrix.CreateRotationY(_yaw));
 
-            if (!Contains(new Vector3(Position.X + vector.X, 0f, Position.Z)))
+            if (!Contains(new Vector3(_position.X + vector.X, _position.Y, _position.Z)))
 			{
-                Position += new Vector3(vector.X, 0f, 0f);
+                _position += new Vector3(vector.X, _position.Y, 0f);
 			}
 
-            if (!Contains(new Vector3(Position.X, 0f, Position.Z + vector.Z)))
+            if (!Contains(new Vector3(_position.X, _position.Y, _position.Z + vector.Z)))
 			{
-                Position += new Vector3(0f, 0f, vector.Z);
+                _position += new Vector3(0f, _position.Y, vector.Z);
 			}
 		}
 
@@ -186,12 +225,12 @@ namespace DungeonEscape
             Matrix.CreateRotationX(_pitch, out _rotX);
             Matrix.CreateRotationY(_yaw, out _rotY);
 
-            Vector3 value = Vector3.Transform(new Vector3(0f, 0f, -1f), _rotX*_rotY);
+            Vector3 value = Vector3.Transform(new Vector3(0f, 0f, -1f), _rotX * _rotY);
 
-            Vector3 vector = Position + value;
-			LookAt = vector;
+            Vector3 vector = _position + value;
+			_lookAt = vector;
 
-			View = Matrix.CreateLookAt(Position, vector, Vector3.Up);
+			_view = Matrix.CreateLookAt(_position, vector, Vector3.Up);
 		}
 
         public Ray CreateRay()
@@ -199,8 +238,8 @@ namespace DungeonEscape
 			int x = Basic.WindowSize.Width / 2;
 			int y = Basic.WindowSize.Height / 2;
 
-            Vector3 vector = Basic.GraphicsDevice.Viewport.Unproject(new Vector3(x, y, 0f), Projection, View, Matrix.Identity);
-            Vector3 value = Basic.GraphicsDevice.Viewport.Unproject(new Vector3(x, y, 1f), Projection, View, Matrix.Identity);
+            Vector3 vector = Basic.GraphicsDevice.Viewport.Unproject(new Vector3(x, y, 0f), _projection, _view, Matrix.Identity);
+            Vector3 value = Basic.GraphicsDevice.Viewport.Unproject(new Vector3(x, y, 1f), _projection, _view, Matrix.Identity);
 
             Vector3 direction = value - vector;
 

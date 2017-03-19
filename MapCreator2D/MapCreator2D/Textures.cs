@@ -1,141 +1,88 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace MapCreator2D
 {
     public static class Textures
     {
-        public static Texture2D Wall = null;
-        public static Texture2D Destroyable = null;
-        public static Texture2D Key = null;
-        public static Texture2D Pickaxe = null;
-        public static Texture2D Pliers = null;
-        public static Texture2D Door = null;
-        public static Texture2D Grid = null;
-        public static Texture2D Message = null;
-        public static Texture2D LevelDown = null;
-        public static Texture2D LevelUp = null;
-        public static Texture2D None = null;
-        public static Texture2D Spawn = null;
-        public static Texture2D Switch = null;
-        public static Texture2D Half = null;
+        #region Fields
+
+        public static Texture2D Wall;
+        public static Texture2D Destroyable;
+        public static Texture2D Key;
+        public static Texture2D Pickaxe;
+        public static Texture2D Pliers;
+        public static Texture2D Door;
+        public static Texture2D Grid;
+        public static Texture2D Message;
+        public static Texture2D LevelDown;
+        public static Texture2D LevelUp;
+        public static Texture2D None;
+        public static Texture2D Spawn;
+        public static Texture2D Switch;
+        public static Texture2D Half;
+
+        #endregion
+
+        #region Methods
 
         public static void LoadTextures()
         {
-            Wall = loadTexture("Blocks/Wall");
-            Destroyable = loadTexture("Blocks/destroyableBlock");
+            Wall = LoadTexture("Blocks\\Wall");
+            Destroyable = LoadTexture("Blocks\\destroyableBlock");
 
-            Switch = loadTexture("Blocks/switchOff");
-            Half = loadTexture("Blocks/halfBlock");
+            Switch = LoadTexture("Blocks\\switchOff");
+            Half = LoadTexture("Blocks\\halfBlock");
 
-            Key = loadTexture("Items/key");
-            Pliers = loadTexture("Items/pliers");
-            Pickaxe = loadTexture("Items/pickaxe");
-            Message = loadTexture("Items/message");
+            Key = LoadTexture("Items\\key");
+            Pliers = LoadTexture("Items\\pliers");
+            Pickaxe = LoadTexture("Items\\pickaxe");
+            Message = LoadTexture("Items\\message");
 
-            Door = loadTexture("Sprites/door");
-            Grid = loadTexture("Sprites/grid");
-            LevelDown = loadTexture("Sprites/levelDown");
-            LevelUp = loadTexture("Sprites/levelUp");
+            Door = LoadTexture("Sprites\\door");
+            Grid = LoadTexture("Sprites\\grid");
+            LevelDown = LoadTexture("Sprites\\levelDown");
+            LevelUp = LoadTexture("Sprites\\levelUp");
 
-            None = loadTexture("none");
-            Spawn = loadTexture("spawn");
+            None = LoadTexture("none");
+            Spawn = LoadTexture("spawn");
         }
 
-        private static Texture2D loadTexture(string name)
+        private static Texture2D LoadTexture(string name)
         {
             return Basic.Content.Load<Texture2D>("Textures/" + name);
         }
 
         public static void DisposeTextures()
         {
-            if (Wall != null)
-            {
-                Wall.Dispose();
-                Wall = null;
-            }
+            Wall?.Dispose();
 
-            if (Destroyable != null)
-            {
-                Destroyable.Dispose();
-                Destroyable = null;
-            }
+            Destroyable?.Dispose();
 
-            if (Key != null)
-            {
-                Key.Dispose();
-                Key = null;
-            }
+            Key?.Dispose();
 
-            if (Pickaxe != null)
-            {
-                Pickaxe.Dispose();
-                Pickaxe = null;
-            }
+            Pickaxe?.Dispose();
 
-            if (Pliers != null)
-            {
-                Pliers.Dispose();
-                Pliers = null;
-            }
+            Pliers?.Dispose();
 
-            if (Door != null)
-            {
-                Door.Dispose();
-                Door = null;
-            }
+            Door?.Dispose();
 
-            if (Grid != null)
-            {
-                Grid.Dispose();
-                Grid = null;
-            }
+            Grid?.Dispose();
 
-            if (LevelDown != null)
-            {
-                LevelDown.Dispose();
-                LevelDown = null;
-            }
+            LevelDown?.Dispose();
 
-            if (LevelUp != null)
-            {
-                LevelUp.Dispose();
-                LevelUp = null;
-            }
+            LevelUp?.Dispose();
 
-            if (None != null)
-            {
-                None.Dispose();
-                None = null;
-            }
+            None?.Dispose();
 
-            if (Spawn != null)
-            {
-                Spawn.Dispose();
-                Spawn = null;
-            }
+            Spawn?.Dispose();
 
-            if (Message != null)
-            {
-                Message.Dispose();
-                Message = null;
-            }
+            Message?.Dispose();
 
-            if (Switch != null)
-            {
-                Switch.Dispose();
-                Switch = null;
-            }
+            Switch?.Dispose();
 
-            if (Half != null)
-            {
-                Half.Dispose();
-                Half = null;
-            }
+            Half?.Dispose();
         }
+
+        #endregion
     }
 }

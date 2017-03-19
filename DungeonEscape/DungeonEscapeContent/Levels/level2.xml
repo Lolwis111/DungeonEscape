@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--Erstellt mit MapCreator2D-->
 <map version="2.0">
-	<size>20;20</size>
+	<size>30;30</size>
 	<name>Megamap</name>
 	<entity>
 		<position>0;0;0</position>

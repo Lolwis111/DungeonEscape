@@ -10,7 +10,7 @@ namespace DungeonEscape.Entities
     /// <summary>
     /// Implementiert einen Block welcher bei den Spieler bei der Aktivierung in den vorherigen Level lädt
     /// </summary>
-    public sealed class LevelDown : Entity
+    internal sealed class LevelDown : Entity
 	{
 		private float _tempf;
 		
@@ -27,7 +27,7 @@ namespace DungeonEscape.Entities
 
 			_tempf += 0.05f;
 
-            Position = new Vector3(0f, (float)Math.Sin(_tempf) * 0.04f, 0f);
+            Position = new Vector3(Position.X, (float)Math.Sin(_tempf) * 0.04f, Position.Y);
 
 			if (Box.Contains(GameScreen.Camera.Position) == ContainmentType.Contains)
 			{

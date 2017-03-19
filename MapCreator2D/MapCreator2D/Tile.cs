@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -9,12 +6,7 @@ namespace MapCreator2D
 {
     public sealed class Tile : IDisposable
     {
-        public Rectangle Rectangle 
-        {
-            get { return _rectangle; }
-            set { _rectangle = value; }
-        }
-        private Rectangle _rectangle = Rectangle.Empty;
+        public Rectangle Rectangle { get; set; }
 
         public TileType Type 
         {
@@ -22,37 +14,27 @@ namespace MapCreator2D
             set 
             {
                 _type = value;
-                setUpTexture();
+                SetUpTexture();
             }
         }
         private TileType _type;
 
-        private Texture2D _texture = null;
-        private bool _selected = false;
+        private Texture2D _texture;
+        private bool _selected;
 
-        public string Message 
-        {
-            get { return _message; }
-            set { _message = value; }
-        }
-        private string _message = string.Empty;
+        public string Message { get; set; }
 
-        public int ID 
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
-        private int _id = 0;
+        public int Id { get; set; }
 
         public Tile(int x, int y, TileType type)
         {
-            _rectangle = new Rectangle(x, y, 30, 30);
+            Rectangle = new Rectangle(x, y, 30, 30);
             _type = type;
 
-            setUpTexture();
+            SetUpTexture();
         }
 
-        private void setUpTexture()
+        private void SetUpTexture()
         {
             switch (_type)
             {
@@ -105,24 +87,23 @@ namespace MapCreator2D
 
         public void Update()
         {
-            _selected = _rectangle.Intersects(Basic.CursorRectangle);
+            _selected = Rectangle.Intersects(Basic.CursorRectangle);
 
-            if (_selected && Basic.NewMouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
-            {
-                if (Basic.gameWindow.window.GetInfo) Basic.gameWindow.window.SelectedTile = this;
-                else this.Type = Basic.gameWindow.window.Type;
-            }
+            if (!_selected || Basic.NewMouseState.LeftButton != Microsoft.Xna.Framework.Input.ButtonState.Pressed)
+                return;
+
+            if (Basic.gameWindow._window.GetInfo) Basic.gameWindow._window.SelectedTile = this;
+            else this.Type = Basic.gameWindow._window.Type;
         }
 
         public void Render()
         {
-            Basic.spriteBatch.Draw(_texture, _rectangle, _selected ? Color.Yellow : Color.White);
+            Basic.spriteBatch.Draw(_texture, Rectangle, _selected ? Color.Yellow : Color.White);
         }
 
         public void Dispose() 
         {
-            _texture.Dispose();
-            _texture = null;
+            _texture?.Dispose();
         }
     }
 

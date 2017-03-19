@@ -3,7 +3,7 @@
 namespace DungeonEscape.SaveGames
 {
     [Serializable]
-    public sealed class LevelNotFoundException : Exception
+    internal sealed class LevelNotFoundException : Exception
     {
         public LevelNotFoundException()
         {

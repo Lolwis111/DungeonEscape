@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DungeonEscape
 {
-    public partial class Settings : Form
+    internal sealed partial class Settings : Form
     {
         public  Savegamesettings GameSettings;
         public bool NewSettings;
@@ -16,7 +16,7 @@ namespace DungeonEscape
 
             GameSettings = settings;
 
-            foreach (var mode in displayModes)
+            foreach (DisplayMode mode in displayModes)
             {
                 if (mode.Height < 768 || mode.Width < 1024) continue;
 
@@ -40,7 +40,7 @@ namespace DungeonEscape
                 Y = int.Parse(comboResolution.Text.Split('x')[1])
             };
 
-            GameSettings.UseLowTextures = comboTextures.SelectedIndex == 0;
+            GameSettings.UseLowTextures = (comboTextures.SelectedIndex == 0);
 
             GameSettings.Volume = (float)trackVolume.Value / 10;
 

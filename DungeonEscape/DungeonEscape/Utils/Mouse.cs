@@ -1,8 +1,8 @@
 using Microsoft.Xna.Framework.Input;
 
-namespace DungeonEscape.Screens
+namespace DungeonEscape.Utils
 {
-	public static class Screen
+    internal static class Mouse
 	{
         public static void ShowMouse()
 		{
@@ -16,7 +16,7 @@ namespace DungeonEscape.Screens
 
         public static void CenterMouse()
 		{
-			Mouse.SetPosition(Basic.WindowSize.Width / 2, Basic.WindowSize.Height / 2);
+			Microsoft.Xna.Framework.Input.Mouse.SetPosition(Basic.WindowSize.Width / 2, Basic.WindowSize.Height / 2);
 		}
 	}
 }

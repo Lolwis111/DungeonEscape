@@ -9,7 +9,7 @@ namespace MapCreator2D
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             using (Main game = new Main())
             {

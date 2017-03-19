@@ -1,20 +1,25 @@
 using System.Collections.Generic;
+using DungeonEscape.Content;
 using DungeonEscape.GUI;
+using DungeonEscape.Utils;
 
 namespace DungeonEscape.Screens
 {
-	public sealed class InGameMenuScreen : IScreen
+    internal sealed class InGameMenuScreen : IScreen
 	{
 		private readonly List<Button> _buttons = new List<Button>();
 
 		public InGameMenuScreen()
 		{
-			Screen.ShowMouse();
+			Mouse.ShowMouse();
 
-			_buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 100, 460, 70, "Zurück zum Spiel", Back));
-			_buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 260, 460, 70, "Speichern und zum Hauptmenü", Exit));
+            /*_buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 100, 460, 70, "Zurück zum Spiel", Back));
+			_buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 260, 460, 70, "Speichern und zum Hauptmenü", Exit));*/
 
-			_buttons[0].Enabled = true;
+            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 100, 460, 70, LanguageStrings.BackToGame, Back));
+            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 260, 460, 70, LanguageStrings.SaveAndQuit, Exit));
+
+            _buttons[0].Enabled = true;
 			_buttons[1].Enabled = true;
 
 			_buttons[0].Visible = true;
@@ -47,8 +52,8 @@ namespace DungeonEscape.Screens
 
 		public void Back()
 		{
-			Screen.HideMouse();
-			Screen.CenterMouse();
+			Mouse.HideMouse();
+			Mouse.CenterMouse();
 
 			Basic.CurrentScreen = Basic.SecondaryScreen;
 			Basic.SecondaryScreen = null;

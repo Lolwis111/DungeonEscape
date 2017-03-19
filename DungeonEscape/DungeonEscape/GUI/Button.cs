@@ -5,7 +5,7 @@ using DungeonEscape.Content;
 
 namespace DungeonEscape.GUI
 {
-	public sealed class Button
+    internal sealed class Button
     {
         #region Fields
 
@@ -17,7 +17,13 @@ namespace DungeonEscape.GUI
 		private MouseState _mouseStateCurrent;
 		private MouseState _mouseStatePrevious;
 
-        public string Text { get; set; }
+        public string Text
+        {
+            get { return _text; }
+            set { _text = value; }
+        }
+
+        private string _text;
 
         public int PositionX
 		{
@@ -31,9 +37,21 @@ namespace DungeonEscape.GUI
 			set { _rect.Y = value; }
 		}
 
-        public bool Enabled { get; set; }
+        public bool Enabled
+        {
+            get { return _enabled; }
+            set { _enabled = value; }
+        }
 
-        public bool Visible { get; set; }
+        private bool _enabled;
+
+        public bool Visible
+        {
+            get { return _visible; }
+            set { _visible = value; }
+        }
+
+        private bool _visible;
 
         #endregion
 
@@ -68,19 +86,19 @@ namespace DungeonEscape.GUI
 		{
 		    if (!Visible) return;
 
-		    float x = _rect.X + _rect.Width / 2 - Basic.MainFont.MeasureString(Text).X / 2f;
-		    float y = _rect.Y + _rect.Height / 2 - Basic.MainFont.MeasureString(Text).Y / 2f;
+		    float x = _rect.X + _rect.Width / 2 - Fonts.MainFont.MeasureString(Text).X / 2f;
+		    float y = _rect.Y + _rect.Height / 2 - Fonts.MainFont.MeasureString(Text).Y / 2f;
 
 		    if (Enabled)
 		    {
 		        Canvas.DrawBorder(5, _rect, _hover ? Color.Gray : Color.White);
-		        Basic.SpriteBatch.DrawString(Basic.MenuFont, Text, new Vector2(x, y), _hover ? Color.Gray : Color.White);
+		        Basic.SpriteBatch.DrawString(Fonts.MenuFont, Text, new Vector2(x, y), _hover ? Color.Gray : Color.White);
 
 		        return;
 		    }
 
 		    Canvas.DrawBorder(5, _rect, Color.Gray);
-		    Basic.SpriteBatch.DrawString(Basic.MenuFont, Text, new Vector2(x, y), Color.Gray);
+		    Basic.SpriteBatch.DrawString(Fonts.MenuFont, Text, new Vector2(x, y), Color.Gray);
 		}
 
         #endregion

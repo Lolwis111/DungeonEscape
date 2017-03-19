@@ -6,30 +6,51 @@ using System.IO;
 using DungeonEscape.Debug;
 using DungeonEscape.Entities;
 using DungeonEscape.Entities.Block;
-using DungeonEscape.Screens;
 using DungeonEscape.MapEnvironment;
 using DungeonEscape.Models;
 using DungeonEscape.SaveGames;
+using DungeonEscape.Screens;
 using DungeonEscape.Security;
 
 namespace DungeonEscape.Levels
 {
-	public sealed class Level
+	internal sealed class Level
     {
         #region Fields
 
-        public string Name { get; private set; } = string.Empty;
+        public string Name
+        {
+            get { return _name; }
+            private set { _name = value; }
+        } 
+        private string _name = string.Empty;
 
-        public int LevelNumber { get; set; }
+        public int LevelNumber
+        {
+            get { return _levelNumber; }
+            set { _levelNumber = value; }
+        }
+        private int _levelNumber;
 
-        public List<Entity> Entities { get; set; } = new List<Entity>();
+        public List<Entity> Entities
+        {
+            get { return _entities; }
+            set { _entities = value; }
+        }
+        private List<Entity> _entities = new List<Entity>();
 
-        public List<Entity> ToRemove { get; set; } = new List<Entity>();
+        public List<Entity> ToRemove
+        {
+            get { return _toRemove; }
+            set { _toRemove = value; }
+        }
+        private List<Entity> _toRemove = new List<Entity>();
 
         private readonly XmlDocument _mapDocument = new XmlDocument();
 
         private readonly Floor _floor;
         private readonly Ceiling _ceiling;
+
         private int _mapWidth, _mapHeight;
 
         #endregion
@@ -59,33 +80,35 @@ namespace DungeonEscape.Levels
 
 			_ceiling = new Ceiling(_mapWidth, _mapHeight);
 
-			LevelNumber = level;
+			_levelNumber = level;
+
+            Console.WriteLine("{0}x{1}", _mapWidth, _mapHeight);
 		}
 
 		public void Update()
 		{
-            ToRemove = new List<Entity>();
+            _toRemove = new List<Entity>();
             //_entities.Sort();
 
-            for (short i = 0; i < Entities.Count; i++)
+            for (short i = 0; i < _entities.Count; i++)
 			{
-                Entities[i].Update();
+                _entities[i].Update();
 			}
 
-		    if (ToRemove.Count <= 0) return;
+		    if (_toRemove.Count <= 0) return;
 
-		    float cameraDistance = ToRemove[0].CameraDistance;
-		    Entity item = ToRemove[0];
+		    float cameraDistance = _toRemove[0].CameraDistance;
+		    Entity item = _toRemove[0];
                 
-		    for (int j = 1; j < ToRemove.Count; j++)
+		    for (int j = 1; j < _toRemove.Count; j++)
 		    {
-		        if (!(ToRemove[j].CameraDistance < cameraDistance)) continue;
+		        if (!(_toRemove[j].CameraDistance < cameraDistance)) continue;
 
-		        cameraDistance = ToRemove[j].CameraDistance;
-		        item = ToRemove[j];
+		        cameraDistance = _toRemove[j].CameraDistance;
+		        item = _toRemove[j];
 		    }
 
-		    Entities.Remove(item);
+		    _entities.Remove(item);
 		}
 
 		public void Render()
@@ -93,9 +116,9 @@ namespace DungeonEscape.Levels
 			_floor.Render();
 			_ceiling.Render();
 
-            Entities.Sort();
+            _entities.Sort();
 
-            foreach (Entity entity in Entities)
+            foreach (Entity entity in _entities)
             {
                 if (GameScreen.Camera.Frustum.Intersects(entity.Box))
                 {
@@ -106,13 +129,13 @@ namespace DungeonEscape.Levels
 
         private void SetUpMap()
         {
-            string size = Utils.Utils.SelectSingleNode(_mapDocument, "//size").InnerText;
+            string size = Utils.Utils.SaveSelectSingleNode(_mapDocument, "//size").InnerText;
 
             if (int.TryParse(size.Split(';')[0], out _mapWidth))
             {
                 if (int.TryParse(size.Split(';')[1], out _mapHeight))
                 {
-                    Name = Utils.Utils.SelectSingleNode(_mapDocument, "//name").InnerText;
+                    Name = Utils.Utils.SaveSelectSingleNode(_mapDocument, "//name").InnerText;
 
                     XmlNodeList nodes = _mapDocument.SelectNodes("//entity");
 
@@ -123,7 +146,7 @@ namespace DungeonEscape.Levels
 
                     for (int i = 0; i < nodes.Count; i++)
                     {
-                        string[] coordinates = Utils.Utils.SelectSingleNode(nodes[i], "position").InnerText.Split(';');
+                        string[] coordinates = Utils.Utils.SaveSelectSingleNode(nodes[i], "position").InnerText.Split(';');
                         int x;
                         if (int.TryParse(coordinates[0], out x))
                         {
@@ -133,71 +156,71 @@ namespace DungeonEscape.Levels
                                 int z;
                                 if (int.TryParse(coordinates[2], out z))
                                 {
-                                    string type = Utils.Utils.SelectSingleNode(nodes[i], "type").InnerText;
+                                    string type = Utils.Utils.SaveSelectSingleNode(nodes[i], "type").InnerText;
 
                                     switch (type)
                                     {
                                         case "wallblock":
-                                            Entities.Add(new WallBlock(x, y, z));
+                                            _entities.Add(new WallBlock(x, y, z));
                                             bC++;
                                             break;
                                         case "spawn":
                                             GameScreen.Camera.Position = new Vector3(x, y, z);
                                             break;
                                         case "levelup":
-                                            Entities.Add(new LevelUp(x, y, z));
+                                            _entities.Add(new LevelUp(x, y, z));
                                             sC++;
                                             break;
                                         case "leveldown":
-                                            Entities.Add(new LevelDown(x, y, z));
+                                            _entities.Add(new LevelDown(x, y, z));
                                             sC++;
                                             break;
                                         case "key":
-                                            Entities.Add(new Key(x, y, z)
+                                            _entities.Add(new Key(x, y, z)
                                             {
-                                                Id = int.Parse(Utils.Utils.SelectSingleNode(nodes[i], "id").InnerText)
+                                                Id = int.Parse(Utils.Utils.SaveSelectSingleNode(nodes[i], "id").InnerText)
                                             });
                                             sC++;
                                             break;
                                         case "pliers":
-                                            Entities.Add(new Pliers(x, y, z));
+                                            _entities.Add(new Pliers(x, y, z));
                                             sC++;
                                             break;
                                         case "pickaxe":
-                                            Entities.Add(new PickAxe(x, y, z));
+                                            _entities.Add(new PickAxe(x, y, z));
                                             sC++;
                                             break;
                                         case "message":
-                                            Entities.Add(new Message(x, y, z)
+                                            _entities.Add(new Message(x, y, z)
                                             {
-                                                Text = Utils.Utils.SelectSingleNode(nodes[i], "text").InnerText
+                                                Text = Utils.Utils.SaveSelectSingleNode(nodes[i], "text").InnerText
                                             });
                                             sC++;
                                             break;
                                         case "destroyblock":
-                                            Entities.Add(new DestroyBlock(x, y, z));
+                                            _entities.Add(new DestroyBlock(x, y, z));
                                             bC++;
                                             break;
                                         case "doorblock":
-                                            Entities.Add(new DoorBlock(x, y, z)
+                                            _entities.Add(new DoorBlock(x, y, z)
                                             {
-                                                Id = int.Parse(Utils.Utils.SelectSingleNode(nodes[i], "id").InnerText)
+                                                Id = int.Parse(Utils.Utils.SaveSelectSingleNode(nodes[i], "id").InnerText)
                                             });
                                             sC++;
                                             break;
                                         case "gridblock":
-                                            Entities.Add(new GridBlock(x, y, z));
+                                            _entities.Add(new GridBlock(x, y, z));
                                             sC++;
                                             break;
                                         case "switch":
-                                            Entities.Add(new SwitchBlock(x, y, z)
+                                            _entities.Add(new SwitchBlock(x, y, z)
                                             {
-                                                Id = int.Parse(Utils.Utils.SelectSingleNode(nodes[i], "id").InnerText)
+                                                Id = int.Parse(Utils.Utils.SaveSelectSingleNode(nodes[i], "id").InnerText)
                                             });
                                             bC++;
                                             break;
                                         case "halfblock":
-                                            Entities.Add(new HalfBlock(x, y, z));
+                                            _entities.Add(new HalfBlock(x, y, z));
                                             bC++;
                                             break;
                                         case "empty":
@@ -224,7 +247,7 @@ namespace DungeonEscape.Levels
                     }
 
                     int n = NativeMethods.checkLevel(eC, bC, sC);
-                    int n1 = int.Parse(Utils.Utils.SelectSingleNode(_mapDocument, "//SECU").InnerText);
+                    int n1 = int.Parse(Utils.Utils.SaveSelectSingleNode(_mapDocument, "//SECU").InnerText);
 
                     if (n == n1) return;
 
@@ -246,17 +269,17 @@ namespace DungeonEscape.Levels
 
         public void Init()
         {
-            for (short i = 0; i < Entities.Count; i++)
-                Entities[i].Init();
+            for (short i = 0; i < _entities.Count; i++)
+                _entities[i].Init();
         }
 
 		public Entity GetEntity(float x, float z)
 		{
-            for (short i = 0; i < Entities.Count - 1; i++)
+            for (short i = 0; i < _entities.Count - 1; i++)
             {
-                if (Utils.Utils.CompareFloats(Entities[i].Position.X, x) 
-                    && Utils.Utils.CompareFloats(Entities[i].Position.Z, z))
-                    return Entities[i];
+                if (Utils.Utils.CompareFloats(_entities[i].Position.X, x) 
+                    && Utils.Utils.CompareFloats(_entities[i].Position.Z, z))
+                    return _entities[i];
             }
 
 			return null;

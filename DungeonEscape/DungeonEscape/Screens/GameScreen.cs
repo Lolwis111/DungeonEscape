@@ -1,3 +1,4 @@
+using DungeonEscape.Enemies;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using DungeonEscape.Levels;
@@ -5,11 +6,11 @@ using DungeonEscape.SaveGames;
 
 namespace DungeonEscape.Screens
 {
-    public sealed class GameScreen : IScreen
+    internal sealed class GameScreen : IScreen
 	{
         #region Fields
 
-        public static bool MouseClicked => (Mouse.GetState().LeftButton == ButtonState.Pressed 
+        public static bool MouseClicked => (Microsoft.Xna.Framework.Input.Mouse.GetState().LeftButton == ButtonState.Pressed 
             && OldMouseState.LeftButton == ButtonState.Released);
 
 	    private readonly int _levelNumber;
@@ -33,14 +34,16 @@ namespace DungeonEscape.Screens
 
 	    public static SaveState CurrentSaveState { get; set; } = SaveState.One;
 
-	    #endregion
+        public static EvilMan Enemy { get; set; }
+
+        #endregion
 
         #region Methods
 
         public GameScreen(int level, SaveState state)
         {
             // Level 0 = Tutorial; 
-            IsTutorialRound = level == 0;
+            IsTutorialRound = (level == 0);
 
             IsLoadedGame = false;
             _levelNumber = level;
@@ -57,7 +60,7 @@ namespace DungeonEscape.Screens
 
         public void Init()
 		{
-			Screen.HideMouse();
+			DungeonEscape.Utils.Mouse.HideMouse();
 
 			Camera = new Camera();
 			MainEffect = Basic.Content.Load<Effect>("mainEffect");
@@ -76,14 +79,19 @@ namespace DungeonEscape.Screens
                 Level = new Level(_levelNumber);
                 Level.Init();
             }
-		}
+
+            Enemy = new EvilMan(0, 0, 0);
+        }
 		
         public void Update()
 		{
 			Level.Update();
 			Camera.Update(Basic.GameTime);
+
 			Player.Update();
-            OldMouseState = Mouse.GetState();
+            Enemy.Update();
+
+            OldMouseState = Microsoft.Xna.Framework.Input.Mouse.GetState();
             OldGamePadState = GamePad.GetState(Microsoft.Xna.Framework.PlayerIndex.One);
 		}
 		
@@ -91,6 +99,8 @@ namespace DungeonEscape.Screens
 		{
 			Level.Render();
 			Player.Render();
+
+            Enemy.Render();
 		}
 
         #endregion

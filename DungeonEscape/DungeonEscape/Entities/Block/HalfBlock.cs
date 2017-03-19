@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace DungeonEscape.Entities.Block
 {
-    public class HalfBlock : Entity
+    internal sealed class HalfBlock : Entity
     {
         public HalfBlock(float x, float y, float z) : base(x, y, z)
 		{

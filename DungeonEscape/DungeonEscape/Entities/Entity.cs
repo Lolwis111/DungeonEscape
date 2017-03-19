@@ -6,31 +6,86 @@ using Microsoft.Xna.Framework;
 
 namespace DungeonEscape.Entities
 {
-    public abstract class Entity : IComparable
+    internal abstract class Entity : IComparable
     {
         #region Fields
 
-        public Vector3 Position { get; set; }
+        public Vector3 Position
+        {
+            get { return _position; }
+            set { _position = value; }
+        }
+        private Vector3 _position;
 
-        public Vector3 Rotation { get; set; }
+        public Vector3 Rotation
+        {
+            get { return _rotation; }
+            set { _rotation = value; }
+        }
+        private Vector3 _rotation;
 
-        public Vector3 Scale { get; set; }
+        public Vector3 Scale
+        {
+            get { return _scale; }
+            set { _scale = value; }
+        }
+        private Vector3 _scale;
 
-        public bool DrawBoundingBox { get; set; }
+        public bool DrawBoundingBox
+        {
+            get { return _drawBoundingBox; }
+            set { _drawBoundingBox = value; }
+        }
+        private bool _drawBoundingBox;
 
-        public bool Collision { get; set; }
+        public bool Collision
+        {
+            get { return _collision; }
+            set { _collision = value; }
+        }
+        private bool _collision;
 
-        public Vector3 BoundingBoxScale { get; set; }
-    
-        public float CameraDistance { get; set; } = 1.0f;
+        public Vector3 BoundingBoxScale
+        {
+            get { return _boundingBoxScale; }
+            set { _boundingBoxScale = value; }
+        }
+        private Vector3 _boundingBoxScale;
 
-        public BoundingBox Box { get; set; }
+        public float CameraDistance
+        {
+            get { return _cameraDistance; }
+            set { _cameraDistance = value; }
+        }
+        private float _cameraDistance = 1.0f;
 
-        public Matrix WorldMatrix { get; set; } = Matrix.Identity;
+        public BoundingBox Box
+        {
+            get { return _box; }
+            set { _box = value; }
+        }
+        private BoundingBox _box;
 
-        public Vector3 BoxMin { get; set; } = new Vector3(-0.5f);
+        public Matrix WorldMatrix
+        {
+            get { return _worldMatrix; }
+            set { _worldMatrix = value; }
+        }
+        private Matrix _worldMatrix = Matrix.Identity;
 
-        public Vector3 BoxMax { get; set; } = new Vector3(0.5f);
+        public Vector3 BoxMin
+        {
+            get { return _boxMin; }
+            set { _boxMin = value; }
+        }
+        private Vector3 _boxMin = new Vector3(-0.5f);
+
+        public Vector3 BoxMax
+        {
+            get { return _boxMax; }
+            set { _boxMax = value; }
+        }
+        private Vector3 _boxMax = new Vector3(0.5f);
 
         #endregion
 
@@ -38,24 +93,24 @@ namespace DungeonEscape.Entities
 
         protected Entity(float x, float y, float z)
         {
-            Position = new Vector3(x, y, z);
-            Rotation = Vector3.Zero;
-            Scale = new Vector3(1f, 1f, 1f);
-            DrawBoundingBox = false;
-            BoundingBoxScale = new Vector3(1.2f, 1.2f, 1.2f);
-            Collision = true;
-            Box = new BoundingBox(new Vector3(-0.5f), new Vector3(0.5f));
+            _position = new Vector3(x, y, z);
+            _rotation = Vector3.Zero;
+            _scale = new Vector3(1f, 1f, 1f);
+            _drawBoundingBox = false;
+            _boundingBoxScale = new Vector3(1.2f, 1.2f, 1.2f);
+            _collision = true;
+            _box = new BoundingBox(new Vector3(-0.5f), new Vector3(0.5f));
 
         }
 
         public virtual void Update()
         {
-            WorldMatrix = Matrix.CreateScale(Scale) * Matrix.CreateFromYawPitchRoll(Rotation.Y, Rotation.X, Rotation.Z) * Matrix.CreateTranslation(Position);
+            _worldMatrix = Matrix.CreateScale(_scale) * Matrix.CreateFromYawPitchRoll(_rotation.Y, _rotation.X, _rotation.Z) * Matrix.CreateTranslation(_position);
 
-            Box = new BoundingBox(Vector3.Transform(BoxMin, Matrix.CreateScale(BoundingBoxScale) * Matrix.CreateTranslation(Position)),
-                Vector3.Transform(BoxMax, Matrix.CreateScale(BoundingBoxScale) * Matrix.CreateTranslation(Position))); 
+            _box = new BoundingBox(Vector3.Transform(_boxMin, Matrix.CreateScale(_boundingBoxScale) * Matrix.CreateTranslation(_position)),
+                Vector3.Transform(_boxMax, Matrix.CreateScale(_boundingBoxScale) * Matrix.CreateTranslation(_position))); 
 
-             CameraDistance = Vector3.Distance(Position, GameScreen.Camera.Position);
+             _cameraDistance = Vector3.Distance(Position, GameScreen.Camera.Position);
         }
 
         public virtual void Render()
@@ -73,26 +128,32 @@ namespace DungeonEscape.Entities
 
         public void Draw(VertexModel vertexModel)
         {
-            vertexModel.Draw(WorldMatrix);
+            vertexModel.Draw(_worldMatrix);
 
-            if (DrawBoundingBox)
+            if (_drawBoundingBox)
                 BoundingBoxRenderer.Render(Box, Basic.GraphicsDevice, GameScreen.Camera.View, GameScreen.Camera.Projection, Color.Red);
         }
 
         public int CompareTo(object obj)
         {
             Entity entity = (Entity)obj;
-            return (int)(entity.CameraDistance * 1000f - CameraDistance * 1000f);
+            return (int)(entity.CameraDistance * 1000f - _cameraDistance * 1000f);
         }
 
-        protected virtual bool CorrectInteraction()
+        protected virtual bool CheckCorrectInteraction()
         {
             return true;
         }
 
-        public abstract string GenerateXml();
+        public virtual string GenerateXml()
+        {
+            return "";
+        }
 
-        public abstract EntityType GetEntityType();
+        public virtual EntityType GetEntityType()
+        {
+            return EntityType.Entity;
+        }
 
         #endregion
     }

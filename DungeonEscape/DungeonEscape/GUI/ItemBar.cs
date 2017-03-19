@@ -4,20 +4,39 @@ using Microsoft.Xna.Framework.Input;
 using DungeonEscape.Screens;
 using DungeonEscape.Content;
 using DungeonEscape.GUI.Items;
+using Mouse = Microsoft.Xna.Framework.Input.Mouse;
 
 namespace DungeonEscape.GUI
 {
-	public sealed class ItemBar
+    internal sealed class ItemBar
     {
         #region Fields
 
         private const int Slots = 6;
 
-        public int SelectedSlot { get; set; }
+        public int SelectedSlot
+        {
+            get { return _selectedSlot; }
+            set { _selectedSlot = value; }
+        }
 
-        public Item[] Items { get; set; }
+        private int _selectedSlot;
 
-        public Item SelectedItem { get; set; }
+        public Item[] Items
+        {
+            get { return _items; }
+            set { _items = value; }
+        }
+
+        private Item[] _items;
+
+        public Item SelectedItem
+        {
+            get { return _selectedItem; }
+            set { _selectedItem = value; }
+        }
+
+        private Item _selectedItem;
 
         #endregion
 
@@ -25,7 +44,7 @@ namespace DungeonEscape.GUI
 
         public ItemBar()
 		{
-            Items = new Item[Slots];
+            _items = new Item[Slots];
             Clear();
 
             SelectedSlot = 0;
@@ -37,30 +56,30 @@ namespace DungeonEscape.GUI
 
 			if (state.ScrollWheelValue < GameScreen.OldMouseState.ScrollWheelValue)
 			{
-				SelectedSlot++;
+                _selectedSlot++;
 			}
 			else if (state.ScrollWheelValue > GameScreen.OldMouseState.ScrollWheelValue)
 		    {
-                SelectedSlot--;
+                _selectedSlot--;
 		    }
 
-            if (SelectedSlot < 0)
+            if (_selectedSlot < 0)
             {
-                SelectedSlot = Slots - 1;
+                _selectedSlot = Slots - 1;
             }
-            else if (SelectedSlot >= Slots)
+            else if (_selectedSlot >= Slots)
             {
-                SelectedSlot = 0;
+                _selectedSlot = 0;
             }
 
-            SelectedItem = Items[SelectedSlot];
+            _selectedItem = _items[_selectedSlot];
 		}
 
 		public void Render()
 		{
             for (int i = 0; i < Slots; i++)
             {
-                Basic.SpriteBatch.Draw(i == SelectedSlot ? Textures.SelectedItemBarItem : Textures.ItemBarItem, 
+                Basic.SpriteBatch.Draw(i == _selectedSlot ? Textures.SelectedItemBarItem : Textures.ItemBarItem, 
                     new Rectangle(Basic.WindowSize.Width - 105, 10 + i * 100, 100, 100), Color.White);
 
                 switch (Items[i].Type)
@@ -87,9 +106,9 @@ namespace DungeonEscape.GUI
 		{
 			for (int i = 0; i < Slots; i++)
 			{
-			    if (Items[i].Type != ItemType.None) continue;
+			    if (_items[i].Type != ItemType.None) continue;
 
-			    Items[i] = item;
+			    _items[i] = item;
 			    return true;
 			}
 
@@ -98,14 +117,14 @@ namespace DungeonEscape.GUI
 
 		public void RemoveSelectedItem()
 		{
-            Items[SelectedSlot] = new Item(ItemType.None, -1);
+            _items[_selectedSlot] = new Item(ItemType.None, -1);
 		}
 
 		public void Clear()
 		{
-			for (int i = 0; i < Items.Length; i++)
+			for (int i = 0; i < _items.Length; i++)
 			{
-                Items[i] = new Item(ItemType.None, -1);
+                _items[i] = new Item(ItemType.None, -1);
 			}
         }
 

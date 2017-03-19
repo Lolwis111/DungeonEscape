@@ -9,11 +9,23 @@ namespace DungeonEscape.Entities.Block
     /// <summary>
     /// Implementiert einen Block welcher als Schalter für eine Tür fungiert.
     /// </summary>
-    public sealed class SwitchBlock : Entity
+    internal sealed class SwitchBlock : Entity
     {
-        public bool IsActivated { get; set; }
+        public bool IsActivated
+        {
+            get { return _isActivated; }
+            set { _isActivated = value; }
+        }
 
-        public int Id { get; set; } = 0;
+        private bool _isActivated;
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+        private int _id;
 
         private GamePadState _gamePadState;
 

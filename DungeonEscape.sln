@@ -1,12 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "Content\Content.csproj", "{76BF6B57-C06E-4E78-B36A-748E2443CB5A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DungeonEscape", "DungeonEscape\DungeonEscape\DungeonEscape.csproj", "{7CC41A70-6DDB-4916-B537-9E33DD93883A}"
 	ProjectSection(ProjectDependencies) = postProject
+		{B6151B29-C3AE-4376-B227-0F159CA98BEE} = {B6151B29-C3AE-4376-B227-0F159CA98BEE}
 		{25B1DC32-5AF3-40E4-BDC5-AB9D5113C918} = {25B1DC32-5AF3-40E4-BDC5-AB9D5113C918}
 	EndProjectSection
 EndProject

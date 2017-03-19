@@ -1,6 +1,6 @@
 ﻿namespace DungeonEscape.GUI.Items
 {
-    public enum ItemType
+    internal enum ItemType
     {
         Key,
         Pliers,

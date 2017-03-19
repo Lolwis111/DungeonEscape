@@ -7,7 +7,7 @@ using DungeonEscape.Screens;
 
 namespace DungeonEscape.Entities
 {
-    public sealed class PickAxe : Entity
+    internal sealed class PickAxe : Entity
 	{
 		private float _tempf;
 

@@ -6,7 +6,7 @@ using DungeonEscape.Screens;
 
 namespace DungeonEscape.Models
 {
-    public abstract class VertexModel : IDisposable
+    internal abstract class VertexModel : IDisposable
     {
         protected List<VertexPositionNormalTexture> VertexData = new List<VertexPositionNormalTexture>();
 

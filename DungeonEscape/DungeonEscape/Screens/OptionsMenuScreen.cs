@@ -5,7 +5,7 @@ using DungeonEscape.SaveGames;
 
 namespace DungeonEscape.Screens
 {
-	public sealed class OptionsMenuScreen : IScreen
+    internal sealed class OptionsMenuScreen : IScreen
 	{
         private Savegamesettings _gameSettings;
 

@@ -12,7 +12,7 @@ namespace DungeonEscape.Entities
     /// <summary>
     /// Implementiert einen Block welcher bei der Aktivierung teilweise zerstört wird
     /// </summary>
-    public sealed class GridBlock : Entity
+    internal sealed class GridBlock : Entity
 	{
         private GamePadState _gamePadState;
 		public bool Destroyed;
@@ -46,7 +46,7 @@ namespace DungeonEscape.Entities
 			}
 
             if (num.HasValue && num.Value < 2f && !Destroyed 
-                && CorrectInteraction() 
+                && CheckCorrectInteraction() 
                 && (GameScreen.MouseClicked || _gamePadState.Buttons.A == ButtonState.Pressed 
                 && GameScreen.OldGamePadState.Buttons.A == ButtonState.Released))
 			{
@@ -64,7 +64,7 @@ namespace DungeonEscape.Entities
 			Draw(VertexModel.SpriteVertexModel);
 		}
 
-        protected override bool CorrectInteraction()
+        protected override bool CheckCorrectInteraction()
         {
             return GameScreen.Player.PlayerItemBar.SelectedItem.Type == ItemType.Pliers;
         }

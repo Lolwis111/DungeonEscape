@@ -10,7 +10,7 @@ namespace DungeonEscape.Entities.Block
     /// <summary>
     /// Implementiert einen Block welcher bei Aktivierung zerstört wird
     /// </summary>
-    public sealed class DestroyBlock : Entity
+    internal sealed class DestroyBlock : Entity
 	{
         private GamePadState _gamePadState;
 
@@ -26,7 +26,7 @@ namespace DungeonEscape.Entities.Block
 			float? num = Box.Intersects(GameScreen.Camera.CameraRay);
 
 			if (num.HasValue && num.Value < 2f 
-                && CorrectInteraction() 
+                && CheckCorrectInteraction() 
                 && (GameScreen.MouseClicked
                 || _gamePadState.Buttons.A == ButtonState.Pressed 
                 && GameScreen.OldGamePadState.Buttons.A == ButtonState.Released))
@@ -45,7 +45,7 @@ namespace DungeonEscape.Entities.Block
 			Draw(VertexModel.BlockVertexModel);
 		}
 
-        protected override bool CorrectInteraction()
+        protected override bool CheckCorrectInteraction()
         {
             return GameScreen.Player.PlayerItemBar.SelectedItem.Type == ItemType.Pickaxe;
         }

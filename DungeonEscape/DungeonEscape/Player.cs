@@ -1,28 +1,35 @@
+using DungeonEscape.Content;
 using Microsoft.Xna.Framework;
 using DungeonEscape.GUI;
 using DungeonEscape.Screens;
 
 namespace DungeonEscape
 {
-    public sealed class Player
+    internal sealed class Player
 	{
-	    public ItemBar PlayerItemBar { get; set; }
+	    public ItemBar PlayerItemBar
+	    {
+	        get { return _playerItemBar; }
+	        set { _playerItemBar = value; }
+	    }
+
+	    private ItemBar _playerItemBar;
 
 	    public Player()
 		{
-            PlayerItemBar = new ItemBar();
+            _playerItemBar = new ItemBar();
 		}
 
 		public void Update()
 		{
-            PlayerItemBar.Update();
+            _playerItemBar.Update();
 		}
 
 		public void Render()
 		{
-            Basic.SpriteBatch.DrawString(Basic.MainFont, GameScreen.Level.Name, new Vector2(5f, 5f), Color.White);
+            Basic.SpriteBatch.DrawString(Fonts.MainFont, GameScreen.Level.Name, new Vector2(5f, 5f), Color.White);
 
-            PlayerItemBar.Render();
+            _playerItemBar.Render();
 		}
 	}
 }

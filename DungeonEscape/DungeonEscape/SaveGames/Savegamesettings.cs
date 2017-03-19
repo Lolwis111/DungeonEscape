@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace DungeonEscape.SaveGames
 {
-    public sealed class Savegamesettings
+    internal sealed class Savegamesettings
     {
         public static void Save(Savegamesettings settings)
         {
@@ -35,23 +35,23 @@ namespace DungeonEscape.SaveGames
             {
                 document.Load($"{Environment.CurrentDirectory}/settings.xml");
 
-                if (!float.TryParse(Utils.Utils.SelectSingleNode(document, "//volume").InnerText, out settings._volume))
+                if (!float.TryParse(Utils.Utils.SaveSelectSingleNode(document, "//volume").InnerText, out settings._volume))
                     throw new InvalidDataException("Die Datei settings.xml scheint beschädigt zu sein!");
 
                 if (
-                    !bool.TryParse(Utils.Utils.SelectSingleNode(document, "//fullscreen").InnerText,
+                    !bool.TryParse(Utils.Utils.SaveSelectSingleNode(document, "//fullscreen").InnerText,
                         out settings._fullscreen))
                     throw new InvalidDataException("Die Datei settings.xml scheint beschädigt zu sein!");
 
                 int x, y;
 
-                if (!int.TryParse(Utils.Utils.SelectSingleNode(document, "//resolution").InnerText.Split(';')[0], out x))
+                if (!int.TryParse(Utils.Utils.SaveSelectSingleNode(document, "//resolution").InnerText.Split(';')[0], out x))
                     throw new InvalidDataException("Die Datei settings.xml scheint beschädigt zu sein!");
 
-                if (!int.TryParse(Utils.Utils.SelectSingleNode(document, "//resolution").InnerText.Split(';')[1], out y))
+                if (!int.TryParse(Utils.Utils.SaveSelectSingleNode(document, "//resolution").InnerText.Split(';')[1], out y))
                     throw new InvalidDataException("Die Datei settings.xml scheint beschädigt zu sein!");
 
-                settings.UseLowTextures = Utils.Utils.SelectSingleNode(document, "//textures").InnerText == "low";
+                settings.UseLowTextures = Utils.Utils.SaveSelectSingleNode(document, "//textures").InnerText == "low";
 
                 settings.Resolution = new Resolution() {X = x, Y = y};
             }
@@ -79,8 +79,18 @@ namespace DungeonEscape.SaveGames
         }
         private bool _fullscreen;
 
-        public Resolution Resolution { get; set; } = new Resolution(0, 0);
+        public Resolution Resolution
+        {
+            get { return _resolution; }
+            set { _resolution = value; }
+        }
+        private Resolution _resolution = new Resolution(0, 0);
 
-        public bool UseLowTextures { get; set; }
+        public bool UseLowTextures
+        {
+            get { return _useLowTextures; }
+            set { _useLowTextures = value; }
+        }
+        private bool _useLowTextures;
     }
 }
