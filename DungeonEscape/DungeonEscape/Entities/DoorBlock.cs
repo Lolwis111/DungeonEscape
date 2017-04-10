@@ -107,7 +107,7 @@ namespace DungeonEscape.Entities
 
 		public override void Render()
         {
-            GameScreen.MainEffect.Parameters["DiffuseTexture"].SetValue(Textures.Door);
+            Effects.MainEffect.Parameters["DiffuseTexture"].SetValue(Textures.Door);
 
 			Draw(VertexModel.SpriteVertexModel);
 		}

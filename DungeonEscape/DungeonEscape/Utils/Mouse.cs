@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework.Input;
-
 namespace DungeonEscape.Utils
 {
     internal static class Mouse

@@ -14,7 +14,7 @@ namespace DungeonEscape.Content
         public static string NewGame;
         public static string LoadGame;
         public static string LoadTutorial;
-        public static string LoadOptions;
+        public static string LoadSettings;
         public static string Exit;
 
         public static string SaveStateOne;
@@ -24,7 +24,7 @@ namespace DungeonEscape.Content
 
         public static string Back;
 
-        public static void LoadLanguageStrings(string language)
+        public static void LoadStrings(string language)
         {
             string path = $"{Environment.CurrentDirectory}/{Basic.Content.RootDirectory}/Language/{language}.xml";
 
@@ -42,7 +42,7 @@ namespace DungeonEscape.Content
             NewGame = Utils.Utils.SaveSelectSingleNode(languageDocument, "//string5").InnerText;
             LoadGame = Utils.Utils.SaveSelectSingleNode(languageDocument, "//string6").InnerText;
             LoadTutorial = Utils.Utils.SaveSelectSingleNode(languageDocument, "//string7").InnerText;
-            LoadOptions = Utils.Utils.SaveSelectSingleNode(languageDocument, "//string8").InnerText;
+            LoadSettings = Utils.Utils.SaveSelectSingleNode(languageDocument, "//string8").InnerText;
             Exit = Utils.Utils.SaveSelectSingleNode(languageDocument, "//string9").InnerText;
 
             SaveStateOne = Utils.Utils.SaveSelectSingleNode(languageDocument, "//string10").InnerText;
@@ -51,6 +51,16 @@ namespace DungeonEscape.Content
             SaveStateFour = Utils.Utils.SaveSelectSingleNode(languageDocument, "//string13").InnerText;
 
             Back = Utils.Utils.SaveSelectSingleNode(languageDocument, "//string14").InnerText;
+
+            ErrorStrings.InvalidLevel = Utils.Utils.SaveSelectSingleNode(languageDocument, "//error1").InnerText;
+            ErrorStrings.BrokenLevel = Utils.Utils.SaveSelectSingleNode(languageDocument, "//error2").InnerText;
+        }
+
+        public static class ErrorStrings
+        {
+            public static string InvalidLevel;
+            public static string BrokenLevel;
+            public static string SecurityError;
         }
     }
 }

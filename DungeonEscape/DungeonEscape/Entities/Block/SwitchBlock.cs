@@ -11,21 +11,9 @@ namespace DungeonEscape.Entities.Block
     /// </summary>
     internal sealed class SwitchBlock : Entity
     {
-        public bool IsActivated
-        {
-            get { return _isActivated; }
-            set { _isActivated = value; }
-        }
+        public bool IsActivated { get; set; }
 
-        private bool _isActivated;
-
-        public int Id
-        {
-            get { return _id; }
-            set { _id = value; }
-        }
-
-        private int _id;
+        public int Id { get; set; }
 
         private GamePadState _gamePadState;
 
@@ -68,7 +56,7 @@ namespace DungeonEscape.Entities.Block
 
         public override void Render()
         {
-            GameScreen.MainEffect.Parameters["DiffuseTexture"].SetValue(IsActivated ? Textures.SwitchOn : Textures.SwitchOff);
+            Effects.MainEffect.Parameters["DiffuseTexture"].SetValue(IsActivated ? Textures.SwitchOn : Textures.SwitchOff);
 
             Draw(VertexModel.BlockVertexModel);
         }

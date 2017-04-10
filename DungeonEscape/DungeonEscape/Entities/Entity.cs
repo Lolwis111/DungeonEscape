@@ -31,13 +31,6 @@ namespace DungeonEscape.Entities
         }
         private Vector3 _scale;
 
-        public bool DrawBoundingBox
-        {
-            get { return _drawBoundingBox; }
-            set { _drawBoundingBox = value; }
-        }
-        private bool _drawBoundingBox;
-
         public bool Collision
         {
             get { return _collision; }
@@ -96,7 +89,6 @@ namespace DungeonEscape.Entities
             _position = new Vector3(x, y, z);
             _rotation = Vector3.Zero;
             _scale = new Vector3(1f, 1f, 1f);
-            _drawBoundingBox = false;
             _boundingBoxScale = new Vector3(1.2f, 1.2f, 1.2f);
             _collision = true;
             _box = new BoundingBox(new Vector3(-0.5f), new Vector3(0.5f));
@@ -130,7 +122,7 @@ namespace DungeonEscape.Entities
         {
             vertexModel.Draw(_worldMatrix);
 
-            if (_drawBoundingBox)
+            if (Debug.Debug.DrawBoundingBoxes)
                 BoundingBoxRenderer.Render(Box, Basic.GraphicsDevice, GameScreen.Camera.View, GameScreen.Camera.Projection, Color.Red);
         }
 

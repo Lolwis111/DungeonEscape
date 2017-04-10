@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<language>
+  <string1>Back to the game</string1>
+  <string2>Save and quit</string2>
+  <string3>Back to menu</string3>
+  <string4>You lost!</string4>
+  
+  <string5>New Game</string5>
+  <string6>Load Game</string6>
+  <string7>Load Tutorial</string7>
+  <string8>Settings</string8>
+  <string9>Exit</string9>
+  
+  <string10>Savestate 1</string10>
+  <string11>Savestate 2</string11>
+  <string12>Savestate 3</string12>
+  <string13>Savestate 4</string13>
+  
+  <string14>Back</string14>
+
+  <error1>Invalid level!</error1>
+  <error2>The file save.xml seems to be damaged!</error2>
+</language>

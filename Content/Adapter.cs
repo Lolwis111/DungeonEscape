@@ -1,47 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
 namespace Content
 {
-    public class Adapter
+    public struct Adapter
     {
-        #region Fields
-
-        public int ScreenWidth { get { return _screenWidth; } }
-        private int _screenWidth = 0;
-
-        public int ScreenHeight { get { return _screenHeight; } }
-        private int _screenHeight = 0;
-
-        public float AspectRatio { get { return _aspectRatio; } }
-        private float _aspectRatio = 0.0f;
-
-        public string Description { get { return _description; } }
-        private string _description = string.Empty;
-
-        public int ID { get { return _id; } }
-        private int _id = 0;
-
-        public string Name { get { return _name; } }
-        private string _name = string.Empty;
-
-        #endregion
+        public int ScreenWidth;
+        public int ScreenHeight;
+        public float AspectRatio;
+        public string Description;
+        public int Id;
+        public string Name;
 
         public static Adapter GetAdapter()
         {
             GraphicsAdapter adapter = GraphicsAdapter.DefaultAdapter;
 
-            return new Adapter() { 
-                _aspectRatio = adapter.CurrentDisplayMode.AspectRatio, 
-                _description = adapter.Description,
-                _id = adapter.DeviceId,
-                _name = adapter.DeviceName,
-                _screenHeight = adapter.CurrentDisplayMode.Height,
-                _screenWidth = adapter.CurrentDisplayMode.Width 
+            return new Adapter
+            {
+                AspectRatio = adapter.CurrentDisplayMode.AspectRatio, 
+                Description = adapter.Description,
+                Id = adapter.DeviceId,
+                Name = adapter.DeviceName,
+                ScreenHeight = adapter.CurrentDisplayMode.Height,
+                ScreenWidth = adapter.CurrentDisplayMode.Width 
             };
         }
     }

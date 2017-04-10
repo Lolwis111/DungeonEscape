@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
@@ -22,12 +17,12 @@ namespace MapConverter
         {
             using (OpenFileDialog openFile = new OpenFileDialog())
             {
-                openFile.Filter = "Bitmaps (*.bmp)|*.bmp";
+                openFile.Filter = @"Bitmaps (*.bmp)|*.bmp";
                 openFile.CheckFileExists = true;
                 openFile.CheckPathExists = true;
                 openFile.ValidateNames = true;
 
-                if (openFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (openFile.ShowDialog() == DialogResult.OK)
                     txtInput.Text = openFile.FileName;
             }
         }
@@ -36,27 +31,27 @@ namespace MapConverter
         {
             using (SaveFileDialog saveFile = new SaveFileDialog())
             {
-                saveFile.Filter = "XML Files (*.xml)|*.xml";
+                saveFile.Filter = @"XML Files (*.xml)|*.xml";
 
-                if (saveFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (saveFile.ShowDialog() == DialogResult.OK)
                     txtOutput.Text = saveFile.FileName;
             }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
             if (!File.Exists(txtInput.Text))
             {
-                MessageBox.Show("ERROR: Inputfile", "Error");
+                MessageBox.Show(@"ERROR: Inputfile", @"Error");
                 return;
             }
 
-            Bitmap input = (Bitmap)Bitmap.FromFile(txtInput.Text);
+            Bitmap input = (Bitmap)Image.FromFile(txtInput.Text);
 
             StringBuilder builder = new StringBuilder(10000);
 
@@ -162,15 +157,11 @@ namespace MapConverter
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.StackTrace + "\n\n" + ex.Message);
+                MessageBox.Show($@"{ex.StackTrace}\n\n{ex.Message}");
             }
             finally
             {
-                if (writer != null)
-                {
-                    writer.Dispose();
-                    writer = null;
-                }
+                writer?.Dispose();
             }
         }
     }

@@ -12,18 +12,12 @@ namespace DungeonEscape.GUI
         private readonly Click _clickFunction;
 
         private Rectangle _rect;
-		private bool _hover;
+        private bool _hover;
 
-		private MouseState _mouseStateCurrent;
+        private MouseState _mouseStateCurrent;
 		private MouseState _mouseStatePrevious;
 
-        public string Text
-        {
-            get { return _text; }
-            set { _text = value; }
-        }
-
-        private string _text;
+        public string Text { get; set; }
 
         public int PositionX
 		{
@@ -37,21 +31,9 @@ namespace DungeonEscape.GUI
 			set { _rect.Y = value; }
 		}
 
-        public bool Enabled
-        {
-            get { return _enabled; }
-            set { _enabled = value; }
-        }
+        public bool Enabled { get; set; }
 
-        private bool _enabled;
-
-        public bool Visible
-        {
-            get { return _visible; }
-            set { _visible = value; }
-        }
-
-        private bool _visible;
+        public bool Visible { get; set; }
 
         #endregion
 
@@ -66,11 +48,13 @@ namespace DungeonEscape.GUI
 		
         public void Update()
 		{
-			_hover = _rect.Contains(new Point(_mouseStateCurrent.X, _mouseStateCurrent.Y));
+            _hover = _rect.Contains(new Point(_mouseStateCurrent.X, _mouseStateCurrent.Y));
 			_mouseStateCurrent = Mouse.GetState();
 
-			if (_hover && _mouseStateCurrent.LeftButton == ButtonState.Pressed 
-                && _mouseStatePrevious.LeftButton == ButtonState.Released && Enabled)
+			if (_hover && (_mouseStateCurrent.LeftButton == ButtonState.Pressed 
+                && _mouseStatePrevious.LeftButton == ButtonState.Released 
+                || Basic.NewGamePadState.Buttons.A == ButtonState.Pressed 
+                && Basic.OldGamePadState.Buttons.A == ButtonState.Released)  && Enabled)
 			{
                 Sounds.Click.Play();
                 if (_clickFunction != null)

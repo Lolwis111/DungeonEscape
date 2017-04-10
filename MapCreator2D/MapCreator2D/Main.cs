@@ -5,21 +5,20 @@ using SD = System.Drawing;
 
 namespace MapCreator2D
 {
-    public class Main : Microsoft.Xna.Framework.Game
+    public class Main : Game
     {
-        private GraphicsDeviceManager _graphics;
-        public ControlWindow _window = new ControlWindow();
+        public ControlWindow ControlWindow = new ControlWindow();
         SWF.Form _gameForm;
 
         public Main()
         {
-            _graphics = new GraphicsDeviceManager(this)
+            GraphicsDeviceManager graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferHeight = 600,
                 PreferredBackBufferWidth = 600
             };
 
-            _graphics.ApplyChanges();
+            graphics.ApplyChanges();
 
             Content.RootDirectory = "Content\\MapCreator";
 
@@ -32,12 +31,12 @@ namespace MapCreator2D
             _gameForm = SWF.Control.FromHandle(hWnd).FindForm();
         
             SWF.Application.EnableVisualStyles();
-            _window.Show();
-            _window.ClientSize = new SD.Size(_window.ClientSize.Width, 600);
+            ControlWindow.Show();
+            ControlWindow.ClientSize = new SD.Size(ControlWindow.ClientSize.Width, 600);
 
             Basic.Content = Content;
             Basic.Device = GraphicsDevice;
-            Basic.gameWindow = this;
+            Basic.GameWindow = this;
 
             Basic.Load();
         }
@@ -52,7 +51,7 @@ namespace MapCreator2D
 
         protected override void Update(GameTime gameTime)
         {
-            _window.Location = new SD.Point(_gameForm.Location.X + _gameForm.Size.Width+11, _gameForm.Location.Y);
+            ControlWindow.Location = new SD.Point(_gameForm.Location.X + _gameForm.Size.Width+11, _gameForm.Location.Y);
 
             Basic.Update(gameTime);
 

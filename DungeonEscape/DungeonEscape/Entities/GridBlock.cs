@@ -60,7 +60,7 @@ namespace DungeonEscape.Entities
 
 		public override void Render()
         {
-            GameScreen.MainEffect.Parameters["DiffuseTexture"].SetValue(Destroyed ? Textures.GridDestroyed : Textures.Grid); 
+            Effects.MainEffect.Parameters["DiffuseTexture"].SetValue(Destroyed ? Textures.GridDestroyed : Textures.Grid); 
 			Draw(VertexModel.SpriteVertexModel);
 		}
 

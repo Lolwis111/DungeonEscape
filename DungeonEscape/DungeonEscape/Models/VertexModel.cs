@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using DungeonEscape.Content;
 using DungeonEscape.Screens;
 
 namespace DungeonEscape.Models
@@ -15,26 +16,21 @@ namespace DungeonEscape.Models
         public static VertexModel SpriteVertexModel;
         public static VertexModel HalfBlockVertexModel;
 
-        public static void Init()
+        public static void Init(int floorWidth, int floorHeight)
         {
-            FloorVertexModel = new FloorFace();
+            FloorVertexModel = new FloorFace(floorWidth, floorHeight);
             BlockVertexModel = new BlockModel();
             SpriteVertexModel = new SpriteFace();
             HalfBlockVertexModel = new HalfBlockModel();
         }
 
-        public VertexBuffer VertexBuffer
-		{
-            get { return Buffer; }
-            set { Buffer = value; }
-		}
-        internal VertexBuffer Buffer;
+        public VertexBuffer VertexBuffer { get; set; }
         private int _vertexCount;
 
         protected void SetUp()
 		{
-            Buffer = new VertexBuffer(Basic.GraphicsDevice, typeof(VertexPositionNormalTexture), VertexData.Count, BufferUsage.WriteOnly);
-            Buffer.SetData(VertexData.ToArray());
+            VertexBuffer = new VertexBuffer(Basic.GraphicsDevice, typeof(VertexPositionNormalTexture), VertexData.Count, BufferUsage.WriteOnly);
+            VertexBuffer.SetData(VertexData.ToArray());
 
             _vertexCount = VertexData.Count / 3;
 
@@ -43,22 +39,25 @@ namespace DungeonEscape.Models
 		
         public void Draw(Matrix world)
 		{
-            GameScreen.MainEffect.Parameters["World"].SetValue(world);
-            GameScreen.MainEffect.Parameters["View"].SetValue(GameScreen.Camera.View);
-            GameScreen.MainEffect.Parameters["Projection"].SetValue(GameScreen.Camera.Projection);
-            GameScreen.MainEffect.Parameters["LightPosition"].SetValue(GameScreen.Camera.Position);
-            GameScreen.MainEffect.Parameters["LightDiffuseColor"].SetValue(Color.Gray.ToVector3());
-            GameScreen.MainEffect.Parameters["LightSpecularColor"].SetValue(new Color(200, 200, 200).ToVector3());
-            GameScreen.MainEffect.Parameters["LightDistanceSquared"].SetValue(8);
-            GameScreen.MainEffect.Parameters["DiffuseColor"].SetValue(Color.Gray.ToVector3());
-            GameScreen.MainEffect.Parameters["AmbientLightColor"].SetValue(Color.Black.ToVector3());
-            GameScreen.MainEffect.Parameters["EmissiveColor"].SetValue(Color.Gray.ToVector3());
-            GameScreen.MainEffect.Parameters["SpecularColor"].SetValue(Color.Black.ToVector3());
-            GameScreen.MainEffect.Parameters["SpecularPower"].SetValue(1f);
+            Effects.MainEffect.Parameters["World"].SetValue(world);
+            Effects.MainEffect.Parameters["View"].SetValue(GameScreen.Camera.View);
+            Effects.MainEffect.Parameters["Projection"].SetValue(GameScreen.Camera.Projection);
+            Effects.MainEffect.Parameters["LightPosition"].SetValue(GameScreen.Camera.Position);
+            Effects.MainEffect.Parameters["LightDiffuseColor"].SetValue(Color.Gray.ToVector3());
+            Effects.MainEffect.Parameters["LightSpecularColor"].SetValue(new Color(200, 200, 200).ToVector3());
+            Effects.MainEffect.Parameters["LightDistanceSquared"].SetValue(8);
+            Effects.MainEffect.Parameters["DiffuseColor"].SetValue(Color.Gray.ToVector3());
+            Effects.MainEffect.Parameters["AmbientLightColor"].SetValue(Color.Black.ToVector3());
+            Effects.MainEffect.Parameters["EmissiveColor"].SetValue(Color.Gray.ToVector3());
+            Effects.MainEffect.Parameters["SpecularColor"].SetValue(Color.Black.ToVector3());
+            Effects.MainEffect.Parameters["SpecularPower"].SetValue(1f);
 
-            GameScreen.MainEffect.CurrentTechnique.Passes["Normal"].Apply();
+            if(Basic.DebugMode)
+                Effects.MainEffect.CurrentTechnique.Passes["Debug"].Apply();
+            else
+                Effects.MainEffect.CurrentTechnique.Passes["Normal"].Apply();
 
-            Basic.GraphicsDevice.SetVertexBuffer(Buffer, 0);
+            Basic.GraphicsDevice.SetVertexBuffer(VertexBuffer, 0);
             Basic.GraphicsDevice.DrawPrimitives(PrimitiveType.TriangleList, 0, _vertexCount);
 		}
 
@@ -72,12 +71,12 @@ namespace DungeonEscape.Models
 
             if (disposing)
             {
-                Buffer.Dispose();
+                VertexBuffer.Dispose();
             }
 
             _disposedValue = true;
 
-            Buffer = null;
+            VertexBuffer = null;
 
             VertexData.Clear();
         }

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using DungeonEscape.Content;
 using DungeonEscape.Debug;
 using DungeonEscape.SaveGames;
 using Microsoft.Xna.Framework;
@@ -8,65 +10,49 @@ namespace DungeonEscape
 {
     internal sealed class GameMain : Game
 	{
-	    public GraphicsDeviceManager Graphics
-	    {
-	        get { return _graphics; }
-	        set { _graphics = value; }
-	    }
-        private GraphicsDeviceManager _graphics;
+	    public GraphicsDeviceManager Graphics { get; set; }
 
-	    public float SoundVolume
-	    {
-	        get { return _soundVolume; }
-	        set { _soundVolume = value; }
-	    }
-	    private float _soundVolume;
+	    public float SoundVolume { get; set; }
 
 	    private readonly RasterizerState _rs;
 		private readonly SamplerState _sampler;
 
-		public GameMain(IList<string> args)
+		public GameMain(IEnumerable<string> args)
 		{
-            _graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
 
             Basic.DebugMode = false;
 
             //Kommandozeilenparameter überprüfen
-            if (args.Count > 0)
+		    foreach (string arg in args)
+		    {
+		        ParseArgument(arg);
+		    }
+
+            if (Basic.DebugMode)
             {
-                if (args[0] == "-debug")
-                {
-                    Basic.DebugMode = true;
-                }
-                else if (args[0].StartsWith("-l"))
-                {
-                    int level;
-                    if (int.TryParse(args[0].Substring(2), out level))
-                    {
-                        Basic.ByPassMenu = true;
-                        Basic.ByPassLevel = level;
-                    }
-                    else
-                    {
-                        LogWriter.WriteError(new System.ArgumentException("Ungültiges Level!"));
-                        Exit();
-                    }
-                }
+                Console.WriteLine("Debug functions:");
+                Console.WriteLine("   <F1> print position");
+                Console.WriteLine("   <F2> toggle ceiling");
+                Console.WriteLine("   <F3> toggle floor");
+                Console.WriteLine("   <F4> toogle bounding boxes");
+                Console.WriteLine("   <F5> toggle framerate");
+                Console.WriteLine("   <Space> move up");
+                Console.WriteLine("   <LShift> move down");
             }
-                
 
             //Einstellungen laden
             Savegamesettings settings = Savegamesettings.Load();
-            _soundVolume = settings.Volume;      //Volume -> Aus settings.xml
+            SoundVolume = settings.Volume;      //Volume -> Aus settings.xml
 
 			Content.RootDirectory = "Content";
 
-            _graphics.PreferMultiSampling = true;                        //Kantenglättung
-            _graphics.IsFullScreen = settings.Fullscreen;                //Vollbild -> Aus settings.xml
-            _graphics.PreferredBackBufferWidth = settings.Resolution.X;  //Auflösung (X) -> Aus settings.xml
-            _graphics.PreferredBackBufferHeight = settings.Resolution.Y; //Auflösung (Y) -> Aus settings.xml
-            _graphics.SynchronizeWithVerticalRetrace = true;             //VSync
-            _graphics.ApplyChanges();                                    //Grafikeinstellungen anwenden
+            Graphics.PreferMultiSampling = true;                        //Kantenglättung
+            Graphics.IsFullScreen = settings.Fullscreen;                //Vollbild -> Aus settings.xml
+            Graphics.PreferredBackBufferWidth = settings.Resolution.X;  //Auflösung (X) -> Aus settings.xml
+            Graphics.PreferredBackBufferHeight = settings.Resolution.Y; //Auflösung (Y) -> Aus settings.xml
+            Graphics.SynchronizeWithVerticalRetrace = true;             //VSync
+            Graphics.ApplyChanges();                                    //Grafikeinstellungen anwenden
 
             //Fenstergröße setzen
 			Basic.WindowSize = new Rectangle(0, 0, settings.Resolution.X, settings.Resolution.Y);
@@ -116,5 +102,28 @@ namespace DungeonEscape
 		{
 			Basic.UnloadContent();
 		}
+
+	    private void ParseArgument(string arg)
+	    {
+            if (arg == "-debug")
+            {
+                Basic.DebugMode = true;
+            }
+            else if (arg.StartsWith("-l"))
+            {
+                int level;
+                if (int.TryParse(arg.Substring(2), out level))
+                {
+                    Basic.ByPassMenu = true;
+                    Basic.ByPassLevel = level;
+                }
+                else
+                {
+                    LogWriter.WriteError(new System.ArgumentException(LanguageStrings.ErrorStrings.InvalidLevel));
+                    // LogWriter.WriteError(new System.ArgumentException("Ungültiges Level!"));
+                    Exit();
+                }
+            }
+        }
 	}
 }

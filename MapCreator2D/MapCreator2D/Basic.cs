@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,19 +11,19 @@ namespace MapCreator2D
     {
         public static ContentManager Content;
         public static GraphicsDevice Device;
-        public static SpriteBatch spriteBatch;
+        public static SpriteBatch SpriteBatch;
         public static Rectangle CursorRectangle = Rectangle.Empty;
         public static MouseState NewMouseState;
         public static List<Tile> Tiles = new List<Tile>();
-        public static Main gameWindow;
+        public static Main GameWindow;
 
         public static void Load()
         {
             Textures.LoadTextures();
 
-            spriteBatch = new SpriteBatch(Device);
+            SpriteBatch = new SpriteBatch(Device);
 
-            clearTiles();
+            ClearTiles();
         }
 
         public static void Unload()
@@ -35,7 +32,7 @@ namespace MapCreator2D
                 t.Dispose();
 
             Textures.DisposeTextures();
-            spriteBatch.Dispose();
+            SpriteBatch.Dispose();
         }
 
         public static void Update(GameTime time)
@@ -51,15 +48,15 @@ namespace MapCreator2D
         public static void Render()
         {
             Device.Clear(Color.LightGray);
-            spriteBatch.Begin();
+            SpriteBatch.Begin();
 
             foreach (Tile t in Tiles)
                 t.Render();
 
-            spriteBatch.End();
+            SpriteBatch.End();
         }
 
-        public static void clearTiles()
+        public static void ClearTiles()
         {
             for (int x = 0; x < 20; x++ )
             {

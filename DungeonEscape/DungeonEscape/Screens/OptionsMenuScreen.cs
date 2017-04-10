@@ -21,6 +21,8 @@ namespace DungeonEscape.Screens
             {
                 _gameSettings = settings.GameSettings;
 
+                LanguageStrings.LoadStrings(_gameSettings.Language);
+
                 Sounds.SetVolume(_gameSettings.Volume);
                 Basic.GraphicsManager.IsFullScreen = _gameSettings.Fullscreen;
                 Basic.GraphicsManager.PreferredBackBufferWidth = _gameSettings.Resolution.X;

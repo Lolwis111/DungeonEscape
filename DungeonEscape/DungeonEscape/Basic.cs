@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using DungeonEscape.Utils;
 using DungeonEscape.Debug;
 using DungeonEscape.Content;
 using DungeonEscape.SaveGames;
 using DungeonEscape.Screens;
+using DungeonEscape.GUI;
 
 namespace DungeonEscape
 {
@@ -27,7 +27,7 @@ namespace DungeonEscape
         public static Random Random = new Random();
 
         public static GameWindow Window;
-        public static Rectangle WindowSize = new Rectangle(0, 0, 1024, 768);
+        public static Rectangle WindowSize = new Rectangle(0, 0, 1280, 720);
 
         public static IScreen CurrentScreen;
         public static IScreen SecondaryScreen;
@@ -61,10 +61,9 @@ namespace DungeonEscape
             SpriteBatch = new SpriteBatch(GraphicsDevice);
             Window = game.Window;
 
-            LanguageStrings.LoadLanguageStrings("german");
-            Fonts.LoadFonts();
-            Textures.LoadTexture();
-            Sounds.LoadSounds();
+            LanguageStrings.LoadStrings("german");
+            DungeonEscape.Content.Content.LoadAllContent();
+
             Sounds.SetVolume(game.SoundVolume);
 
 			Canvas.SetUpCanvas();
@@ -73,8 +72,7 @@ namespace DungeonEscape
 
             if (DebugMode)
             {
-                _counterFps = new FpsCounter(game);
-                game.Components.Add(_counterFps);
+                _counterFps = new FpsCounter();
             }
 
             if (ByPassMenu) SetScreen(new GameScreen(ByPassLevel, SaveState.ByPass));
@@ -83,16 +81,11 @@ namespace DungeonEscape
 
 		public static void UnloadContent()
 		{
-            Sounds.UnloadSounds();
-            Textures.UndloadTexture();
+            DungeonEscape.Content.Content.UnloadAllContent();
+
             SpriteBatch.Dispose();
 
             Content.Unload();
-
-		    if (_counterFps == null) return;
-
-		    _counterFps.Dispose();
-		    _counterFps = null;
 		}
 
 		public static void Update(GameTime gameTime)
@@ -102,7 +95,7 @@ namespace DungeonEscape
             NewGamePadState = GamePad.GetState(PlayerIndex.One);
 
 			if ((_newKeyboardState.IsKeyDown(Keys.Escape) && _oldKeyboardState.IsKeyUp(Keys.Escape) ||
-                NewGamePadState.Buttons.Start == ButtonState.Pressed && OldGamePadState.Buttons.A == ButtonState.Released) && 
+                NewGamePadState.Buttons.Start == ButtonState.Pressed && OldGamePadState.Buttons.Start == ButtonState.Released) && 
                 CurrentScreen is GameScreen)
             {
 				SecondaryScreen = CurrentScreen;
@@ -122,6 +115,8 @@ namespace DungeonEscape
 			GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             GraphicsDevice.SamplerStates[0] = _samlper;
             CurrentScreen.Render();
+
+            if(Debug.Debug.DrawFramerate) _counterFps.Draw(GameTime);
 
             SpriteBatch.End();
 		}

@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Xml;
 using System.IO;
 
 namespace MapDebugger
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             Console.Write("Datei: ");
-            string path = Console.ReadLine();
 
-            if (System.IO.File.Exists(path))
+            string path = GetInput();
+
+            if (File.Exists(path))
             {
                 Console.Error.WriteLine("Die Datei wurde nicht gefunden!");
                 return;
@@ -25,14 +22,15 @@ namespace MapDebugger
             XmlDocument mapDocument = new XmlDocument();
             mapDocument.Load(path);
 
-            string size = mapDocument.SelectSingleNode("//size").InnerText;
+            string size = SaveSelectSingleNode(mapDocument, "//size").InnerText;
 
-            int mapWidth = 0, mapHeight = 0;
+            int mapWidth, 
+                mapHeight;
+
             if (!int.TryParse(size.Split(';')[0], out mapWidth))
             {
                 Console.Error.WriteLine("Ungültige Werte in '<size>'");
 
-                mapDocument = null;
                 return;
             }
 
@@ -40,26 +38,31 @@ namespace MapDebugger
             {
                 Console.Error.WriteLine("Ungültige Werte in '<size>'");
 
-                mapDocument = null;
                 return;
             }
 
             Bitmap bmp = new Bitmap(mapWidth, mapHeight);
-            string name = mapDocument.SelectSingleNode("//name").InnerText;
+
             XmlNodeList nodes = mapDocument.SelectNodes("//entity");
-            string[] coordinates = new string[3];
+
+            if(nodes == null) throw new InvalidDataException();
+
             bool error = false;
             for (int i = 0; i < nodes.Count - 1; i++)
             {
-                coordinates = nodes[i].SelectSingleNode("position").InnerText.Split(';');
-                int x = 1, y = 1, z = 1;
+
+                string[] coordinates = SaveSelectSingleNode(nodes[i], "position").InnerText.Split(';');
+
+                int x;
                 if (int.TryParse(coordinates[0], out x))
                 {
+                    int y;
                     if (int.TryParse(coordinates[1], out y))
                     {
+                        int z;
                         if (int.TryParse(coordinates[2], out z))
                         {
-                            string type = nodes[i].SelectSingleNode("type").InnerText;
+                            string type = SaveSelectSingleNode(nodes[i], "type").InnerText;
 
                             switch (type)
                             {
@@ -117,8 +120,7 @@ namespace MapDebugger
                             Console.Error.WriteLine("Ungültiger Wert in Z-Koordinate!");
                             bmp.Dispose();
                             bmp = null;
-                            nodes = null;
-                            mapDocument = null;
+                            error = true;
 
                             break;
                         }
@@ -128,8 +130,7 @@ namespace MapDebugger
                         Console.Error.WriteLine("Ungültiger Wert in Y-Koordinate!");
                         bmp.Dispose();
                         bmp = null;
-                        nodes = null;
-                        mapDocument = null;
+                        error = true;
 
                         break;
                     }
@@ -139,8 +140,7 @@ namespace MapDebugger
                     Console.Error.WriteLine("Ungültiger Wert in X-Koordinate!");
                     bmp.Dispose();
                     bmp = null;
-                    nodes = null;
-                    mapDocument = null;
+                    error = true;
 
                     break;
                 }
@@ -152,7 +152,6 @@ namespace MapDebugger
             {
                 bmp.Save(Path.Combine(Environment.CurrentDirectory, "output.bmp"), System.Drawing.Imaging.ImageFormat.Bmp);
                 bmp.Dispose();
-                bmp = null;
             }
             else 
             {
@@ -160,6 +159,26 @@ namespace MapDebugger
             }
 
             Console.ReadKey();
+        }
+
+        private static string GetInput()
+        {
+            while (true)
+            {
+                string input = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(input)) continue;
+
+                return input;
+            }
+        }
+
+        private static XmlNode SaveSelectSingleNode(XmlNode root, string xpath)
+        {
+            if(root == null || string.IsNullOrEmpty(xpath))
+                throw new NullReferenceException();
+
+            return root.SelectSingleNode(xpath);
         }
     }
 }

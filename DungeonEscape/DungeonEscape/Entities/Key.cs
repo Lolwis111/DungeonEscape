@@ -44,7 +44,7 @@ namespace DungeonEscape.Entities
 		
         public override void Render()
         {
-            GameScreen.MainEffect.Parameters["DiffuseTexture"].SetValue(Textures.Key);
+            Effects.MainEffect.Parameters["DiffuseTexture"].SetValue(Textures.Key);
 
 			Draw(VertexModel.SpriteVertexModel);
 		}

@@ -93,6 +93,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SECURITY_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -104,6 +105,9 @@ copy /Y "$(TargetPath)" "$(SolutionDir)DungeonEscape\DungeonEscape\bin\x86\Relea
 copy /Y "$(TargetPath)" "$(SolutionDir)MapCreator2D\MapCreator2D\bin\x86\Release\Security.dll"
 copy /Y "$(TargetPath)" "$(SolutionDir)MapCreator2D\MapCreator2D\bin\x86\Debug\Security.dll"</Command>
     </PostBuildEvent>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

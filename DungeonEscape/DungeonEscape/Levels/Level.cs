@@ -59,11 +59,11 @@ namespace DungeonEscape.Levels
 
         public Level(int level)
 		{
-            string p = $"{Environment.CurrentDirectory}/{Basic.Content.RootDirectory}/Levels/level{level}.xml";
+            string path = Path.Combine(Environment.CurrentDirectory, Basic.Content.RootDirectory, "Levels", $"level{level}.xml");
 
-            if (File.Exists(p))
+            if (File.Exists(path))
             {
-                _mapDocument.Load(p);
+                _mapDocument.Load(path);
             }
             else
             {
@@ -74,11 +74,11 @@ namespace DungeonEscape.Levels
 
             SetUpMap();
 
-            VertexModel.Init();
+            VertexModel.Init(_mapWidth, _mapHeight);
 
-			_floor = new Floor(_mapWidth, _mapHeight);
+			_floor = new Floor();
 
-			_ceiling = new Ceiling(_mapWidth, _mapHeight);
+			_ceiling = new Ceiling();
 
 			_levelNumber = level;
 
@@ -88,7 +88,6 @@ namespace DungeonEscape.Levels
 		public void Update()
 		{
             _toRemove = new List<Entity>();
-            //_entities.Sort();
 
             for (short i = 0; i < _entities.Count; i++)
 			{
@@ -113,8 +112,11 @@ namespace DungeonEscape.Levels
 
 		public void Render()
 		{
-			_floor.Render();
-			_ceiling.Render();
+            if(!Basic.DebugMode || (Basic.DebugMode && Debug.Debug.DrawFloor))
+			    _floor.Render();
+
+            if (!Basic.DebugMode || (Basic.DebugMode && Debug.Debug.DrawCeiling))
+                _ceiling.Render();
 
             _entities.Sort();
 
@@ -131,140 +133,163 @@ namespace DungeonEscape.Levels
         {
             string size = Utils.Utils.SaveSelectSingleNode(_mapDocument, "//size").InnerText;
 
-            if (int.TryParse(size.Split(';')[0], out _mapWidth))
+            if (!int.TryParse(size.Split(';')[0], out _mapWidth))
             {
-                if (int.TryParse(size.Split(';')[1], out _mapHeight))
-                {
-                    Name = Utils.Utils.SaveSelectSingleNode(_mapDocument, "//name").InnerText;
-
-                    XmlNodeList nodes = _mapDocument.SelectNodes("//entity");
-
-                    if (nodes == null)
-                        throw new NullReferenceException();
-
-                    int eC = 0, bC = 0, sC = 0;
-
-                    for (int i = 0; i < nodes.Count; i++)
-                    {
-                        string[] coordinates = Utils.Utils.SaveSelectSingleNode(nodes[i], "position").InnerText.Split(';');
-                        int x;
-                        if (int.TryParse(coordinates[0], out x))
-                        {
-                            int y;
-                            if (int.TryParse(coordinates[1], out y))
-                            {
-                                int z;
-                                if (int.TryParse(coordinates[2], out z))
-                                {
-                                    string type = Utils.Utils.SaveSelectSingleNode(nodes[i], "type").InnerText;
-
-                                    switch (type)
-                                    {
-                                        case "wallblock":
-                                            _entities.Add(new WallBlock(x, y, z));
-                                            bC++;
-                                            break;
-                                        case "spawn":
-                                            GameScreen.Camera.Position = new Vector3(x, y, z);
-                                            break;
-                                        case "levelup":
-                                            _entities.Add(new LevelUp(x, y, z));
-                                            sC++;
-                                            break;
-                                        case "leveldown":
-                                            _entities.Add(new LevelDown(x, y, z));
-                                            sC++;
-                                            break;
-                                        case "key":
-                                            _entities.Add(new Key(x, y, z)
-                                            {
-                                                Id = int.Parse(Utils.Utils.SaveSelectSingleNode(nodes[i], "id").InnerText)
-                                            });
-                                            sC++;
-                                            break;
-                                        case "pliers":
-                                            _entities.Add(new Pliers(x, y, z));
-                                            sC++;
-                                            break;
-                                        case "pickaxe":
-                                            _entities.Add(new PickAxe(x, y, z));
-                                            sC++;
-                                            break;
-                                        case "message":
-                                            _entities.Add(new Message(x, y, z)
-                                            {
-                                                Text = Utils.Utils.SaveSelectSingleNode(nodes[i], "text").InnerText
-                                            });
-                                            sC++;
-                                            break;
-                                        case "destroyblock":
-                                            _entities.Add(new DestroyBlock(x, y, z));
-                                            bC++;
-                                            break;
-                                        case "doorblock":
-                                            _entities.Add(new DoorBlock(x, y, z)
-                                            {
-                                                Id = int.Parse(Utils.Utils.SaveSelectSingleNode(nodes[i], "id").InnerText)
-                                            });
-                                            sC++;
-                                            break;
-                                        case "gridblock":
-                                            _entities.Add(new GridBlock(x, y, z));
-                                            sC++;
-                                            break;
-                                        case "switch":
-                                            _entities.Add(new SwitchBlock(x, y, z)
-                                            {
-                                                Id = int.Parse(Utils.Utils.SaveSelectSingleNode(nodes[i], "id").InnerText)
-                                            });
-                                            bC++;
-                                            break;
-                                        case "halfblock":
-                                            _entities.Add(new HalfBlock(x, y, z));
-                                            bC++;
-                                            break;
-                                        case "empty":
-                                            eC++;
-                                            break;
-                                        default:
-                                            throw new FormatException($"{type} ist kein gültiger Typ für einen Block!");
-                                    }
-                                }
-                                else
-                                {
-                                    throw new FormatException($"{coordinates[0]} ist kein gültiger Wert für Z!");
-                                }
-                            }
-                            else
-                            {
-                                throw new FormatException($"{coordinates[1]} ist kein gültiger Wert für Y!");
-                            }
-                        }
-                        else
-                        {
-                            throw new FormatException($"{coordinates[2]} ist kein gültiger Wert für X!");
-                        }
-                    }
-
-                    int n = NativeMethods.checkLevel(eC, bC, sC);
-                    int n1 = int.Parse(Utils.Utils.SaveSelectSingleNode(_mapDocument, "//SECU").InnerText);
-
-                    if (n == n1) return;
-
-                    System.Windows.Forms.MessageBox.Show(
-                        "Die Checksumme stimmt nicht überein!\nLevel wird nicht geladen!", "SECURITYERROR");
-                    Basic.SetScreen(new MainMenuScreen());
-                }
-                else
-                {
-                    throw new FormatException($"{size.Split(';')[1]} ist kein gültiger Wert für die Höhe!");
-                }
-            }
-            else
-            {
-
                 throw new FormatException($"{size.Split(';')[0]} ist kein gültiger Wert für die Breite!");
             }
+
+            if (!int.TryParse(size.Split(';')[1], out _mapHeight))
+            {
+                throw new FormatException($"{size.Split(';')[1]} ist kein gültiger Wert für die Höhe!");
+            }
+
+            Name = Utils.Utils.SaveSelectSingleNode(_mapDocument, "//name").InnerText;
+
+            XmlNodeList nodes = _mapDocument.SelectNodes("//entity");
+
+            if (nodes == null)
+                throw new NullReferenceException();
+
+            int eC = 0, bC = 0, sC = 0;
+
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                string[] coordinates =
+                    Utils.Utils.SaveSelectSingleNode(nodes[i], "position").InnerText.Split(';');
+                int x;
+                if (!int.TryParse(coordinates[0], out x))
+                {
+                    throw new FormatException($"Invalid value X = {coordinates[2]}!");
+                }
+
+                int y;
+                if (!int.TryParse(coordinates[1], out y))
+                {
+                    throw new FormatException($"Invalid value Y = {coordinates[1]}!");
+                }
+
+                int z;
+                if (!int.TryParse(coordinates[2], out z))
+                {
+                    throw new FormatException($"Invalid value Z = {coordinates[0]}!");
+                }
+
+                string type = Utils.Utils.SaveSelectSingleNode(nodes[i], "type").InnerText;
+
+                switch (type)
+                {
+                    case "wallblock":
+                    {
+                        _entities.Add(new WallBlock(x, y, z));
+                        bC++;
+                        break;
+                    }
+                    case "spawn":
+                    {
+                        GameScreen.Camera.Position = new Vector3(x, y, z);
+                        break;
+                    }
+                    case "levelup":
+                    {
+                        _entities.Add(new LevelUp(x, y, z));
+                        sC++;
+                        break;
+                    }
+                    case "leveldown":
+                    {
+                        _entities.Add(new LevelDown(x, y, z));
+                        sC++;
+                        break;
+                    }
+                    case "key":
+                    {
+                        _entities.Add(new Key(x, y, z)
+                        {
+                            Id =
+                                int.Parse(Utils.Utils.SaveSelectSingleNode(nodes[i], "id").InnerText)
+                        });
+                        sC++;
+                        break;
+                    }
+                    case "pliers":
+                    {
+                        _entities.Add(new Pliers(x, y, z));
+                        sC++;
+                        break;
+                    }
+                    case "pickaxe":
+                    {
+                        _entities.Add(new PickAxe(x, y, z));
+                        sC++;
+                        break;
+                    }
+                    case "message":
+                    {
+                        _entities.Add(new Message(x, y, z)
+                        {
+                            Text = Utils.Utils.SaveSelectSingleNode(nodes[i], "text").InnerText
+                        });
+                        sC++;
+                        break;
+                    }
+                    case "destroyblock":
+                    {
+                        _entities.Add(new DestroyBlock(x, y, z));
+                        bC++;
+                        break;
+                    }
+                    case "doorblock":
+                    {
+                        _entities.Add(new DoorBlock(x, y, z)
+                        {
+                            Id =
+                                int.Parse(Utils.Utils.SaveSelectSingleNode(nodes[i], "id").InnerText)
+                        });
+                        sC++;
+                        break;
+                    }
+                    case "gridblock":
+                    {
+                        _entities.Add(new GridBlock(x, y, z));
+                        sC++;
+                        break;
+                    }
+                    case "switch":
+                    {
+                        _entities.Add(new SwitchBlock(x, y, z)
+                        {
+                            Id =
+                                int.Parse(Utils.Utils.SaveSelectSingleNode(nodes[i], "id").InnerText)
+                        });
+                        bC++;
+                        break;
+                    }
+                    case "halfblock":
+                    {
+                        _entities.Add(new HalfBlock(x, y, z));
+                        bC++;
+                        break;
+                    }
+                    case "empty":
+                    {
+                        eC++;
+                        break;
+                    }
+                    default:
+                    {
+                        throw new FormatException($"Invalid blocktype '{type}'!");
+                    }
+                }
+            }
+
+            int n = NativeMethods.checkLevel(eC, bC, sC);
+            int n1 = int.Parse(Utils.Utils.SaveSelectSingleNode(_mapDocument, "//SECU").InnerText);
+
+            if (n == n1) return;
+
+            System.Windows.Forms.MessageBox.Show(
+                "Die Checksumme stimmt nicht überein!\nLevel wird nicht geladen!", "SECURITYERROR");
+            Basic.SetScreen(new MainMenuScreen());
         }
 
         public void Init()

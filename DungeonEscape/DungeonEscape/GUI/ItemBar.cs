@@ -14,29 +14,11 @@ namespace DungeonEscape.GUI
 
         private const int Slots = 6;
 
-        public int SelectedSlot
-        {
-            get { return _selectedSlot; }
-            set { _selectedSlot = value; }
-        }
+        public int SelectedSlot { get; set; }
 
-        private int _selectedSlot;
+        public Item[] Items { get; set; }
 
-        public Item[] Items
-        {
-            get { return _items; }
-            set { _items = value; }
-        }
-
-        private Item[] _items;
-
-        public Item SelectedItem
-        {
-            get { return _selectedItem; }
-            set { _selectedItem = value; }
-        }
-
-        private Item _selectedItem;
+        public Item SelectedItem { get; set; }
 
         #endregion
 
@@ -44,7 +26,7 @@ namespace DungeonEscape.GUI
 
         public ItemBar()
 		{
-            _items = new Item[Slots];
+            Items = new Item[Slots];
             Clear();
 
             SelectedSlot = 0;
@@ -56,48 +38,61 @@ namespace DungeonEscape.GUI
 
 			if (state.ScrollWheelValue < GameScreen.OldMouseState.ScrollWheelValue)
 			{
-                _selectedSlot++;
+                SelectedSlot++;
 			}
 			else if (state.ScrollWheelValue > GameScreen.OldMouseState.ScrollWheelValue)
 		    {
-                _selectedSlot--;
+                SelectedSlot--;
 		    }
 
-            if (_selectedSlot < 0)
+            if (SelectedSlot < 0)
             {
-                _selectedSlot = Slots - 1;
+                SelectedSlot = Slots - 1;
             }
-            else if (_selectedSlot >= Slots)
+            else if (SelectedSlot >= Slots)
             {
-                _selectedSlot = 0;
+                SelectedSlot = 0;
             }
 
-            _selectedItem = _items[_selectedSlot];
+            SelectedItem = Items[SelectedSlot];
 		}
 
 		public void Render()
 		{
             for (int i = 0; i < Slots; i++)
             {
-                Basic.SpriteBatch.Draw(i == _selectedSlot ? Textures.SelectedItemBarItem : Textures.ItemBarItem, 
+                Basic.SpriteBatch.Draw(i == SelectedSlot ? Textures.SelectedItemBarItem : Textures.ItemBarItem, 
                     new Rectangle(Basic.WindowSize.Width - 105, 10 + i * 100, 100, 100), Color.White);
 
                 switch (Items[i].Type)
                 {
                     case ItemType.Message:
                     case ItemType.None:
+                    {
                         continue;
+                    }
                     case ItemType.Key:
-                        Basic.SpriteBatch.Draw(Textures.Key, new Rectangle(Basic.WindowSize.Width - 100, 15 + i * 100, 90, 90), Color.White);
+                    {
+                        Basic.SpriteBatch.Draw(Textures.Key,
+                            new Rectangle(Basic.WindowSize.Width - 100, 15 + i * 100, 90, 90), Color.White);
                         break;
+                    }
                     case ItemType.Pickaxe:
-                        Basic.SpriteBatch.Draw(Textures.PickAxe, new Rectangle(Basic.WindowSize.Width - 100, 15 + i * 100, 90, 90), Color.White);
+                    {
+                        Basic.SpriteBatch.Draw(Textures.PickAxe,
+                            new Rectangle(Basic.WindowSize.Width - 100, 15 + i * 100, 90, 90), Color.White);
                         break;
+                    }
                     case ItemType.Pliers:
-                        Basic.SpriteBatch.Draw(Textures.Pliers, new Rectangle(Basic.WindowSize.Width - 100, 15 + i * 100, 90, 90), Color.White);
+                    {
+                        Basic.SpriteBatch.Draw(Textures.Pliers,
+                            new Rectangle(Basic.WindowSize.Width - 100, 15 + i * 100, 90, 90), Color.White);
                         break;
+                    }
                     default:
+                    {
                         throw new ArgumentOutOfRangeException();
+                    }
                 }
             }
 		}
@@ -106,9 +101,9 @@ namespace DungeonEscape.GUI
 		{
 			for (int i = 0; i < Slots; i++)
 			{
-			    if (_items[i].Type != ItemType.None) continue;
+			    if (Items[i].Type != ItemType.None) continue;
 
-			    _items[i] = item;
+			    Items[i] = item;
 			    return true;
 			}
 
@@ -117,14 +112,14 @@ namespace DungeonEscape.GUI
 
 		public void RemoveSelectedItem()
 		{
-            _items[_selectedSlot] = new Item(ItemType.None, -1);
+            Items[SelectedSlot] = new Item(ItemType.None, -1);
 		}
 
 		public void Clear()
 		{
-			for (int i = 0; i < _items.Length; i++)
+			for (int i = 0; i < Items.Length; i++)
 			{
-                _items[i] = new Item(ItemType.None, -1);
+                Items[i] = new Item(ItemType.None, -1);
 			}
         }
 

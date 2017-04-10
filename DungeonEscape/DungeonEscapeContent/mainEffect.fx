@@ -16,7 +16,7 @@ float3 AmbientLightColor;
 float3 EmissiveColor;
 float3 SpecularColor;
 
-float SpecularPower = 1;
+float SpecularPower = 0.75f;
  
 sampler texsampler = sampler_state
 {
@@ -70,8 +70,19 @@ float4 PixelShaderFunctionWithTex(VertexShaderOutput input) : COLOR0
 	float specLighting = pow(saturate(dot(h, input.Normal)), SpecularPower);
 
 	float4 texel = tex2D(texsampler, input.TexCoords);
- 
-	return float4(saturate(AmbientLightColor + (texel.xyz * DiffuseColor * LightDiffuseColor * diffuseLighting * 0.6) + (SpecularColor * LightSpecularColor * specLighting * 0.5)), texel.w);
+
+	float4 c = float4(saturate(AmbientLightColor 
+		+ (texel.xyz * DiffuseColor * LightDiffuseColor * diffuseLighting * 0.6) 
+		+ (SpecularColor * LightSpecularColor * specLighting * 0.5)), texel.w);
+
+	return c;
+}
+
+float4 PixelShaderFunctionSimpleDebug(VertexShaderOutput input) : COLOR0
+{
+	float4 texel = tex2D(texsampler, input.TexCoords);
+
+	return texel;
 }
 
 technique TechniqueWithTexture
@@ -80,5 +91,11 @@ technique TechniqueWithTexture
 	{
 	    VertexShader = compile vs_2_0 VertexShaderFunction();
 	    PixelShader = compile ps_2_0 PixelShaderFunctionWithTex();
+	}
+
+	pass Debug
+	{
+		VertexShader = compile vs_2_0 VertexShaderFunction();
+		PixelShader = compile ps_2_0 PixelShaderFunctionSimpleDebug();
 	}
 }

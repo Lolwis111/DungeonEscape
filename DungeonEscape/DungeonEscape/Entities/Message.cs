@@ -53,7 +53,7 @@ namespace DungeonEscape.Entities
             }
 
 
-            GameScreen.MainEffect.Parameters["DiffuseTexture"].SetValue(Textures.Message);
+            Effects.MainEffect.Parameters["DiffuseTexture"].SetValue(Textures.Message);
 
             Draw(VertexModel.SpriteVertexModel);
             base.Render();

@@ -23,9 +23,12 @@ namespace DungeonEscape.Entities
 			Rotation += new Vector3(0f, 0.03f, 0f);
 			_tempf += 0.05f;
 
-            Position = new Vector3(Position.X, (float)Math.Sin(_tempf) * 0.04f, Position.Z);
+            Position = new Vector3(Position.X, 
+                (float)Math.Sin(_tempf) * 0.04f,
+                Position.Z);
 
-            if (Box.Contains(GameScreen.Camera.Position) == ContainmentType.Contains && GameScreen.Player.PlayerItemBar.SetItem(new Item { Type = ItemType.Pickaxe }))
+            if (Box.Contains(GameScreen.Camera.Position) == ContainmentType.Contains 
+                && GameScreen.Player.PlayerItemBar.SetItem(new Item { Type = ItemType.Pickaxe }))
             {
                 //Sounds.Collect.Play();
                 Remove();
@@ -36,7 +39,7 @@ namespace DungeonEscape.Entities
 
 		public override void Render()
         {
-            GameScreen.MainEffect.Parameters["DiffuseTexture"].SetValue(Textures.PickAxe);
+            Effects.MainEffect.Parameters["DiffuseTexture"].SetValue(Textures.PickAxe);
 
 			Draw(VertexModel.SpriteVertexModel);
 		}

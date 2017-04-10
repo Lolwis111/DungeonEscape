@@ -92,13 +92,13 @@ namespace MapCreator2D
             if (!_selected || Basic.NewMouseState.LeftButton != Microsoft.Xna.Framework.Input.ButtonState.Pressed)
                 return;
 
-            if (Basic.gameWindow._window.GetInfo) Basic.gameWindow._window.SelectedTile = this;
-            else this.Type = Basic.gameWindow._window.Type;
+            if (Basic.GameWindow.ControlWindow.GetInfo) Basic.GameWindow.ControlWindow.SelectedTile = this;
+            else Type = Basic.GameWindow.ControlWindow.Type;
         }
 
         public void Render()
         {
-            Basic.spriteBatch.Draw(_texture, Rectangle, _selected ? Color.Yellow : Color.White);
+            Basic.SpriteBatch.Draw(_texture, Rectangle, _selected ? Color.Yellow : Color.White);
         }
 
         public void Dispose() 

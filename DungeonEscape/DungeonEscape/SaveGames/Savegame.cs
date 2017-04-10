@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using System.Xml;
 using System.IO;
+using DungeonEscape.Content;
 using DungeonEscape.Entities;
 using DungeonEscape.Entities.Block;
 using DungeonEscape.Screens;
@@ -227,36 +228,34 @@ namespace DungeonEscape.SaveGames
 
             #endregion
 
-            string fileName;
-            switch (saveGame.SaveState)
-            {
-                case SaveState.One:
-                    fileName = "save1.xml";
-                    break;
-                case SaveState.Two:
-                    fileName = "save2.xml";
-                    break;
-                case SaveState.Three:
-                    fileName = "save3.xml";
-                    break;
-                case SaveState.Four:
-                    fileName = "save4.xml";
-                    break;
-                case SaveState.ByPass:
-                    fileName = "bypass.xml";
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            string fileName = GetFileName(saveGame.SaveState);
 
             if (File.Exists(Path.Combine(Environment.CurrentDirectory, fileName)))
                 File.Delete(Path.Combine(Environment.CurrentDirectory, fileName));
 
-            StreamWriter writer =
-                new StreamWriter(File.Open(Path.Combine(Environment.CurrentDirectory, fileName), FileMode.Create));
-            writer.Write(builder.ToString());
+            using (StreamWriter writer = new StreamWriter(File.Open(Path.Combine(Environment.CurrentDirectory, fileName), FileMode.Create)))
+            {
+                writer.Write(builder.ToString());
+            }
+        }
 
-            writer.Dispose();
+        private static string GetFileName(SaveState state)
+        {
+            switch (state)
+            {
+                case SaveState.One:
+                    return "save1.xml";
+                case SaveState.Two:
+                    return "save2.xml";
+                case SaveState.Three:
+                    return "save3.xml";
+                case SaveState.Four:
+                    return "save4.xml";
+                case SaveState.ByPass:
+                    return "bypass.xml";
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public static Savegamescore Load(SaveState state)
@@ -264,27 +263,7 @@ namespace DungeonEscape.SaveGames
             XmlDocument document = new XmlDocument();
             Savegamescore save = new Savegamescore {SaveState = state};
 
-            string fileName;
-            switch (save.SaveState)
-            {
-                case SaveState.One:
-                    fileName = "save1.xml";
-                    break;
-                case SaveState.Two:
-                    fileName = "save2.xml";
-                    break;
-                case SaveState.Three:
-                    fileName = "save3.xml";
-                    break;
-                case SaveState.Four:
-                    fileName = "save4.xml";
-                    break;
-                case SaveState.ByPass:
-                    fileName = "bypass.xml";
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            string fileName = GetFileName(save.SaveState);
 
             #region Parse
 
@@ -293,19 +272,23 @@ namespace DungeonEscape.SaveGames
             document.Load(Path.Combine(Environment.CurrentDirectory, fileName));
 
             if (!int.TryParse(Utils.Utils.SaveSelectSingleNode(document, "//levelID").InnerText, out save._levelNumber))
-                throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
+                //throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");
+                throw new InvalidDataException(LanguageStrings.ErrorStrings.BrokenLevel);
 
             string[] coordinateStrings = Utils.Utils.SaveSelectSingleNode(document, "savegame/position").InnerText.Split(';');
 
             float x, y, z;
             if (!float.TryParse(coordinateStrings[0], out x))
-                throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                //throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                throw new InvalidDataException(LanguageStrings.ErrorStrings.BrokenLevel);
 
             if (!float.TryParse(coordinateStrings[1], out y))
-                throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                //throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                throw new InvalidDataException(LanguageStrings.ErrorStrings.BrokenLevel);
 
             if (!float.TryParse(coordinateStrings[2], out z))
-                throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                //throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                throw new InvalidDataException(LanguageStrings.ErrorStrings.BrokenLevel);
 
             save.PlayerPosition = new Vector3(x, y, z);
 
@@ -332,7 +315,8 @@ namespace DungeonEscape.SaveGames
 
                         int id;
                         if (!int.TryParse(Utils.Utils.SaveSelectSingleNode(nodes[i], "//id").InnerText, out id))
-                            throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                            //throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                            throw new InvalidDataException(LanguageStrings.ErrorStrings.BrokenLevel);
 
                         save.Items[i].Id = id;
                         k++;
@@ -357,7 +341,8 @@ namespace DungeonEscape.SaveGames
 
             int iid;
             if (!int.TryParse(Utils.Utils.SaveSelectSingleNode(itemNode, "//ISECU").InnerText, out iid))
-                throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                //throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                throw new InvalidDataException(LanguageStrings.ErrorStrings.BrokenLevel);
 
             if (iid != NativeMethods.checkItems(p, k, p2, e))
             {
@@ -378,13 +363,16 @@ namespace DungeonEscape.SaveGames
                 coordinateStrings = Utils.Utils.SaveSelectSingleNode(nodes[i], "position").InnerText.Split(';');
 
                 if (!float.TryParse(coordinateStrings[0], out x))
-                    throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                    //throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                    throw new InvalidDataException(LanguageStrings.ErrorStrings.BrokenLevel);
 
                 if (!float.TryParse(coordinateStrings[1], out y))
-                    throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                    //throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                    throw new InvalidDataException(LanguageStrings.ErrorStrings.BrokenLevel);
 
                 if (!float.TryParse(coordinateStrings[2], out z))
-                    throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                    //throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                    throw new InvalidDataException(LanguageStrings.ErrorStrings.BrokenLevel);
 
                 string type = Utils.Utils.SaveSelectSingleNode(nodes[i], "type").InnerText;
                 Entity ent;
@@ -440,9 +428,10 @@ namespace DungeonEscape.SaveGames
                     {
                         int id;
                         if (!int.TryParse(Utils.Utils.SaveSelectSingleNode(nodes[i], "id").InnerText, out id))
-                            throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                                //throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                                throw new InvalidDataException(LanguageStrings.ErrorStrings.BrokenLevel);
 
-                        ent = new Key(x, y, z) {Id = id};
+                            ent = new Key(x, y, z) {Id = id};
                         save.Entities.Add(ent);
 
                         sC++;
@@ -480,9 +469,10 @@ namespace DungeonEscape.SaveGames
                     {
                         int id;
                         if (!int.TryParse(Utils.Utils.SaveSelectSingleNode(nodes[i], "id").InnerText, out id))
-                            throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                                //throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                                throw new InvalidDataException(LanguageStrings.ErrorStrings.BrokenLevel);
 
-                        ent = new DoorBlock(x, y, z) {Id = id};
+                            ent = new DoorBlock(x, y, z) {Id = id};
                         save.Entities.Add(ent);
 
                         sC++;
@@ -496,9 +486,10 @@ namespace DungeonEscape.SaveGames
                         if (
                             !bool.TryParse(Utils.Utils.SaveSelectSingleNode(nodes[i], "_destroyed").InnerText,
                                 out ((GridBlock) ent).Destroyed))
-                            throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                                //throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                                throw new InvalidDataException(LanguageStrings.ErrorStrings.BrokenLevel);
 
-                        save.Entities.Add(ent);
+                            save.Entities.Add(ent);
 
                         sC++;
 
@@ -508,9 +499,10 @@ namespace DungeonEscape.SaveGames
                     {
                         int id;
                         if (!int.TryParse(Utils.Utils.SaveSelectSingleNode(nodes[i], "id").InnerText, out id))
-                            throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                                //throw new InvalidDataException("Die Datei scheint beschädigt zu sein!");
+                                throw new InvalidDataException(LanguageStrings.ErrorStrings.BrokenLevel);
 
-                        ent = new SwitchBlock(x, y, z) {Id = id};
+                            ent = new SwitchBlock(x, y, z) {Id = id};
                         save.Entities.Add(ent);
 
                         bC++;
@@ -554,35 +546,13 @@ namespace DungeonEscape.SaveGames
 
         #region Fields
 
-        public SaveState SaveState
-        {
-            get { return _saveState; }
-            set { _saveState = value; }
-        }
+        public SaveState SaveState { get; set; } = SaveState.One;
 
-        private SaveState _saveState = SaveState.One;
+        public Vector3 PlayerPosition { get; set; } = Vector3.Zero;
 
-        public Vector3 PlayerPosition
-        {
-            get { return _playerPosition; }
-            set { _playerPosition = value; }
-        }
+        public List<Entity> Entities { get; set; }
 
-        private Vector3 _playerPosition = Vector3.Zero;
-
-        public List<Entity> Entities
-        {
-            get { return _entities; }
-            set { _entities = value; }
-        }
-        private List<Entity> _entities;
-
-        public Item[] Items
-        {
-            get { return _items; }
-            set { _items = value; }
-        }
-        private Item[] _items = new Item[6];
+        public Item[] Items { get; set; } = new Item[6];
 
         public int LevelNumber
         {

@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace DungeonEscape
+namespace DungeonEscape.GUI
 {
     internal static class Canvas
     {

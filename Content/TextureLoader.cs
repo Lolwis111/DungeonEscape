@@ -1,13 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using DRW = System.Drawing;
 using System.IO;
 
@@ -26,7 +18,7 @@ namespace Content
             if (!File.Exists(fileName))
                 throw new FileNotFoundException();
 
-            DRW.Bitmap bitmap = (DRW.Bitmap)DRW.Bitmap.FromFile(fileName);
+            DRW.Bitmap bitmap = (DRW.Bitmap)DRW.Image.FromFile(fileName);
             int width = bitmap.Width;
             int height = bitmap.Height;
             Color[] data = new Color[width*height];
@@ -45,10 +37,8 @@ namespace Content
             }
 
             bitmap.Dispose();
-            bitmap = null;
             Texture2D texture = new Texture2D(device, width, height);
-            texture.SetData<Color>(data);
-            data = null;
+            texture.SetData(data);
             return texture;
         }
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Configuration;
 using DungeonEscape.Content;
 using DungeonEscape.GUI;
 using DungeonEscape.SaveGames;

@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using DungeonEscape.Content;
 using DungeonEscape.GUI;
 using DungeonEscape.SaveGames;
-using DungeonEscape.Utils;
+using Microsoft.Xna.Framework.Input;
+using Mouse = DungeonEscape.Utils.Mouse;
 
 namespace DungeonEscape.Screens
 {
@@ -23,13 +24,13 @@ namespace DungeonEscape.Screens
             _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 100, 460, 70, LanguageStrings.NewGame, NewGame));
             _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 180, 460, 70, LanguageStrings.LoadGame, LoadGame));
             _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 260, 460, 70, LanguageStrings.LoadTutorial, LoadTutorial));
-            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 340, 460, 70, LanguageStrings.LoadOptions, Options));
+            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 340, 460, 70, LanguageStrings.LoadSettings, Options));
             _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 420, 460, 70, LanguageStrings.Exit, Exit));
 
             _buttons[0].Enabled = true;
             _buttons[1].Enabled = true;
             _buttons[2].Enabled = true;
-            _buttons[3].Enabled = false;
+            _buttons[3].Enabled = true;
             _buttons[4].Enabled = true;
 
             _buttons[0].Visible = true;

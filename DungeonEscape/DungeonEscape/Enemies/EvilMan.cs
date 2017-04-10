@@ -1,4 +1,5 @@
 ﻿using System;
+using DungeonEscape.Cameras;
 using DungeonEscape.Content;
 using DungeonEscape.Debug;
 using DungeonEscape.Entities;
@@ -43,10 +44,11 @@ namespace DungeonEscape.Enemies
 
         public override void Render()
         {
-            GameScreen.MainEffect.Parameters["DiffuseTexture"].SetValue(Textures.EvilMan);
+            Effects.MainEffect.Parameters["DiffuseTexture"].SetValue(Textures.EvilMan);
             Draw(VertexModel.BlockVertexModel);
 
-            if(Basic.DebugMode) BoundingBoxRenderer.Render(Box, Basic.GraphicsDevice, GameScreen.Camera.View, GameScreen.Camera.Projection, Color.Red);
+            if(Debug.Debug.DrawBoundingBoxes)
+                BoundingBoxRenderer.Render(Box, Basic.GraphicsDevice, GameScreen.Camera.View, GameScreen.Camera.Projection, Color.Red);
         }
     }
 }

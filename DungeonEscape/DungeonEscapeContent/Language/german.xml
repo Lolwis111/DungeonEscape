@@ -2,7 +2,7 @@
 <language>
   <string1>Zurück zum Spiel</string1>
   <string2>Speichern und zum Hauptmenü</string2>
-  <string3>Zürück zum Menü</string3>
+  <string3>Zurück zum Menü</string3>
   <string4>Du hast verloren!</string4>
   
   <string5>Neues Spiel</string5>
@@ -17,4 +17,7 @@
   <string13>Speicherstand 4</string13>
   
   <string14>Zurück</string14>
+
+  <error1>Ungültiges Level!</error1>
+  <error2>Die Datei save.xml scheint beschädigt zu sein!</error2>
 </language>

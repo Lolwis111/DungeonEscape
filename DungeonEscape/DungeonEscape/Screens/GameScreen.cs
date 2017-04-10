@@ -1,5 +1,5 @@
+using DungeonEscape.Cameras;
 using DungeonEscape.Enemies;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using DungeonEscape.Levels;
 using DungeonEscape.SaveGames;
@@ -10,15 +10,13 @@ namespace DungeonEscape.Screens
 	{
         #region Fields
 
-        public static bool MouseClicked => (Microsoft.Xna.Framework.Input.Mouse.GetState().LeftButton == ButtonState.Pressed 
+        public static bool MouseClicked => (Mouse.GetState().LeftButton == ButtonState.Pressed 
             && OldMouseState.LeftButton == ButtonState.Released);
 
 	    private readonly int _levelNumber;
         private readonly Savegamescore _save = new Savegamescore();
 
 	    public static Camera Camera { get; private set; }
-
-	    public static Effect MainEffect { get; set; }
 
 		public static Level Level { get; set; }
 
@@ -30,7 +28,7 @@ namespace DungeonEscape.Screens
 
 	    public static bool IsLoadedGame { get; set; }
 
-	    public static Player Player { get; set; }
+	    public static Player.Player Player { get; set; }
 
 	    public static SaveState CurrentSaveState { get; set; } = SaveState.One;
 
@@ -60,11 +58,11 @@ namespace DungeonEscape.Screens
 
         public void Init()
 		{
-			DungeonEscape.Utils.Mouse.HideMouse();
+			Utils.Mouse.HideMouse();
 
-			Camera = new Camera();
-			MainEffect = Basic.Content.Load<Effect>("mainEffect");
-			Player = new Player();
+		    Camera = new Camera { Mode = Basic.DebugMode ? CameraMode.DebugCamera : CameraMode.PlayerCamera };
+
+			Player = new Player.Player();
 
             if (IsLoadedGame)
             {
@@ -91,7 +89,7 @@ namespace DungeonEscape.Screens
 			Player.Update();
             Enemy.Update();
 
-            OldMouseState = Microsoft.Xna.Framework.Input.Mouse.GetState();
+            OldMouseState = Mouse.GetState();
             OldGamePadState = GamePad.GetState(Microsoft.Xna.Framework.PlayerIndex.One);
 		}
 		

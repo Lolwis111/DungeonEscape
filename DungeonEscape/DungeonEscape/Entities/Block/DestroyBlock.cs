@@ -41,7 +41,7 @@ namespace DungeonEscape.Entities.Block
 
 		public override void Render()
         {
-            GameScreen.MainEffect.Parameters["DiffuseTexture"].SetValue(Textures.DestroyableBlock);
+            Effects.MainEffect.Parameters["DiffuseTexture"].SetValue(Textures.DestroyableBlock);
 			Draw(VertexModel.BlockVertexModel);
 		}
 

@@ -53,7 +53,7 @@ namespace DungeonEscape.Content
 
         #region Methods
 
-        public static void LoadTexture()
+        public static void LoadTextures()
 		{
             //Vor dem Laden alle Texturen freigeben (falls bereits vorher etwas geladen wurde)
             UndloadTexture();
@@ -68,59 +68,59 @@ namespace DungeonEscape.Content
 
             if (Basic.UseSmallTextures)
             {
-                Floor = LoadTexture("Low\\Blocks\\floor");
-                Ceiling = LoadTexture("Low\\Blocks\\ceiling");
-                Wall = LoadTexture("Low\\Blocks\\wall");
-                DestroyableBlock = LoadTexture("Low\\Blocks\\destroyableBlock");
+                Floor = LoadTextures("Low\\Blocks\\floor");
+                Ceiling = LoadTextures("Low\\Blocks\\ceiling");
+                Wall = LoadTextures("Low\\Blocks\\wall");
+                DestroyableBlock = LoadTextures("Low\\Blocks\\destroyableBlock");
 
-                SwitchOn = LoadTexture("Low\\Blocks\\switchOn");
-                SwitchOff = LoadTexture("Low\\Blocks\\switchOff");
+                SwitchOn = LoadTextures("Low\\Blocks\\switchOn");
+                SwitchOff = LoadTextures("Low\\Blocks\\switchOff");
 
-                PickAxe = LoadTexture("Low\\Items\\pickaxe");
-                Pliers = LoadTexture("Low\\Items\\pliers");
-                Key = LoadTexture("Low\\Items\\key");
-                Message = LoadTexture("Low\\Items\\message");
+                PickAxe = LoadTextures("Low\\Items\\pickaxe");
+                Pliers = LoadTextures("Low\\Items\\pliers");
+                Key = LoadTextures("Low\\Items\\key");
+                Message = LoadTextures("Low\\Items\\message");
 
-                Grid = LoadTexture("Low\\Sprites\\grid");
-                GridDestroyed = LoadTexture("Low\\Sprites\\gridDestroyed");
-                Door = LoadTexture("Low\\Sprites\\door");
-                LevelUp = LoadTexture("Low\\Sprites\\LevelUp");
-                LevelDown = LoadTexture("Low\\Sprites\\LevelDown");
+                Grid = LoadTextures("Low\\Sprites\\grid");
+                GridDestroyed = LoadTextures("Low\\Sprites\\gridDestroyed");
+                Door = LoadTextures("Low\\Sprites\\door");
+                LevelUp = LoadTextures("Low\\Sprites\\LevelUp");
+                LevelDown = LoadTextures("Low\\Sprites\\LevelDown");
 
-                EvilMan = LoadTexture("Low\\Enemies\\evilMan");
+                EvilMan = LoadTextures("Low\\Enemies\\evilMan");
             }
             else
             {
-                Floor = LoadTexture("Normal\\Blocks\\floor");
-                Ceiling = LoadTexture("Normal\\Blocks\\ceiling");
-                Wall = LoadTexture("Normal\\Blocks\\wall");
-                DestroyableBlock = LoadTexture("Normal\\Blocks\\destroyableBlock");
+                Floor = LoadTextures("Normal\\Blocks\\floor");
+                Ceiling = LoadTextures("Normal\\Blocks\\ceiling");
+                Wall = LoadTextures("Normal\\Blocks\\wall");
+                DestroyableBlock = LoadTextures("Normal\\Blocks\\destroyableBlock");
 
-                SwitchOn = LoadTexture("Normal\\Blocks\\switchOn");
-                SwitchOff = LoadTexture("Normal\\Blocks\\switchOff");
+                SwitchOn = LoadTextures("Normal\\Blocks\\switchOn");
+                SwitchOff = LoadTextures("Normal\\Blocks\\switchOff");
 
-                PickAxe = LoadTexture("Normal\\Items\\pickaxe");
-                Pliers = LoadTexture("Normal\\Items\\pliers");
-                Key = LoadTexture("Normal\\Items\\key");
-                Message = LoadTexture("Normal\\Items\\message");
+                PickAxe = LoadTextures("Normal\\Items\\pickaxe");
+                Pliers = LoadTextures("Normal\\Items\\pliers");
+                Key = LoadTextures("Normal\\Items\\key");
+                Message = LoadTextures("Normal\\Items\\message");
 
-                Grid = LoadTexture("Normal\\Sprites\\grid");
-                GridDestroyed = LoadTexture("Normal\\Sprites\\gridDestroyed");
-                Door = LoadTexture("Normal\\Sprites\\door");
+                Grid = LoadTextures("Normal\\Sprites\\grid");
+                GridDestroyed = LoadTextures("Normal\\Sprites\\gridDestroyed");
+                Door = LoadTextures("Normal\\Sprites\\door");
 
-                LevelUp = LoadTexture("Normal\\Sprites\\LevelUp");
-                LevelDown = LoadTexture("Normal\\Sprites\\LevelDown");
+                LevelUp = LoadTextures("Normal\\Sprites\\LevelUp");
+                LevelDown = LoadTextures("Normal\\Sprites\\LevelDown");
 
-                EvilMan = LoadTexture("Normal\\Enemies\\evilMan");
+                EvilMan = LoadTextures("Normal\\Enemies\\evilMan");
             }
 
             //GUI
-            ItemBarItem = LoadTexture("GUI\\itemBarItem");
-            SelectedItemBarItem = LoadTexture("GUI\\selectedItemBarItem");
-            Canvas = LoadTexture("GUI\\canvas");
+            ItemBarItem = LoadTextures("GUI\\itemBarItem");
+            SelectedItemBarItem = LoadTextures("GUI\\selectedItemBarItem");
+            Canvas = LoadTextures("GUI\\canvas");
 		}
 
-		private static Texture2D LoadTexture(string path)
+		private static Texture2D LoadTextures(string path)
 		{
             //Lädt eine Textur
             return Basic.Content.Load<Texture2D>("Textures\\" + path);
