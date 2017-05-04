@@ -80,6 +80,13 @@ namespace DungeonEscape.Entities
         }
         private Vector3 _boxMax = new Vector3(0.5f);
 
+        public EntityType EntityType
+        {
+            get { return _type; }
+            set { _type = value; }
+        }
+        private EntityType _type = EntityType.Undefined;
+
         #endregion
 
         #region Methods
@@ -92,7 +99,6 @@ namespace DungeonEscape.Entities
             _boundingBoxScale = new Vector3(1.2f, 1.2f, 1.2f);
             _collision = true;
             _box = new BoundingBox(new Vector3(-0.5f), new Vector3(0.5f));
-
         }
 
         public virtual void Update()
@@ -139,13 +145,13 @@ namespace DungeonEscape.Entities
 
         public virtual string GenerateXml()
         {
-            return "";
+            return string.Empty;
         }
 
-        public virtual EntityType GetEntityType()
+        /*public virtual EntityType GetEntityType()
         {
             return EntityType.Entity;
-        }
+        }*/
 
         #endregion
     }

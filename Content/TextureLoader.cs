@@ -36,7 +36,7 @@ namespace Content
                 }
             }
 
-            bitmap.Dispose();
+            bitmap?.Dispose();
             Texture2D texture = new Texture2D(device, width, height);
             texture.SetData(data);
             return texture;

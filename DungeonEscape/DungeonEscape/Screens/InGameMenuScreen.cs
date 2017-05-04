@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using DungeonEscape.Content;
-using DungeonEscape.GUI;
+using DungeonEscape.GUI.Components;
 using DungeonEscape.Utils;
 
 namespace DungeonEscape.Screens

@@ -81,18 +81,28 @@ namespace DungeonEscape.SaveGames
             {
                 builder.Append(ent.GenerateXml());
 
-                switch (ent.GetEntityType())
+                switch (ent.EntityType)
                 {
-                    case EntityType.Block:
+                    case EntityType.DestroyAbleBlock:
+                    case EntityType.DoorBlock:
+                    case EntityType.GridBlock:
+                    case EntityType.HalfBlock:
+                    case EntityType.WallBlock:
+                    case EntityType.SwitchBlock:
                         bC++;
                         break;
-                    case EntityType.Sprite:
+                    case EntityType.LevelDownSprite:
+                    case EntityType.LevelUpSprite:
+                    case EntityType.MessageSprite:
                         sC++;
                         break;
-                    case EntityType.Entity:
+                    case EntityType.PickAxeSprite:
+                    case EntityType.KeySprite:
+                    case EntityType.PliersSprite:
                         eC++;
                         break;
                     default:
+                    case EntityType.Undefined:
                         eC++;
                         break;
                 }
@@ -230,10 +240,16 @@ namespace DungeonEscape.SaveGames
 
             string fileName = GetFileName(saveGame.SaveState);
 
-            if (File.Exists(Path.Combine(Environment.CurrentDirectory, fileName)))
-                File.Delete(Path.Combine(Environment.CurrentDirectory, fileName));
+            string dirPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "DungeonEscape");
+            string path = Path.Combine(dirPath, fileName);
 
-            using (StreamWriter writer = new StreamWriter(File.Open(Path.Combine(Environment.CurrentDirectory, fileName), FileMode.Create)))
+            if (!Directory.Exists(dirPath))
+                Directory.CreateDirectory(dirPath);
+
+            if (File.Exists(path))
+                File.Delete(path);
+
+            using (StreamWriter writer = new StreamWriter(File.Open(path, FileMode.Create)))
             {
                 writer.Write(builder.ToString());
             }
@@ -265,11 +281,14 @@ namespace DungeonEscape.SaveGames
 
             string fileName = GetFileName(save.SaveState);
 
+            string dirPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "DungeonEscape");
+            string path = Path.Combine(dirPath, fileName);
+
+            if (!Directory.Exists(dirPath) || !File.Exists(path)) return save;
+
             #region Parse
 
-            if (!File.Exists(Path.Combine(Environment.CurrentDirectory, fileName))) return save;
-
-            document.Load(Path.Combine(Environment.CurrentDirectory, fileName));
+            document.Load(path);
 
             if (!int.TryParse(Utils.Utils.SaveSelectSingleNode(document, "//levelID").InnerText, out save._levelNumber))
                 //throw new InvalidDataException("Die Datei save.xml scheint beschädigt zu sein!");

@@ -1,7 +1,7 @@
 ﻿using DungeonEscape.Content;
 using DungeonEscape.Utils;
 using Microsoft.Xna.Framework;
-using Button = DungeonEscape.GUI.Button;
+using DungeonEscape.GUI.Components;
 
 namespace DungeonEscape.Screens
 {

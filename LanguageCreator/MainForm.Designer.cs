@@ -59,17 +59,39 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBrokenLevel = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.textInvalidLevel = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.saveLanguageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadLanguageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textInvalidLevel = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.textBrokenLevel = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textSecurityError = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.textCancelButton = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textSaveButton = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textResolution = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.textTextures = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.textVolume = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.textLanguage = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.textFullscreen = new System.Windows.Forms.TextBox();
+            this.textTextureOptions = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.textWindowTitle = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -300,6 +322,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
@@ -342,11 +365,13 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(262, 372);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Sprache";
+            this.tabPage1.Text = "in game";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label17);
+            this.tabPage2.Controls.Add(this.textSecurityError);
             this.tabPage2.Controls.Add(this.label16);
             this.tabPage2.Controls.Add(this.textBrokenLevel);
             this.tabPage2.Controls.Add(this.label15);
@@ -356,8 +381,40 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(262, 372);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Fehler";
+            this.tabPage2.Text = "errors";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(8, 35);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(83, 13);
+            this.label16.TabIndex = 3;
+            this.label16.Text = "Level damaged:";
+            // 
+            // textBrokenLevel
+            // 
+            this.textBrokenLevel.Location = new System.Drawing.Point(103, 32);
+            this.textBrokenLevel.Name = "textBrokenLevel";
+            this.textBrokenLevel.Size = new System.Drawing.Size(151, 20);
+            this.textBrokenLevel.TabIndex = 2;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(8, 9);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(66, 13);
+            this.label15.TabIndex = 1;
+            this.label15.Text = "Invalid level:";
+            // 
+            // textInvalidLevel
+            // 
+            this.textInvalidLevel.Location = new System.Drawing.Point(103, 6);
+            this.textInvalidLevel.Name = "textInvalidLevel";
+            this.textInvalidLevel.Size = new System.Drawing.Size(151, 20);
+            this.textInvalidLevel.TabIndex = 0;
             // 
             // menuStrip1
             // 
@@ -384,37 +441,194 @@
             this.loadLanguageToolStripMenuItem.Text = "Load language";
             this.loadLanguageToolStripMenuItem.Click += new System.EventHandler(this.buttonLoadLanguage_Click);
             // 
-            // textInvalidLevel
+            // label17
             // 
-            this.textInvalidLevel.Location = new System.Drawing.Point(103, 6);
-            this.textInvalidLevel.Name = "textInvalidLevel";
-            this.textInvalidLevel.Size = new System.Drawing.Size(151, 20);
-            this.textInvalidLevel.TabIndex = 0;
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(8, 61);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(72, 13);
+            this.label17.TabIndex = 5;
+            this.label17.Text = "Security error:";
             // 
-            // label15
+            // textSecurityError
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(8, 9);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(89, 13);
-            this.label15.TabIndex = 1;
-            this.label15.Text = "Ungültiges Level:";
+            this.textSecurityError.Location = new System.Drawing.Point(103, 58);
+            this.textSecurityError.Name = "textSecurityError";
+            this.textSecurityError.Size = new System.Drawing.Size(151, 20);
+            this.textSecurityError.TabIndex = 4;
             // 
-            // label16
+            // tabPage3
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(8, 35);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(91, 13);
-            this.label16.TabIndex = 3;
-            this.label16.Text = "Level beschädigt:";
+            this.tabPage3.Controls.Add(this.label26);
+            this.tabPage3.Controls.Add(this.textWindowTitle);
+            this.tabPage3.Controls.Add(this.label25);
+            this.tabPage3.Controls.Add(this.textTextureOptions);
+            this.tabPage3.Controls.Add(this.label24);
+            this.tabPage3.Controls.Add(this.textFullscreen);
+            this.tabPage3.Controls.Add(this.label23);
+            this.tabPage3.Controls.Add(this.textLanguage);
+            this.tabPage3.Controls.Add(this.label22);
+            this.tabPage3.Controls.Add(this.textVolume);
+            this.tabPage3.Controls.Add(this.label21);
+            this.tabPage3.Controls.Add(this.textTextures);
+            this.tabPage3.Controls.Add(this.label20);
+            this.tabPage3.Controls.Add(this.textResolution);
+            this.tabPage3.Controls.Add(this.label19);
+            this.tabPage3.Controls.Add(this.textSaveButton);
+            this.tabPage3.Controls.Add(this.label18);
+            this.tabPage3.Controls.Add(this.textCancelButton);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(262, 372);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "settings dialog";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // textBrokenLevel
+            // textCancelButton
             // 
-            this.textBrokenLevel.Location = new System.Drawing.Point(103, 32);
-            this.textBrokenLevel.Name = "textBrokenLevel";
-            this.textBrokenLevel.Size = new System.Drawing.Size(151, 20);
-            this.textBrokenLevel.TabIndex = 2;
+            this.textCancelButton.Location = new System.Drawing.Point(87, 6);
+            this.textCancelButton.Name = "textCancelButton";
+            this.textCancelButton.Size = new System.Drawing.Size(167, 20);
+            this.textCancelButton.TabIndex = 0;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(8, 9);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(73, 13);
+            this.label18.TabIndex = 1;
+            this.label18.Text = "Cancelbutton:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(8, 35);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(65, 13);
+            this.label19.TabIndex = 3;
+            this.label19.Text = "Savebutton:";
+            // 
+            // textSaveButton
+            // 
+            this.textSaveButton.Location = new System.Drawing.Point(87, 32);
+            this.textSaveButton.Name = "textSaveButton";
+            this.textSaveButton.Size = new System.Drawing.Size(167, 20);
+            this.textSaveButton.TabIndex = 2;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(8, 61);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(60, 13);
+            this.label20.TabIndex = 5;
+            this.label20.Text = "Resolution:";
+            // 
+            // textResolution
+            // 
+            this.textResolution.Location = new System.Drawing.Point(87, 58);
+            this.textResolution.Name = "textResolution";
+            this.textResolution.Size = new System.Drawing.Size(167, 20);
+            this.textResolution.TabIndex = 4;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(8, 87);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(51, 13);
+            this.label21.TabIndex = 7;
+            this.label21.Text = "Textures:";
+            // 
+            // textTextures
+            // 
+            this.textTextures.Location = new System.Drawing.Point(87, 84);
+            this.textTextures.Name = "textTextures";
+            this.textTextures.Size = new System.Drawing.Size(167, 20);
+            this.textTextures.TabIndex = 6;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(8, 113);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(45, 13);
+            this.label22.TabIndex = 9;
+            this.label22.Text = "Volume:";
+            // 
+            // textVolume
+            // 
+            this.textVolume.Location = new System.Drawing.Point(87, 110);
+            this.textVolume.Name = "textVolume";
+            this.textVolume.Size = new System.Drawing.Size(167, 20);
+            this.textVolume.TabIndex = 8;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(8, 139);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(58, 13);
+            this.label23.TabIndex = 11;
+            this.label23.Text = "Language:";
+            // 
+            // textLanguage
+            // 
+            this.textLanguage.Location = new System.Drawing.Point(87, 136);
+            this.textLanguage.Name = "textLanguage";
+            this.textLanguage.Size = new System.Drawing.Size(167, 20);
+            this.textLanguage.TabIndex = 10;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(8, 165);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(58, 13);
+            this.label24.TabIndex = 13;
+            this.label24.Text = "Fullscreen:";
+            // 
+            // textFullscreen
+            // 
+            this.textFullscreen.Location = new System.Drawing.Point(87, 162);
+            this.textFullscreen.Name = "textFullscreen";
+            this.textFullscreen.Size = new System.Drawing.Size(167, 20);
+            this.textFullscreen.TabIndex = 12;
+            // 
+            // textTextureOptions
+            // 
+            this.textTextureOptions.Location = new System.Drawing.Point(87, 214);
+            this.textTextureOptions.Multiline = true;
+            this.textTextureOptions.Name = "textTextureOptions";
+            this.textTextureOptions.Size = new System.Drawing.Size(167, 82);
+            this.textTextureOptions.TabIndex = 14;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 217);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(80, 26);
+            this.label25.TabIndex = 15;
+            this.label25.Text = "Texture options\r\n(one per line)";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(8, 191);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(65, 13);
+            this.label26.TabIndex = 17;
+            this.label26.Text = "Windowtitle:";
+            // 
+            // textWindowTitle
+            // 
+            this.textWindowTitle.Location = new System.Drawing.Point(87, 188);
+            this.textWindowTitle.Name = "textWindowTitle";
+            this.textWindowTitle.Size = new System.Drawing.Size(167, 20);
+            this.textWindowTitle.TabIndex = 16;
             // 
             // MainForm
             // 
@@ -434,6 +648,8 @@
             this.tabPage2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -479,6 +695,27 @@
         private System.Windows.Forms.ToolStripMenuItem loadLanguageToolStripMenuItem;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBrokenLevel;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox textSecurityError;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox textSaveButton;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox textCancelButton;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox textLanguage;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox textVolume;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox textTextures;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox textResolution;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox textFullscreen;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox textTextureOptions;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox textWindowTitle;
     }
 }
 

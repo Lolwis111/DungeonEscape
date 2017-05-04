@@ -11,6 +11,11 @@ using DungeonEscape.Models;
 using DungeonEscape.SaveGames;
 using DungeonEscape.Screens;
 using DungeonEscape.Security;
+using DungeonEscape.Exceptions;
+using DungeonEscape.Particles;
+using DungeonEscape.Content;
+
+using Microsoft.Xna.Framework.Input;
 
 namespace DungeonEscape.Levels
 {
@@ -52,6 +57,7 @@ namespace DungeonEscape.Levels
         private readonly Ceiling _ceiling;
 
         private int _mapWidth, _mapHeight;
+        public readonly ParticleEngine Particles = new ParticleEngine();
 
         #endregion
 
@@ -94,7 +100,9 @@ namespace DungeonEscape.Levels
                 _entities[i].Update();
 			}
 
-		    if (_toRemove.Count <= 0) return;
+            Particles.Update();
+
+            if (_toRemove.Count <= 0) return;
 
 		    float cameraDistance = _toRemove[0].CameraDistance;
 		    Entity item = _toRemove[0];
@@ -120,6 +128,8 @@ namespace DungeonEscape.Levels
 
             _entities.Sort();
 
+            Particles.Render();
+
             foreach (Entity entity in _entities)
             {
                 if (GameScreen.Camera.Frustum.Intersects(entity.Box))
@@ -127,7 +137,7 @@ namespace DungeonEscape.Levels
                     entity.Render();
                 }
             }
-		}
+        }
 
         private void SetUpMap()
         {
@@ -282,14 +292,20 @@ namespace DungeonEscape.Levels
                 }
             }
 
+            if (Basic.DebugMode)
+                return;
+
             int n = NativeMethods.checkLevel(eC, bC, sC);
             int n1 = int.Parse(Utils.Utils.SaveSelectSingleNode(_mapDocument, "//SECU").InnerText);
 
             if (n == n1) return;
 
-            System.Windows.Forms.MessageBox.Show(
-                "Die Checksumme stimmt nicht überein!\nLevel wird nicht geladen!", "SECURITYERROR");
-            Basic.SetScreen(new MainMenuScreen());
+            //throw new InvalidChecksumException("Die Checksumme stimmt nicht überein!\nLevel wird nicht geladen!");
+            throw new InvalidChecksumException(LanguageStrings.ErrorStrings.SecurityError);
+
+            /*System.Windows.Forms.MessageBox.Show(
+                "Die Checksumme stimmt nicht überein!\nLevel wird nicht geladen!", "SECURITYERROR");*/
+            // Basic.SetScreen(new MainMenuScreen());
         }
 
         public void Init()

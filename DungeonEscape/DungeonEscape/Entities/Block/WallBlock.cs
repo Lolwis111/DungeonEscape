@@ -11,8 +11,8 @@ namespace DungeonEscape.Entities.Block
 	{
 		public WallBlock(float x, float y, float z) : base(x, y, z)
 		{
-            
-		}
+            EntityType = EntityType.WallBlock;
+        }
 
 		public override void Render()
 		{
@@ -27,9 +27,9 @@ namespace DungeonEscape.Entities.Block
                    + "</entity>";
         }
 
-        public override EntityType GetEntityType()
+        /*public override EntityType GetEntityType()
         {
             return EntityType.Block;
-        }
+        }*/
     }
 }

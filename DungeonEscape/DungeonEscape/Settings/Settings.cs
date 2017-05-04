@@ -1,19 +1,35 @@
 ﻿using System;
 using System.Windows.Forms;
 using DungeonEscape.SaveGames;
+using DungeonEscape.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 
-namespace DungeonEscape
+namespace DungeonEscape.Settings
 {
-    internal sealed partial class Settings : Form
+    internal sealed partial class SettingsForm : Form
     {
         public  Savegamesettings GameSettings;
         public bool NewSettings;
 
-        public Settings(DisplayModeCollection displayModes, Savegamesettings settings)
+        public SettingsForm(DisplayModeCollection displayModes, Savegamesettings settings)
         {
             InitializeComponent();
+
+            Text = LanguageStrings.SettingsLabelStrings.WindowTitle;
+
+            labelVolume.Text = LanguageStrings.SettingsLabelStrings.LabelVolume;
+            labelResolution.Text = LanguageStrings.SettingsLabelStrings.LabelResolution;
+            labelTextures.Text = LanguageStrings.SettingsLabelStrings.LabelTextures;
+            labelLanguage.Text = LanguageStrings.SettingsLabelStrings.LabelLanguage;
+
+            checkBoxFullscreen.Text = LanguageStrings.SettingsLabelStrings.FullscreenSwitch;
+
+            buttonCancel.Text = LanguageStrings.SettingsLabelStrings.ButtonCancel;
+            buttonSave.Text = LanguageStrings.SettingsLabelStrings.ButtonSave;
+
+            foreach (string option in LanguageStrings.SettingsLabelStrings.TextureOptions)
+                comboBoxTextures.Items.Add(option);
 
             GameSettings = settings;
 
@@ -44,7 +60,7 @@ namespace DungeonEscape
                 }
 
 
-                string lang = Path.GetFileName(file);
+                string lang = Path.GetFileNameWithoutExtension(file);
 
                 if (string.IsNullOrEmpty(lang))
                 {
@@ -72,7 +88,7 @@ namespace DungeonEscape
             GameSettings.UseLowTextures = (comboBoxTextures.SelectedIndex == 0);
 
             GameSettings.Volume = (float)trackBarVolume.Value / 10;
-            GameSettings.Language = comboBoxLanguage.SelectedText;
+            GameSettings.Language = (string)comboBoxLanguage.SelectedItem;
 
             NewSettings = true;
             Close();
@@ -86,7 +102,7 @@ namespace DungeonEscape
 
         private void Settings_Load(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

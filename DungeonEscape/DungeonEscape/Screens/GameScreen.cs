@@ -3,6 +3,7 @@ using DungeonEscape.Enemies;
 using Microsoft.Xna.Framework.Input;
 using DungeonEscape.Levels;
 using DungeonEscape.SaveGames;
+using Microsoft.Xna.Framework;
 
 namespace DungeonEscape.Screens
 {
@@ -90,7 +91,7 @@ namespace DungeonEscape.Screens
             Enemy.Update();
 
             OldMouseState = Mouse.GetState();
-            OldGamePadState = GamePad.GetState(Microsoft.Xna.Framework.PlayerIndex.One);
+            OldGamePadState = GamePad.GetState(PlayerIndex.One);
 		}
 		
         public void Render()

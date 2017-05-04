@@ -15,6 +15,7 @@ namespace DungeonEscape.Models
         public static VertexModel BlockVertexModel;
         public static VertexModel SpriteVertexModel;
         public static VertexModel HalfBlockVertexModel;
+        public static VertexModel ParticleVertexModel;
 
         public static void Init(int floorWidth, int floorHeight)
         {
@@ -22,6 +23,7 @@ namespace DungeonEscape.Models
             BlockVertexModel = new BlockModel();
             SpriteVertexModel = new SpriteFace();
             HalfBlockVertexModel = new HalfBlockModel();
+            ParticleVertexModel = new ParticleModel();
         }
 
         public VertexBuffer VertexBuffer { get; set; }

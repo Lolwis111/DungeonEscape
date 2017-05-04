@@ -9,7 +9,7 @@ namespace DungeonEscape.Entities.Block
     {
         public HalfBlock(float x, float y, float z) : base(x, y, z)
 		{
-
+            EntityType = EntityType.HalfBlock;
         }
 
         public override void Init()
@@ -57,9 +57,9 @@ namespace DungeonEscape.Entities.Block
             return $"<entity><type>halfblock</type><position>{Position.X};{Position.Y};{Position.Z}</position></entity>";
         }
 
-        public override EntityType GetEntityType()
+        /*public override EntityType GetEntityType()
         {
             return EntityType.Sprite;
-        }
+        }*/
     }
 }

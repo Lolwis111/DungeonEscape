@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using DungeonEscape.Content;
-using DungeonEscape.GUI;
+using DungeonEscape.GUI.Components;
 using DungeonEscape.SaveGames;
-using Microsoft.Xna.Framework.Input;
+using DungeonEscape.Screens.Settings;
 using Mouse = DungeonEscape.Utils.Mouse;
 
 namespace DungeonEscape.Screens
@@ -15,11 +15,11 @@ namespace DungeonEscape.Screens
         {
             Mouse.ShowMouse();
 
-            /*_buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 100, 460, 70, "Neues Spiel", NewGame));
+            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 100, 460, 70, "Neues Spiel", NewGame));
             _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 180, 460, 70, "Spiel laden", LoadGame));
             _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 260, 460, 70, "Tutorial spielen", LoadTutorial));
             _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 340, 460, 70, "Optionen", Options));
-            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 420, 460, 70, "Spiel beenden", Exit));*/
+            _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 420, 460, 70, "Spiel beenden", Exit));
 
             _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 100, 460, 70, LanguageStrings.NewGame, NewGame));
             _buttons.Add(new Button(Basic.WindowSize.Width / 2 - 230, 180, 460, 70, LanguageStrings.LoadGame, LoadGame));
@@ -85,6 +85,7 @@ namespace DungeonEscape.Screens
 		public void Options()
 		{
             Basic.SetScreen(new OptionsMenuScreen(Savegamesettings.Load()));
+            // Basic.SetScreen(new ResolutionScreen(1280, 720));
 		}
     }
 }

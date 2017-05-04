@@ -16,7 +16,8 @@ namespace DungeonEscape.Entities
 			Collision = false;
 			Scale = new Vector3(0.3f, 0.3f, 1f);
 			BoundingBoxScale = new Vector3(0.45f);
-		}
+            EntityType = EntityType.PickAxeSprite;
+        }
 
 		public override void Update()
 		{
@@ -51,9 +52,9 @@ namespace DungeonEscape.Entities
                    + "</entity>";
         }
 
-        public override EntityType GetEntityType()
+        /*public override EntityType GetEntityType()
         {
             return EntityType.Sprite;
-        }
+        }*/
     }
 }

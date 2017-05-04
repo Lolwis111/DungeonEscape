@@ -19,7 +19,8 @@ namespace DungeonEscape.Entities
 
 		public GridBlock(float x, float y, float z) : base(x, y, z)
 		{
-		}
+            EntityType = EntityType.GridBlock;
+        }
 
         public override void Init()
         {
@@ -77,9 +78,9 @@ namespace DungeonEscape.Entities
                    + "</entity>";
         }
 
-        public override EntityType GetEntityType()
+        /*public override EntityType GetEntityType()
         {
             return EntityType.Sprite;
-        }
+        }*/
     }
 }

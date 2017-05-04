@@ -3,37 +3,20 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using DungeonEscape.Content;
 
-namespace DungeonEscape.GUI
+namespace DungeonEscape.GUI.Components
 {
-    internal sealed class Button
+    internal sealed class Button : Component
     {
         #region Fields
 
         private readonly Click _clickFunction;
 
-        private Rectangle _rect;
         private bool _hover;
 
         private MouseState _mouseStateCurrent;
 		private MouseState _mouseStatePrevious;
 
         public string Text { get; set; }
-
-        public int PositionX
-		{
-			get { return _rect.X; }
-			set { _rect.X = value; }
-		}
-		
-        public int PositionY
-		{
-			get { return _rect.Y; }
-			set { _rect.Y = value; }
-		}
-
-        public bool Enabled { get; set; }
-
-        public bool Visible { get; set; }
 
         #endregion
 
@@ -46,7 +29,7 @@ namespace DungeonEscape.GUI
 			_clickFunction = click;
 		}
 		
-        public void Update()
+        public override void Update()
 		{
             _hover = _rect.Contains(new Point(_mouseStateCurrent.X, _mouseStateCurrent.Y));
 			_mouseStateCurrent = Mouse.GetState();
@@ -66,7 +49,7 @@ namespace DungeonEscape.GUI
 			_mouseStatePrevious = _mouseStateCurrent;
 		}
 		
-        public void Render()
+        public override void Render()
 		{
 		    if (!Visible) return;
 

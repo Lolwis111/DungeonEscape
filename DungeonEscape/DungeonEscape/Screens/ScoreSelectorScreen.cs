@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using DungeonEscape.Content;
-using DungeonEscape.GUI;
+using DungeonEscape.GUI.Components;
 using DungeonEscape.SaveGames;
 using DungeonEscape.Utils;
 

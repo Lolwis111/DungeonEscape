@@ -43,14 +43,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Font.spritefont">
+    <Compile Include="Fonts\Font.spritefont">
       <Name>Font</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="menuFont.spritefont">
+    <Compile Include="Fonts\menuFont.spritefont">
       <Name>menuFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
@@ -156,6 +156,12 @@
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Compile Include="Fonts\settingsMenuFont.spritefont">
+      <Name>settingsMenuFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio\collect.wav">
@@ -334,6 +340,15 @@
       <Name>english</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Levels\level10.xml">
+      <Name>level10</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

@@ -2,8 +2,18 @@
 {
     internal enum EntityType
     {
-        Block,
-        Sprite,
-        Entity
+        DestroyAbleBlock,
+        HalfBlock,
+        SwitchBlock,
+        WallBlock,
+        DoorBlock,
+        GridBlock,
+        KeySprite,
+        LevelDownSprite,
+        LevelUpSprite,
+        MessageSprite,
+        PickAxeSprite,
+        PliersSprite,
+        Undefined
     }
 }

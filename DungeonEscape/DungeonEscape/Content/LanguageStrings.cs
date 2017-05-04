@@ -26,7 +26,10 @@ namespace DungeonEscape.Content
 
         public static void LoadStrings(string language)
         {
-            string path = $"{Environment.CurrentDirectory}/{Basic.Content.RootDirectory}/Language/{language}.xml";
+            string path = Path.Combine(Environment.CurrentDirectory, Basic.Content.RootDirectory, "Language", $"{language}.xml");
+
+            if (!File.Exists(path))
+                throw new FileNotFoundException("The specified language was not found!");
 
             XmlDocument languageDocument = new XmlDocument();
             languageDocument.Load(path);
@@ -54,6 +57,25 @@ namespace DungeonEscape.Content
 
             ErrorStrings.InvalidLevel = Utils.Utils.SaveSelectSingleNode(languageDocument, "//error1").InnerText;
             ErrorStrings.BrokenLevel = Utils.Utils.SaveSelectSingleNode(languageDocument, "//error2").InnerText;
+            ErrorStrings.SecurityError = Utils.Utils.SaveSelectSingleNode(languageDocument, "//error3").InnerText;
+
+            SettingsLabelStrings.ButtonCancel = Utils.Utils.SaveSelectSingleNode(languageDocument, "//setting1").InnerText;
+            SettingsLabelStrings.ButtonSave = Utils.Utils.SaveSelectSingleNode(languageDocument, "//setting2").InnerText;
+
+            SettingsLabelStrings.LabelVolume = Utils.Utils.SaveSelectSingleNode(languageDocument, "//setting3").InnerText;
+            SettingsLabelStrings.LabelResolution = Utils.Utils.SaveSelectSingleNode(languageDocument, "//setting4").InnerText;
+            SettingsLabelStrings.LabelTextures = Utils.Utils.SaveSelectSingleNode(languageDocument, "//setting5").InnerText;
+            SettingsLabelStrings.LabelLanguage = Utils.Utils.SaveSelectSingleNode(languageDocument, "//setting6").InnerText;
+
+            SettingsLabelStrings.WindowTitle = Utils.Utils.SaveSelectSingleNode(languageDocument, "//setting7").InnerText;
+            SettingsLabelStrings.FullscreenSwitch = Utils.Utils.SaveSelectSingleNode(languageDocument, "//setting8").InnerText;
+
+            string[] options = Utils.Utils.SaveSelectSingleNode(languageDocument, "//settings9").InnerText.Split(';');
+
+            if (options.Length < 1)
+                throw new InvalidDataException();
+
+            SettingsLabelStrings.TextureOptions = options;
         }
 
         public static class ErrorStrings
@@ -61,6 +83,23 @@ namespace DungeonEscape.Content
             public static string InvalidLevel;
             public static string BrokenLevel;
             public static string SecurityError;
+        }
+
+        public static class SettingsLabelStrings
+        {
+            public static string LabelVolume;
+            public static string LabelTextures;
+            public static string LabelResolution;
+            public static string LabelLanguage;
+
+            public static string[] TextureOptions;
+
+            public static string ButtonSave;
+            public static string ButtonCancel;
+
+            public static string WindowTitle;
+
+            public static string FullscreenSwitch;
         }
     }
 }

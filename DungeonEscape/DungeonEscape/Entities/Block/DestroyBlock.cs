@@ -16,7 +16,7 @@ namespace DungeonEscape.Entities.Block
 
 		public DestroyBlock(float x, float y, float z) : base(x, y, z)
 		{
-            
+            EntityType = EntityType.DestroyAbleBlock;
 		}
 
 		public override void Update()
@@ -31,8 +31,9 @@ namespace DungeonEscape.Entities.Block
                 || _gamePadState.Buttons.A == ButtonState.Pressed 
                 && GameScreen.OldGamePadState.Buttons.A == ButtonState.Released))
 			{
+                GameScreen.Level.Particles.Restart(Position);
                 //Sounds.Destroy.Play();
-				GameScreen.Player.PlayerItemBar.RemoveSelectedItem();
+                GameScreen.Player.PlayerItemBar.RemoveSelectedItem();
 				GameScreen.Level.ToRemove.Add(this);
 			}
 
@@ -55,9 +56,9 @@ namespace DungeonEscape.Entities.Block
             return $"<entity><type>destroyblock</type><position>{Position.X};{Position.Y};{Position.Z}</position></entity>";
         }
 
-        public override EntityType GetEntityType()
+        /*public override EntityType GetEntityType()
         {
             return EntityType.Block;
-        }
+        }*/
     }
 }

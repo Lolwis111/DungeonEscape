@@ -38,6 +38,7 @@ namespace DungeonEscape.Entities
 	    public DoorBlock(float x, float y, float z) : base(x, y, z)
 		{
             _hasToMove = false;
+            EntityType = EntityType.DoorBlock;
         }
 
         public override void Init()
@@ -126,9 +127,9 @@ namespace DungeonEscape.Entities
                    + "</entity>";
         }
 
-        public override EntityType GetEntityType()
+        /*public override EntityType GetEntityType()
         {
             return EntityType.Sprite;
-        }
+        }*/
     }
 }

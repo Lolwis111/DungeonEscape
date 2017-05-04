@@ -13,18 +13,78 @@ namespace MapDebugger
 
             string path = GetInput();
 
-            if (File.Exists(path))
-            {
-                Console.Error.WriteLine("Die Datei wurde nicht gefunden!");
-                return;
-            }
+            Console.WriteLine("Modus:");
+            Console.WriteLine("  Debug     [Press D]");
+            Console.WriteLine("  Randomize [Press R]");
 
+            ConsoleKey key;
+            do
+            {
+                key = Console.ReadKey().Key;
+            }
+            while (key != ConsoleKey.R && key != ConsoleKey.D);
+
+            if (key == ConsoleKey.D)
+            {
+                if (!File.Exists(path))
+                {
+                    Console.Error.WriteLine("Die Datei wurde nicht gefunden!");
+                    return;
+                }
+
+                DebugMap(path);
+            }
+            else
+            {
+                Console.Write("Width: ");
+                int width = ReadInt();
+
+                Console.Write("Height: ");
+                int height = ReadInt();
+
+                using (StreamWriter writer = new StreamWriter(File.Open(path, FileMode.Create)))
+                {
+                    const string space4 = "    ";
+                    const string space8 = space4 + space4;
+
+                    Random rnd = new Random();
+
+                    writer.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+                    writer.WriteLine("<map version=\"2.0\">");
+                    writer.WriteLine($"{space4}<size>{width};{height}</size>");
+                    writer.WriteLine($"{space4}<name>Randomizer</name>");
+                    
+
+                    for (int y = 0; y < height; y++)
+                    {
+                        for (int x = 0; x < width; x++)
+                        {
+                            if (rnd.Next(0, 1000) < 500)
+                            {
+                                writer.WriteLine($"{space4}<entity>");
+                                writer.WriteLine($"{space8}<position>{x};{0};{y}</position>");
+                                writer.WriteLine($"{space8}<type>wallblock</type>");
+                                writer.WriteLine($"{space4}</entity>");
+                            }
+                        }
+                    }
+
+                    writer.WriteLine("</map>");
+                }
+            }
+            
+
+            Console.ReadKey();
+        }
+
+        private static void DebugMap(string path)
+        {
             XmlDocument mapDocument = new XmlDocument();
             mapDocument.Load(path);
 
             string size = SaveSelectSingleNode(mapDocument, "//size").InnerText;
 
-            int mapWidth, 
+            int mapWidth,
                 mapHeight;
 
             if (!int.TryParse(size.Split(';')[0], out mapWidth))
@@ -45,7 +105,7 @@ namespace MapDebugger
 
             XmlNodeList nodes = mapDocument.SelectNodes("//entity");
 
-            if(nodes == null) throw new InvalidDataException();
+            if (nodes == null) throw new InvalidDataException();
 
             bool error = false;
             for (int i = 0; i < nodes.Count - 1; i++)
@@ -153,12 +213,10 @@ namespace MapDebugger
                 bmp.Save(Path.Combine(Environment.CurrentDirectory, "output.bmp"), System.Drawing.Imaging.ImageFormat.Bmp);
                 bmp.Dispose();
             }
-            else 
+            else
             {
                 Console.Error.WriteLine("Fehler in Datei!");
             }
-
-            Console.ReadKey();
         }
 
         private static string GetInput()
@@ -170,6 +228,18 @@ namespace MapDebugger
                 if (string.IsNullOrEmpty(input)) continue;
 
                 return input;
+            }
+        }
+
+        private static int ReadInt()
+        {
+            while (true)
+            {
+                string input = GetInput();
+
+                int number;
+                if (int.TryParse(input, out number))
+                    return number;
             }
         }
 

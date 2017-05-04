@@ -45,6 +45,8 @@ namespace DungeonEscape.Content
 
         public static Texture2D EvilMan;
 
+        public static Texture2D Particle;
+
 #if DEBUG
         public static Texture2D Dummy;
 #endif
@@ -118,7 +120,10 @@ namespace DungeonEscape.Content
             ItemBarItem = LoadTextures("GUI\\itemBarItem");
             SelectedItemBarItem = LoadTextures("GUI\\selectedItemBarItem");
             Canvas = LoadTextures("GUI\\canvas");
-		}
+
+            Particle = new Texture2D(Basic.GraphicsDevice, 1, 1);
+            Particle.SetData(new[] { Color.DarkRed });
+        }
 
 		private static Texture2D LoadTextures(string path)
 		{
@@ -165,6 +170,8 @@ namespace DungeonEscape.Content
             SwitchOff?.Dispose();
 
             EvilMan?.Dispose();
+
+            Particle?.Dispose();
 
 #if DEBUG
             Dummy?.Dispose();

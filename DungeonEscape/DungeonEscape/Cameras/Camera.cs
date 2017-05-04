@@ -14,6 +14,8 @@ namespace DungeonEscape.Cameras
         protected float _yaw; 
         private float _pitch;
 
+        private float _farPlaneDistance = 12f;
+
         /// <summary>
         /// Laufgeschwindigkeit
         /// </summary>
@@ -90,12 +92,12 @@ namespace DungeonEscape.Cameras
         /// <param name="gameTime">Die Spielzeit</param>
         public void Update(GameTime gameTime)
         {
-            //_movedLastFrame = false;
-            /*_tempF += 0.03f;*/
+            /*_movedLastFrame = false;
+            _tempF += 0.03f;*/
 
             CameraRay = CreateRay();
             Frustum.Matrix = View * Projection;
-            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), Basic.GraphicsDevice.Viewport.AspectRatio, 0.01f, 12f);
+            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), Basic.GraphicsDevice.Viewport.AspectRatio, 0.01f, _farPlaneDistance);
 
             KeyboardState keyboardState = Keyboard.GetState();
             GamePadState gamepadState = GamePad.GetState(PlayerIndex.One);
@@ -140,6 +142,22 @@ namespace DungeonEscape.Cameras
                 {
                     Debug.Debug.DrawFramerate = !Debug.Debug.DrawFramerate;
                 }
+
+                else if (keyboardState.IsKeyDown(Keys.PageUp) && _oldKeyboardState.IsKeyUp(Keys.PageUp))
+                {
+                    _farPlaneDistance += 0.5f;
+                }
+                else if (keyboardState.IsKeyDown(Keys.PageDown) && _oldKeyboardState.IsKeyUp(Keys.PageDown))
+                {
+                    _farPlaneDistance -= 0.5f;
+                }
+
+                else if (keyboardState.IsKeyDown(Keys.F6) && _oldKeyboardState.IsKeyUp(Keys.F6))
+                {
+                    GameScreen.Level.Particles.Restart(LookAt);
+                    Console.WriteLine("F6");
+                }
+
 
                 if (keyboardState.IsKeyDown(Keys.Space) || gamepadState.DPad.Up == ButtonState.Pressed)
                 {

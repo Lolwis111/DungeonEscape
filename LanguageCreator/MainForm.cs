@@ -49,6 +49,23 @@ namespace LanguageCreator
             textSaveStateFour.Text = SaveSelectSingleNode(languageDocument, "//string13").InnerText;
 
             textBack.Text = SaveSelectSingleNode(languageDocument, "//string14").InnerText;
+
+            textInvalidLevel.Text = SaveSelectSingleNode(languageDocument, "//error1").InnerText;
+            textBrokenLevel.Text = SaveSelectSingleNode(languageDocument, "//error2").InnerText;
+            /*textSecurityError.Text = SaveSelectSingleNode(languageDocument, "//error3").InnerText;
+
+            textCancelButton.Text = SaveSelectSingleNode(languageDocument, "//setting1").InnerText;
+            textSaveButton.Text = SaveSelectSingleNode(languageDocument, "//setting2").InnerText;
+
+            textVolume.Text = SaveSelectSingleNode(languageDocument, "//setting3").InnerText;
+            textResolution.Text = SaveSelectSingleNode(languageDocument, "//setting4").InnerText;
+            textTextures.Text = SaveSelectSingleNode(languageDocument, "//setting5").InnerText;
+            textLanguage.Text = SaveSelectSingleNode(languageDocument, "//setting6").InnerText;
+
+            textWindowTitle.Text = SaveSelectSingleNode(languageDocument, "//setting7").InnerText;
+            textFullscreen.Text = SaveSelectSingleNode(languageDocument, "//setting8").InnerText;
+
+            textTextureOptions.Lines = SaveSelectSingleNode(languageDocument, "//settings9").InnerText.Split(';');*/
         }
 
         private void buttonSaveLanguage_Click(object sender, EventArgs e)
@@ -86,8 +103,31 @@ namespace LanguageCreator
             outputFile.AppendLine($"{space4}<string13>{textSaveStateFour.Text}</string13>");
 
             outputFile.AppendLine($"{space4}<string14>{textBack.Text}</string14>");
+
             outputFile.AppendLine($"{space4}<error1>{textInvalidLevel.Text}</error1>");
             outputFile.AppendLine($"{space4}<error2>{textBrokenLevel.Text}</error2>");
+            outputFile.AppendLine($"{space4}<error3>{textSecurityError.Text}</error3>");
+
+            outputFile.AppendLine($"{space4}<setting1>{textCancelButton.Text}</setting1>");
+            outputFile.AppendLine($"{space4}<setting2>{textSaveButton.Text}</setting2>");
+
+            outputFile.AppendLine($"{space4}<setting3>{textVolume.Text}</setting3>");
+            outputFile.AppendLine($"{space4}<setting4>{textResolution.Text}</setting4>");
+            outputFile.AppendLine($"{space4}<setting5>{textTextures.Text}</setting5>");
+            outputFile.AppendLine($"{space4}<setting6>{textLanguage.Text}</setting6>");
+
+            outputFile.AppendLine($"{space4}<setting7>{textWindowTitle.Text}</setting7>");
+            outputFile.AppendLine($"{space4}<setting8>{textFullscreen.Text}</setting8>");
+
+            string options = string.Empty;
+            foreach (string l in textTextureOptions.Lines)
+                options += l + ";";
+
+            if (options.EndsWith(";"))
+                options = options.Substring(options.Length - 1);
+
+            outputFile.AppendLine($"{space4}<settings9>{options}</settings9>");
+
             outputFile.AppendLine("</language>");
 
             StreamWriter writer = null;

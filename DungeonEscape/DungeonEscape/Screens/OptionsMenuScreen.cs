@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using DungeonEscape.Content;
 using DungeonEscape.SaveGames;
+using DungeonEscape.Settings;
 
 namespace DungeonEscape.Screens
 {
@@ -16,7 +17,7 @@ namespace DungeonEscape.Screens
 
         public void Init()
         {
-            Settings settings = new Settings(GraphicsAdapter.DefaultAdapter.SupportedDisplayModes, _gameSettings);
+            SettingsForm settings = new SettingsForm(GraphicsAdapter.DefaultAdapter.SupportedDisplayModes, _gameSettings);
             if (settings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 _gameSettings = settings.GameSettings;
@@ -36,7 +37,7 @@ namespace DungeonEscape.Screens
                 Savegamesettings.Save(_gameSettings);
             }
 
-            Basic.Init(Basic.Game);
+            // Basic.Init(Basic.Game);
             Basic.SetScreen(new MainMenuScreen());
         }
 

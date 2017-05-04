@@ -21,6 +21,8 @@ namespace DungeonEscape
 		{
             Graphics = new GraphicsDeviceManager(this);
 
+            Content.RootDirectory = "Content";
+
             Basic.DebugMode = false;
 
             //Kommandozeilenparameter überprüfen
@@ -41,45 +43,47 @@ namespace DungeonEscape
                 Console.WriteLine("   <LShift> move down");
             }
 
-            //Einstellungen laden
-            Savegamesettings settings = Savegamesettings.Load();
-            SoundVolume = settings.Volume;      //Volume -> Aus settings.xml
-
-			Content.RootDirectory = "Content";
-
-            Graphics.PreferMultiSampling = true;                        //Kantenglättung
-            Graphics.IsFullScreen = settings.Fullscreen;                //Vollbild -> Aus settings.xml
-            Graphics.PreferredBackBufferWidth = settings.Resolution.X;  //Auflösung (X) -> Aus settings.xml
-            Graphics.PreferredBackBufferHeight = settings.Resolution.Y; //Auflösung (Y) -> Aus settings.xml
-            Graphics.SynchronizeWithVerticalRetrace = true;             //VSync
-            Graphics.ApplyChanges();                                    //Grafikeinstellungen anwenden
-
-            //Fenstergröße setzen
-			Basic.WindowSize = new Rectangle(0, 0, settings.Resolution.X, settings.Resolution.Y);
-            Basic.UseSmallTextures = settings.UseLowTextures;
-
             //Rendereinstellungen
-		    _rs = new RasterizerState
-		    {
-		        MultiSampleAntiAlias = true,
-		        CullMode = CullMode.CullCounterClockwiseFace,
-		        FillMode = FillMode.Solid
-		    };
+            _rs = new RasterizerState
+            {
+                MultiSampleAntiAlias = true,
+                CullMode = CullMode.CullCounterClockwiseFace,
+                FillMode = FillMode.Solid
+            };
 
             //Texturfiltereigenschaften
-		    _sampler = new SamplerState()
-		    {
-		        Filter = TextureFilter.Anisotropic,
-		        MaxAnisotropy = 16,
-		        MipMapLevelOfDetailBias = 1f,
-		        MaxMipLevel = 1
-		    };
-		}
+            _sampler = new SamplerState()
+            {
+                Filter = TextureFilter.Anisotropic,
+                MaxAnisotropy = 16,
+                MipMapLevelOfDetailBias = 1f,
+                MaxMipLevel = 1
+            };
+        }
 
 		protected override void Initialize()
 		{
-			Basic.Init(this);
-			base.Initialize();
+            Savegamesettings settings = Savegamesettings.Load();
+
+            Basic.Init(this, settings.Language);
+
+            // Einstellungen laden
+            SoundVolume = settings.Volume;      // Volume -> Aus settings.xml
+
+            Graphics.PreferMultiSampling = true;                        // Kantenglättung
+            Graphics.IsFullScreen = settings.Fullscreen;                // Vollbild -> Aus settings.xml
+            Graphics.PreferredBackBufferWidth = settings.Resolution.X;  // Auflösung (X) -> Aus settings.xml
+            Graphics.PreferredBackBufferHeight = settings.Resolution.Y; // Auflösung (Y) -> Aus settings.xml
+            Graphics.SynchronizeWithVerticalRetrace = true;             // VSync
+            Graphics.ApplyChanges();                                    // Grafikeinstellungen anwenden
+
+            
+
+            // Fenstergröße setzen
+            Basic.WindowSize = new Rectangle(0, 0, settings.Resolution.X, settings.Resolution.Y);
+            Basic.UseSmallTextures = settings.UseLowTextures;
+
+            base.Initialize();
 		}
 
 		protected override void Update(GameTime gameTime)

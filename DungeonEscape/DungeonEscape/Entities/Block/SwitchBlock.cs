@@ -19,7 +19,7 @@ namespace DungeonEscape.Entities.Block
 
         public SwitchBlock(float x, float y, float z) : base(x, y, z)
         {
-
+            EntityType = EntityType.SwitchBlock;
         }
 
         public override void Init()
@@ -66,9 +66,9 @@ namespace DungeonEscape.Entities.Block
             return $"<entity><type>switch</type><position>{Position.X};{Position.Y};{Position.Z}</position><id>{Id}</id></entity>";
         }
 
-        public override EntityType GetEntityType()
+        /*public override EntityType GetEntityType()
         {
             return EntityType.Block;
-        }
+        }*/
     }
 }

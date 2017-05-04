@@ -52,7 +52,7 @@ namespace DungeonEscape
 
         #region Methods
 
-        public static void Init(GameMain game)
+        public static void Init(GameMain game, string language)
 		{
 			Game = game;
 			GraphicsManager = game.Graphics;
@@ -61,9 +61,9 @@ namespace DungeonEscape
             SpriteBatch = new SpriteBatch(GraphicsDevice);
             Window = game.Window;
 
-            LanguageStrings.LoadStrings("german");
             DungeonEscape.Content.Content.LoadAllContent();
 
+            LanguageStrings.LoadStrings(language);
             Sounds.SetVolume(game.SoundVolume);
 
 			Canvas.SetUpCanvas();

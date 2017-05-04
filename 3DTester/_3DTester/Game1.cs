@@ -35,4 +35,9 @@ namespace _3DTester
             base.Draw(gameTime);
         }
     }
+
+    internal class Particle
+    {
+
+    }
 }
