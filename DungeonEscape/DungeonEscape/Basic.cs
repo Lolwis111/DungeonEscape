@@ -29,8 +29,8 @@ namespace DungeonEscape
         public static GameWindow Window;
         public static Rectangle WindowSize = new Rectangle(0, 0, 1280, 720);
 
-        public static IScreen CurrentScreen;
-        public static IScreen SecondaryScreen;
+        public static Screen CurrentScreen;
+        public static Screen SecondaryScreen;
 
         public static bool UseSmallTextures;
 
@@ -121,7 +121,7 @@ namespace DungeonEscape
             SpriteBatch.End();
 		}
 
-		public static void SetScreen(IScreen newScreen)
+		public static void SetScreen(Screen newScreen)
 		{
             CurrentScreen = newScreen;
 			CurrentScreen.Init();

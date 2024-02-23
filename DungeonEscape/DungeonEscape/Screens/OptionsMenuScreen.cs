@@ -6,7 +6,7 @@ using DungeonEscape.Settings;
 
 namespace DungeonEscape.Screens
 {
-    internal sealed class OptionsMenuScreen : IScreen
+    internal sealed class OptionsMenuScreen : Screen
 	{
         private Savegamesettings _gameSettings;
 
@@ -15,7 +15,7 @@ namespace DungeonEscape.Screens
             _gameSettings = settings;
         }
 
-        public void Init()
+        public override void Init()
         {
             SettingsForm settings = new SettingsForm(GraphicsAdapter.DefaultAdapter.SupportedDisplayModes, _gameSettings);
             if (settings.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -39,15 +39,6 @@ namespace DungeonEscape.Screens
 
             // Basic.Init(Basic.Game);
             Basic.SetScreen(new MainMenuScreen());
-        }
-
-        public void Update()
-        {
-        }
-
-        public void Render()
-        {
-
         }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace DungeonEscape.Screens
 {
-    internal sealed class EditorScreen : IScreen
+    internal sealed class EditorScreen : Screen
     {
         #region Fields
 
@@ -28,7 +28,7 @@ namespace DungeonEscape.Screens
             _levelNumber = level;
         }
 
-        public void Init()
+        public override void Init()
         {
             Utils.Mouse.ShowMouse();
 
@@ -38,14 +38,12 @@ namespace DungeonEscape.Screens
             Level.Init();
         }
 
-        public void Render()
+        public override void Render()
         {
             Level.Render();
-
-
         }
 
-        public void Update()
+        public override void Update()
         {
             Level.Update();
 

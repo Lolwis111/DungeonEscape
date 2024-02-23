@@ -5,7 +5,7 @@ using DungeonEscape.GUI.Components;
 
 namespace DungeonEscape.Screens
 {
-    internal class LostScreen : IScreen
+    internal class LostScreen : Screen
     {
         private readonly Button _buttonHome = new Button(Basic.WindowSize.Width / 2 - 230, 420, 460, 70, LanguageStrings.BackToMenu, Home_Click)
         {
@@ -13,17 +13,17 @@ namespace DungeonEscape.Screens
             Visible = true
         };
         
-        public void Init()
+        public override void Init()
         {
             Mouse.ShowMouse();
         }
 
-        public void Update()
+        public override void Update()
         {
             _buttonHome.Update();
         }
 
-        public void Render()
+        public override void Render()
         {
             Basic.SpriteBatch.DrawString(Fonts.MainFont, 
                 LanguageStrings.YouLost, 

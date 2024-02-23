@@ -1,0 +1,496 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DungeonEscape.Basic" Collapsed="true">
+    <Position X="31.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAEAAEAgBQAAADCAAIAAAAAAhCBCEAQBAPDAQAAAA=</HashCode>
+      <FileName>Basic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.GameMain" Collapsed="true">
+    <Position X="31.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEBAAAAAAAwAAAAAAAAAACAAAAAAAACAAAAgAAAA=</HashCode>
+      <FileName>GameMain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Program" Collapsed="true">
+    <Position X="31.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Cameras.Camera" Collapsed="true">
+    <Position X="34.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAEIAAEQAgAAAAAAAhAAIDAAAAABAAAIAUQJI=</HashCode>
+      <FileName>Cameras\Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Content.Content" Collapsed="true">
+    <Position X="40" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Content\Content.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Content.Effects" Collapsed="true">
+    <Position X="34.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Content\Effects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Content.Fonts" Collapsed="true">
+    <Position X="38.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAABAAAAAAAAAAAAAIAAAAAAACAg=</HashCode>
+      <FileName>Content\Fonts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Content.LanguageStrings" Collapsed="true">
+    <Position X="36.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAIAIBAAQAAQAAABEAAAAACIABAAAgCAAE=</HashCode>
+      <FileName>Content\LanguageStrings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Content.Sounds" Collapsed="true">
+    <Position X="36.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAgAAAAAAAgAIAABAAACAAAAAAAQAAgA=</HashCode>
+      <FileName>Content\Sounds.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Content.Textures" Collapsed="true">
+    <Position X="38.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EACEAyACAAABCgwAABYAEAABAAAAAIQAAAAAIEABAAA=</HashCode>
+      <FileName>Content\Textures.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Debug.BoundingBoxRenderer" Collapsed="true">
+    <Position X="33" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAIAAAhAAAAAAAAA=</HashCode>
+      <FileName>Debug\BoundingBoxRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Debug.Debug" Collapsed="true">
+    <Position X="31.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAABAAAACAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Debug\Debug.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Debug.FpsCounter" Collapsed="true">
+    <Position X="40" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAgAAAAAEAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Debug\FpsCounter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Debug.LogWriter" Collapsed="true">
+    <Position X="31.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Debug\LogWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Enemies.EvilMan" Collapsed="true">
+    <Position X="22" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAAAAAAAAA=</HashCode>
+      <FileName>Enemies\EvilMan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Entities.Block.DestroyBlock" Collapsed="true">
+    <Position X="26.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAACAAAAAAAAAAABAAAAAAAhA=</HashCode>
+      <FileName>Entities\Block\DestroyBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Entities.Block.HalfBlock" Collapsed="true">
+    <Position X="1.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAABACAAAAAAA=</HashCode>
+      <FileName>Entities\Block\HalfBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Entities.Block.SwitchBlock" Collapsed="true">
+    <Position X="6.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAACAAAAAACAAAAAAAAAAABACAAAAAgA=</HashCode>
+      <FileName>Entities\Block\SwitchBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Entities.Block.WallBlock" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Entities\Block\WallBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Entities.DoorBlock" Collapsed="true">
+    <Position X="15.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAABAACAAAAIAAABAEBAKAAAAAhA=</HashCode>
+      <FileName>Entities\DoorBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Entities.Entity" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIgAAoQwgQIABCAAQAIAAJAAJBAChAQAADA=</HashCode>
+      <FileName>Entities\Entity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DungeonEscape.Entities.GridBlock" Collapsed="true">
+    <Position X="19.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAACAAAAAAAAAAABACAAAAApA=</HashCode>
+      <FileName>Entities\GridBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Entities.Key" Collapsed="true">
+    <Position X="24.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAABAACAAAAAAAAAAEBAAAAAAAAA=</HashCode>
+      <FileName>Entities\Key.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Entities.LevelDown" Collapsed="true">
+    <Position X="28.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAACAAAAAAAAAAEBAAAAAAAAA=</HashCode>
+      <FileName>Entities\LevelDown.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Entities.LevelUp" Collapsed="true">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAACAAAAAAAAAAEBAAAAAAAAA=</HashCode>
+      <FileName>Entities\LevelUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Entities.Message" Collapsed="true">
+    <Position X="8.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAACAAAAAAAAAIEBAACAAAAAA=</HashCode>
+      <FileName>Entities\Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Entities.PickAxe" Collapsed="true">
+    <Position X="13" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAACAAAAAAAAAAEBAAAAAAAAA=</HashCode>
+      <FileName>Entities\PickAxe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Entities.Pliers" Collapsed="true">
+    <Position X="17.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAACAAAAAAAAAAEBAAAAAAAAA=</HashCode>
+      <FileName>Entities\Pliers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Exceptions.InvalidChecksumException" Collapsed="true">
+    <Position X="33" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidChecksumException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.SaveGames.LevelNotFoundException" Collapsed="true">
+    <Position X="40" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\LevelNotFoundException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.SaveGames.Savegamescore" Collapsed="true">
+    <Position X="33" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhAAgIAAAAAACIAAAAAAAAAAQAAgAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>SaveGames\Savegame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.GUI.Canvas" Collapsed="true">
+    <Position X="36.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQIAAAAIAAAAAAABAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>GUI\Canvas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.GUI.EditorItemBar" Collapsed="true">
+    <Position X="33" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAABAAAAAEAAAAAAAAABAABEAAAAAAAA=</HashCode>
+      <FileName>GUI\EditorItemBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.GUI.ItemBar" Collapsed="true">
+    <Position X="34.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAQAAAADAAAAAAAEAAAAAAAAABAABAAAABAAAA=</HashCode>
+      <FileName>GUI\ItemBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.GUI.Components.Button" Collapsed="true">
+    <Position X="0.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAACAAAAAABAAQAAAAAAAAARAACAAAAAA=</HashCode>
+      <FileName>GUI\Components\Button.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.GUI.Components.Component" Collapsed="true">
+    <Position X="1.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAYAgAAAAAAAAAAABAAAYABAAAAAAAAA=</HashCode>
+      <FileName>GUI\Components\Component.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.GUI.Components.ListBox" Collapsed="true">
+    <Position X="2.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAAAAACACAQAAABEBAAAAAAAAAAdAAAAAAAAA=</HashCode>
+      <FileName>GUI\Components\ListBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Levels.Level" Collapsed="true">
+    <Position X="38.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAIAAAAEAIiAIEAAABAAQAAAAgAAAIABECgAQQAAA=</HashCode>
+      <FileName>Levels\Level.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.MapEnvironment.Ceiling" Collapsed="true">
+    <Position X="38.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>MapEnvironment\Ceiling.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.MapEnvironment.Floor" Collapsed="true">
+    <Position X="36.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>MapEnvironment\Floor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Models.BlockModel" Collapsed="true">
+    <Position X="0.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BlockModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Models.FloorFace" Collapsed="true">
+    <Position X="3" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\FloorFace.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Models.HalfBlockModel" Collapsed="true">
+    <Position X="5.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\HalfBlockModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Models.ParticleModel" Collapsed="true">
+    <Position X="7.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ParticleModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Models.SpriteFace" Collapsed="true">
+    <Position X="9.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\SpriteFace.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Models.VertexModel" Collapsed="true">
+    <Position X="5.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAACAAEggAAAIAAQAQAAAAAIAAAAACAAAAUIA=</HashCode>
+      <FileName>Models\VertexModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DungeonEscape.Particles.Particle" Collapsed="true">
+    <Position X="36.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAABAAAAAgAAgAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Particles\Particle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Particles.ParticleEngine" Collapsed="true">
+    <Position X="38.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAEAAAAAAAgECAAAAAAAAIAAAAAAAAFAAAAAAAAA=</HashCode>
+      <FileName>Particles\ParticleEngine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Player.Player" Collapsed="true">
+    <Position X="40" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAQAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Player\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Screens.EditorScreen" Collapsed="true">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQCAAAAAgAAAAAAAAAAAAAAAAAAAAABABgCAAAAAAA=</HashCode>
+      <FileName>Screens\EditorScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Screens.GameScreen" Collapsed="true">
+    <Position X="8" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQCAgAAAggAAAABAAACAAAAAAAIAAABABgiAQAAAAA=</HashCode>
+      <FileName>Screens\GameScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Screens.InGameMenuScreen" Collapsed="true">
+    <Position X="10.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAAAAAAAAAAAAAAAAAAAAAAAABAAAAIBAAAAAAAAA=</HashCode>
+      <FileName>Screens\InGameMenuScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Screens.LostScreen" Collapsed="true">
+    <Position X="12.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABACAAAAAAg=</HashCode>
+      <FileName>Screens\LostScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Screens.MainMenuScreen" Collapsed="true">
+    <Position X="14.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAQAAAAAABAABAAAAIBACAABAAAE=</HashCode>
+      <FileName>Screens\MainMenuScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Screens.OptionsMenuScreen" Collapsed="true">
+    <Position X="17" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Screens\OptionsMenuScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Screens.ScoreSelectorScreen" Collapsed="true">
+    <Position X="1.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQARAAAAAAAAAAAAAAAAAAAAAABAAAAABAAAIAlAAA=</HashCode>
+      <FileName>Screens\ScoreSelectorScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Screens.Screen" Collapsed="true">
+    <Position X="9" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABACAAAAAAA=</HashCode>
+      <FileName>Screens\Screen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Screens.Settings.ResolutionScreen" Collapsed="true">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgCAAAAAAA=</HashCode>
+      <FileName>Screens\Settings\ResolutionScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Security.NativeMethods" Collapsed="true">
+    <Position X="34.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Security\NativeMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Settings.SettingsForm" Collapsed="true">
+    <Position X="34.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACCABkBAAAACQBkACAAAgABAAIABKAAAAAgA=</HashCode>
+      <FileName>Settings\Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Utils.Mouse" Collapsed="true">
+    <Position X="33" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAIAAAAAgAA=</HashCode>
+      <FileName>Utils\Mouse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DungeonEscape.Utils.Utils" Collapsed="true">
+    <Position X="40" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAgAAgAAAAAAAA=</HashCode>
+      <FileName>Utils\Utils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="DungeonEscape.SaveGames.Resolution" Collapsed="true">
+    <Position X="33" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>SaveGames\Resolution.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DungeonEscape.SaveGames.Savegamesettings" Collapsed="true">
+    <Position X="34.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAgIAACAAAAAAAAAAAAAAAAAAgAAIAAAIAAAAAAAA=</HashCode>
+      <FileName>SaveGames\Savegamesettings.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DungeonEscape.GUI.Items.Item" Collapsed="true">
+    <Position X="31.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>GUI\Items\Item.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="DungeonEscape.Cameras.CameraMode" Collapsed="true">
+    <Position X="31.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Cameras\CameraMode.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DungeonEscape.Entities.EntityType" Collapsed="true">
+    <Position X="33" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAADIAAgAAAQAAgADAAAAAAQAAEAgACAAAAAAAACA=</HashCode>
+      <FileName>Entities\EntityType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DungeonEscape.SaveGames.SaveState" Collapsed="true">
+    <Position X="36.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAIgAAAgAAIA=</HashCode>
+      <FileName>SaveGames\SaveState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DungeonEscape.GUI.Items.ItemType" Collapsed="true">
+    <Position X="34.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAQAAAAAAAAAABAAAAAAAAAAIAEAAAA=</HashCode>
+      <FileName>GUI\Items\ItemType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="DungeonEscape.Click" Collapsed="true">
+    <Position X="31.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

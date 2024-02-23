@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace DungeonEscape.Screens
 {
-    internal sealed class GameScreen : IScreen
+    internal sealed class GameScreen : Screen
 	{
         #region Fields
 
@@ -57,7 +57,7 @@ namespace DungeonEscape.Screens
             CurrentSaveState = save.SaveState;
         }
 
-        public void Init()
+        public override void Init()
 		{
 			Utils.Mouse.HideMouse();
 
@@ -82,7 +82,7 @@ namespace DungeonEscape.Screens
             Enemy = new EvilMan(0, 0, 0);
         }
 		
-        public void Update()
+        public override void Update()
 		{
 			Level.Update();
 			Camera.Update(Basic.GameTime);
@@ -94,7 +94,7 @@ namespace DungeonEscape.Screens
             OldGamePadState = GamePad.GetState(PlayerIndex.One);
 		}
 		
-        public void Render()
+        public override void Render()
 		{
 			Level.Render();
 			Player.Render();

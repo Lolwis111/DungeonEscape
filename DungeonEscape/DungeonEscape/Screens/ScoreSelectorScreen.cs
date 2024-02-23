@@ -8,7 +8,7 @@ using DungeonEscape.Utils;
 
 namespace DungeonEscape.Screens
 {
-    internal sealed class ScoreSelectorScreen : IScreen
+    internal sealed class ScoreSelectorScreen : Screen
     {
         private readonly List<Button> _buttons = new List<Button>();
         private readonly bool _loadGame;
@@ -79,7 +79,7 @@ namespace DungeonEscape.Screens
             }
         }
 
-        public void Update()
+        public override void Update()
         {
             _buttons[0].PositionX = Basic.WindowSize.Width / 2 - 230;
             _buttons[1].PositionX = Basic.WindowSize.Width / 2 - 230;
@@ -93,7 +93,7 @@ namespace DungeonEscape.Screens
             System.Threading.Thread.Sleep(1);
         }
 
-        public void Render()
+        public override void Render()
         {
             foreach (Button current in _buttons)
             {
@@ -124,11 +124,6 @@ namespace DungeonEscape.Screens
         private static void Back()
         {
             Basic.SetScreen(new MainMenuScreen());
-        }
-
-        public void Init()
-        {
-            
         }
     }
 }

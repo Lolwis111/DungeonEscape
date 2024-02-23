@@ -196,7 +196,7 @@
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Entities\LevelDown.cs" />
     <Compile Include="Entities\LevelUp.cs" />
-    <Compile Include="Screens\IScreen.cs" />
+    <Compile Include="Screens\Screen.cs" />
     <Compile Include="Screens\LostScreen.cs" />
     <Compile Include="Screens\MainMenuScreen.cs" />
     <Compile Include="Models\VertexModel.cs" />
@@ -262,6 +262,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>

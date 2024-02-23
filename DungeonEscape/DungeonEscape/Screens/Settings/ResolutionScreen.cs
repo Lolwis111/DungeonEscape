@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DungeonEscape.Screens.Settings
 {
-    internal class ResolutionScreen : IScreen
+    internal class ResolutionScreen : Screen
     {
         private readonly ListBox listBox = new ListBox();
 
@@ -12,7 +12,7 @@ namespace DungeonEscape.Screens.Settings
             // TODO: find matching displaymode
         }
 
-        public void Init()
+        public override void Init()
         {
             foreach (DisplayMode mode in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
             {
@@ -23,12 +23,12 @@ namespace DungeonEscape.Screens.Settings
             }
         }
 
-        public void Render()
+        public override void Render()
         {
             listBox.Render();
         }
 
-        public void Update()
+        public override void Update()
         {
             listBox.Update();
         }
