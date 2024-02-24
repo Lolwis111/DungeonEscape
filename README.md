@@ -4,4 +4,4 @@ A first person 3D maze puzzle game. Written in C# using XNA4.0 Framework.
 
 Complete with level editor and localization support.
 
-There also is an experimental Windows Phone port, but i never got it to run properly.
+I also had an experimental Windows Phone port, but i never got it to run properly. For some reason it is also missing in great parts from this git. I hope to find it again
